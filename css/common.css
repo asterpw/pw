@@ -1,0 +1,76 @@
+#navlist {
+padding: 0;
+margin: 0;
+list-style-type: none;
+background-color: #333;
+color: #FFF;
+width: 100%;
+font: normal 90% arial, helvetica, sans-serif;
+text-align: left;
+height: 25px;
+line-height: 25px;
+text-shadow:
+     -1px -1px 0 #000,  
+      1px -1px 0 #000,
+     -1px  1px 0 #000,
+      1px  1px 0 #000;
+}
+
+#navlist li { 
+display: block;
+float: left;
+padding: 0px;
+height: 32px;
+}
+
+#navlist li.name {
+margin-right: 10px;
+/*width: 200px;
+background: url('../images/sig.png') left center no-repeat;
+background-size: 80%;*/
+color: #fdca55;
+padding-left: 10px;
+}
+
+#navlist .name a{
+	text-decoration: none;
+	color: #fdca55;
+	display: block;
+	height: 25px;
+}
+
+#navlist .link a{
+text-decoration: none;
+color: #FFF;
+display: block;
+height: 25px;
+border-right: 1px solid #666;
+padding-left: 32px;
+padding-right: 5px;
+background: url('../waravatar/images/favicon.png') 5 center no-repeat;
+background-size: 20px;
+}
+
+#navlist .link a[href*=waravatar]{
+background-image: url('../waravatar/images/favicon.png');
+}
+
+#navlist .link a[href*=geniecalc]{
+background-image: url('../geniecalculator/images/favicon.png');
+}
+#navlist .link a[href*=refining]{
+background-image: url('../images/icons/f/11208.gif');
+}
+
+#navlist .link a:hover {
+background-color: #369;
+color: #fff;
+}
+
+
+body {
+color: #FFF;
+background: black;
+font-family: Arial,Tahoma,Helvetica,sans-serif;
+margin: 0px;
+}

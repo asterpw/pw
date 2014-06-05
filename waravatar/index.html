@@ -1,0 +1,1435 @@
+<html>
+<head>
+<title>PWI War Avatar Calculator</title>
+<link rel="stylesheet" type="text/css" href="../js/jquery.qtip.css" />
+<link rel="stylesheet" type="text/css" href="../fonts/fonts.css" />
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<!--link href="js/jquery.selectbox.css" rel="stylesheet" type="text/css" /-->
+<link rel="icon"  type="image/png" href="images/favicon.png">
+<style type="text/css">
+body {
+	color: #FFF;
+	background: black;
+	font-family: Arial,Tahoma,Helvetica,sans-serif;
+}
+.footer {
+	margin-top: 20px;
+	font-size: 85%;
+	color: #CCC;
+	width: 600px;
+}
+a {
+	color: #CCF;
+}
+
+#avatarWindow {
+	width: 787px;
+	height: 659px;
+	background-image: url('images/avatarwindow.png');
+	display: inline-block;
+	margin-right: 15px;
+	position: relative;
+	font-family: FZXiHei,Arial,Tahoma,Helvetica,sans-serif;
+	overflow: hidden;
+}
+
+.card {
+	position: absolute;
+	display: inline-block;
+	height: 187px;
+	width: 154px;
+	top: 311px;
+	background-size: 74%;
+	background-repeat: no-repeat;
+	background-position: 50%;
+}
+
+.card .frame {
+	width: 100%;
+	height: 100%;
+	background-size: 100%;
+	position: absolute;
+	margin: 0px
+}
+
+.picker-qtip-card {
+	top: 0px;
+	left: -250px;
+	height: 304px; 
+	width: 251px;
+}
+
+.picker {
+	display: inline-block;
+	width:  170px;
+}
+
+.item.icon {
+	position: relative;
+	height: 30px;
+	width: 30px;
+}
+
+.c .frame { background-image: url('images/blue.png');}
+.b .frame { background-image: url('images/purple.png');}
+.a .frame { background-image: url('images/yellow.png');}
+.s .frame { background-image: url('images/orange.png');}
+.ss .frame { background-image: url('images/red.png');}
+
+.windowtitle {
+	color: #fdca55;
+	font-weight: bold;
+	height: 30px;
+	position: absolute;
+	font-family: FZXiHei,Arial,Tahoma,Helvetica,sans-serif;
+
+}
+
+#title {
+	top: 13px;
+	left: 350px;
+	text-align: center;
+}
+
+#leadershipLabel {
+	top: 13px;
+	left: 34px;
+	width: 180px;
+}
+.label { 
+	color: #fdca55;
+	font-weight: bold;
+	font-family: FZXiHei,Arial,Tahoma,Helvetica,sans-serif;
+	position: absolute;
+}
+
+.item {
+	width: 34px;
+	height: 34px;
+	background-size: 500% 600%;
+	background-image: url('images/cardicons.png');
+	position: absolute !important;
+	display: inline-block;
+	cursor: hand;
+}
+
+.slot {
+	width: 34px;
+	height: 34px;
+	position: absolute !important;
+	display: inline-block;
+}
+
+.slot.selected, .item.selected {
+	outline: #fdca55 solid 1.5px;
+	--box-shadow:  0 0 0 2px #fdca55 inset;
+}
+
+.classSelector {
+	width: 33px;
+	height: 33px;
+	position: absolute !important;
+	opacity: 0.7;
+	background-position: -33px 0;
+	background-size: 66px 33px;
+	cursor: hand;
+}
+.classSelector:hover {
+	opacity: 1.0;
+	background-position: 0 0;
+}
+
+.classSelector.selected {
+	background-position: 0 0;
+	opacity: 1.0;
+}
+
+#class0 {background-image: url('images/class-0.png');}
+#class1 {background-image: url('images/class-1.png');}
+#class2 {background-image: url('images/class-2.png');}
+#class3 {background-image: url('images/class-3.png');}
+#class4 {background-image: url('images/class-4.png');}
+#class5 {background-image: url('images/class-5.png');}
+#class6 {background-image: url('images/class-6.png');}
+#class7 {background-image: url('images/class-7.png');}
+#class8 {background-image: url('images/class-8.png');}
+#class9 {background-image: url('images/class-9.png');}
+
+#slot0 {top: 540px; left: 90px;}
+#slot1 {top: 540px; left: 172px;}
+#slot2 {top: 540px; left: 254px;}
+#slot3 {top: 540px; left: 340px;}
+#slot4 {top: 540px; left: 426px;}
+#slot5 {top: 540px; left: 506px;}
+
+#selectedAvatarPanel {
+	top: 72px; 
+	left: 600px;
+	height: 230px;
+	width: 250px;
+}
+.panel {
+	color: #0FC;
+	position: absolute;
+}
+
+.settitle {
+	border-top: #166 1px solid;
+}
+
+.pwi-qtip {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #166;
+	background-color: rgba(20, 20, 20, 0.9);
+	--white-space: nowrap;
+	color: #FFF;
+	max-width: 500px;
+	font-size: 80% !important;
+	line-height: 140%;
+	/*padding: 5px;*/
+}
+
+.pwi-picker-qtip .qtip-content{ 
+	overflow: visible !important;
+}
+
+.pwi-qtip .qtip-title,  .pwi-qtip .qtip-titlebar {
+	background-color: #2b3a44;
+	border-radius: 0;
+}
+
+.higher-zindex{
+    z-index: 10000000 !important;
+}
+
+.checkbox {
+	display: none;
+}
+
+.checkbox:before {
+	background-image: url('images/checkbox.png');
+	background-position: 0 0;
+	width: 18px;
+	height: 18px
+}
+
+.button {
+	vertical-align:top;
+	text-align: center;
+	border: 0px;
+	width: 112px;
+	height: 28px;
+	font-weight: normal;
+	background: transparent;
+	background-size: 100% 100%;
+	color: #FFFF66;
+	background-image: url('images/button.png');
+	--text-shadow: 1px 0px #000, -1px 0px #000, 0px 1px #000, 0px -1px #000;
+	overflow: visible;
+	white-space: nowrap;
+	padding: 2px 0px;
+	/*font-family: FZXiHei, Arial, sans-serif;*/
+}
+
+#avatarWindow .button {
+	position: absolute;
+}
+
+
+.button:hover {
+	background-image: url('images/button_h.png');
+}
+
+.button:focus {
+	outline: none;
+}
+
+.button:active {
+	background-image: url('images/button_a.png');
+	color: rgba(0,0,0,0);
+	text-shadow: #FF6 1px 1px 0;
+	
+}
+
+.button[disabled]  {
+	color: #FFFFCC;
+	background-image: url('images/button_d.png');
+	text-shadow: none !important;
+}
+
+.item_color0{color:#ffffff;}
+.item_color1{color:#8080ff;}
+.item_color2{color:#aa32ff;}
+.item_color3{color:#ffdc50;}
+.item_color4{color:#ff6000;}
+.item_color5{color:#ff0000;}
+.item_color6{color:#b0b0b0;}
+.item_color7{color:#6cfb4b;}
+
+.modal {
+	max-width: 1000px;
+	-moz-box-shadow: 0 0 10px 3px rgba(0,0,0,.5);
+	-webkit-box-shadow: 0 0 10px 3px rgba(0,0,0,.5);
+	box-shadow: 0 0 10px 3px rgba(0,0,0,.5);
+	border-width: 3px;
+	font-family: Arial,Tahoma,Helvetica,sans-serif;
+}
+
+#cardPicker {
+	width: 600px;
+	height: 400px;
+	position: relative;
+}
+
+#aggregateInfo {
+	/*width: 700px;
+	height: 500px;*/
+	max-width: 700px;
+	position: relative;
+}
+
+#aggregateInfo .picker {
+	vertical-align: top;
+	margin-top: 10px;
+}
+
+#aggregateInfo .picker span.item_color4 {
+	color: white !important;
+}
+
+#avatarSetsWindow .button {
+	font-size: 80%;
+}
+
+.pickernamelabel {
+	display: inline-block;
+	width:  170px;
+	height: 35px;
+	margin-left: 35px;
+	margin-top: 5px;
+	cursor: hand;
+}
+
+.button.equipall {
+	position: relative; 
+	width: 50px; 
+	display: inline-block; 
+	margin-right: 5px;
+}
+
+.picker.none {
+	opacity: 0.2;
+	cursor: default !important;
+}
+
+.picker.none, .picker.none div {
+	cursor: default !important;
+}
+
+#avatarSetsWindow .pickernamelabel {
+	display:block;
+	width: 90px;
+	margin-left: -30px;
+	margin-top: 40px;
+	text-align: center;
+	white-space: normal;
+}
+
+#avatarSetsWindow .picker {
+	display:inline-block;
+	vertical-align: top;
+	width: 62px;
+	margin-right:31px;
+}
+
+.setCardPanel {
+	display: inline-block; 
+	width: 510px;
+	white-space: nowrap;
+}
+
+.setPanel {
+	margin-top: 5px;
+}
+</style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/jquery.qtip.js"></script>
+<script type="text/javascript" src="js/cards.js"></script>
+<script type="text/javascript">
+
+var cardCss = [
+	{"height": "187px", "width": "154px", "left": "-160px", "top": "311px"},
+	{"height": "187px", "width": "154px", "left": "34px", "top": "311px"},
+	{"height": "456px", "width": "377px", "left": "206px", "top": "58px"},
+	{"height": "187px", "width": "154px", "left": "594px", "top": "311px"},
+	{"height": "187px", "width": "154px", "left": "800px", "top": "311px"},
+	{"top": "9999999px"}
+];
+
+var model = {
+	selectedCards : [0, 0, 0, 0, 0, 0],
+	allCards : [],
+	cardSetMap : {},
+	cardMap : {},
+	currentSelection : 2,
+	currentFocus : 2,
+	currentClass: 2,
+	rememberedStats : 0,
+	storedCards : [0, 0, 0, 0, 0, 0]
+}
+
+function findCard(cardId) {
+	return cardId in model.cardMap ? model.cardMap[cardId] : 0;
+	return 0;
+}
+
+function checkSet(setId) {
+	var set = cardSets[setId];
+	var matched = [];
+	var names = [];
+	var matchedCount = 0;
+	for (var i in set[2]) {
+		var card = findCard(set[2][i]);
+		names.push(card.name);
+		if (model.selectedCards[card.type].id == card.id) {
+			matchedCount++;
+			matched.push(true);
+		} else {
+			matched.push(false);
+		}
+	}
+	return [setId, matchedCount, names, matched];
+}
+
+Card.prototype.getAdjustedStats = function() {
+	var adjustedStats = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+	if (this.isSlotMatched()) {
+		stats = this.getStats();
+		adjustedStats = [stats.hp, stats.patt, stats.matt, stats.pdef, stats.mres, stats.spirit].concat([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]); 
+		var blueStats = this.getBlueStats();
+		for (var i in blueStats) {
+			adjustedStats[blueStats[i][0]] += blueStats[i][1];
+		}
+	} else if (this.grade > 0) {
+		stats = getBasicStats(this.getSlot(), this.grade, this.awaken);
+		adjustedStats = [stats.hp, stats.patt, stats.matt, stats.pdef, stats.mres, stats.spirit].concat([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]); 
+	}
+	return adjustedStats;
+}
+
+Card.prototype.clone = function() {
+	var cloned = new Card(cards[this.num]);
+	stats = "awaken level xp".split(" ");
+	for (var i in stats) 
+		cloned[stats[i]] = this[stats[i]];
+	return cloned;
+}
+
+Card.prototype.renderSetText = function() {
+	var text = "";
+	var setId = this.evaluatedSet[0];
+	if (this.evaluatedSet[1] == 0) {
+		text += "<span class='item_color"+(this.grade + 1)+"'>" + cardSets[setId][0] + " (" + cardSets[setId][2].length + ")</span><br><br>"
+		return text
+	}
+	
+	if (this.evaluatedSet[1] == cardSets[setId][2].length) {
+		text += "<span class='item_color7'>";
+	} else {
+		text += "<span class='item_color6'>";
+	}
+	text += "War Avatar Set Stats Bonus: " + (cardSets[setId][1]*100).toFixed(2) + "%</span><br>"
+	text += "<span class='item_color3'>" + cardSets[setId][0] +" (" + this.evaluatedSet[1] + " / " + cardSets[setId][2].length + ")</span><br>";
+	for (var i in this.evaluatedSet[2]) {
+		text += "<span class='item_color" + (this.evaluatedSet[3][i] ? "7" : "6" )+ "'>&nbsp;&nbsp;"+this.evaluatedSet[2][i]+"</span><br>" ;
+	}
+	text += "<br>";
+	return text;
+}
+
+function Card(data) {
+	stats = "id type name reqLev minLeadership maxLeadership grade maxLev hp patt matt pdef mres spirit hpD pattD mattD pdefD mresD spiritD baseXP statA statB statC statD num price".split(" ");
+	
+	for (var i in stats) {
+		this[stats[i]] = data[i];
+	}
+	
+	this.description = this.id in cardDescriptions ? cardDescriptions[this.id] : "";
+	this.data = data;
+	this.level = 1;
+	this.xp = 0;
+	this.awaken = 0;
+	this.leadership = this.minLeadership;
+	var setId = findSetForCard(this.id);
+	this.evaluatedSet = setId == -1 ? 0 : [setId, 0, 0, 0];
+	this.setBonus = 0
+}
+
+Card.prototype.evaluateSet = function() {
+	this.setBonus = 0
+	this.evaluatedSet = 0;
+	var setId = findSetForCard(this.id);
+	if (setId == -1) {
+		return;
+	}
+	this.evaluatedSet = checkSet(setId)
+	if (this.evaluatedSet[1] == cardSets[setId][2].length) {
+		this.setBonus = cardSets[setId][1];
+	} else if (this.evaluatedSet[1] == 0) {
+		this.evaluatedSet = 0;
+	}
+}
+
+Card.prototype.getStats = function(forTooltip) {
+	var classMult = classes[model.currentClass][1][this.type];
+	var setMult = this.setBonus + 1.0;
+	var awakenMult = this.awaken * 0.3 + 1.0;
+	var stats = {};
+//	if (forTooltip) {
+	if (true) {
+		stats.hp = Math.round((this.hp + (this.level-1) * this.hpD) * classMult * setMult * awakenMult);
+		stats.patt = Math.round((this.patt + (this.level-1) * this.pattD) * classMult * setMult * awakenMult);
+		stats.matt = Math.round((this.matt + (this.level-1) * this.mattD) * classMult * setMult * awakenMult);
+		stats.pdef = Math.round((this.pdef + (this.level-1) * this.pdefD) * classMult * setMult * awakenMult);
+		stats.mres = Math.round((this.mres + (this.level-1) * this.mresD) * classMult * setMult * awakenMult);
+		stats.spirit = Math.round((this.spirit + (this.level-1) * this.spiritD) * classMult * setMult * awakenMult);
+		return stats;
+	}
+	return null;
+}
+
+Card.prototype.getBlueStats = function() {
+	var stats = "statA statB statC statD".split(" ");
+	var blueStats = [];
+	for (var i in stats) {
+		if(this[stats[i]]) {
+			blueStats.push(statTypes[this[stats[i]]])
+		}
+	}
+	return blueStats;
+}
+
+Card.prototype.getBlueStatText = function() {
+	var stats = "statA statB statC statD".split(" ");
+	text = ""
+	for (var i in stats) {
+		if(this[stats[i]]) {
+			var stat = statTypes[this[stats[i]]];
+			text += "<span class='item_color1'>"+statRenderText[stat[0]].replace(/\$1/g, stat[1])+"</span><br>";
+		}
+	}
+	return text;
+}
+
+Card.prototype.getTooltipContent = function() {
+	var text = "<span class='item_color0'>";
+	text += "<span class='item_color"+(this.grade+1)+"'>"+("&#9733;&#9733;".substring(0,this.awaken*7))+this.name+"</span><br>";
+	text += "Lv. " + cardGrades[this.grade] + "<br>";
+	text += "Type " + cardTypes[this.type] + "<br>";
+	text += "Lv " + this.level + "/" + this.maxLev+"<br>";
+	text += "EXP " + this.xp + "/" + cardLevels[this.grade][this.level-1][0] +"<br>";
+	var stats = this.getStats(true);
+	
+	if (stats.hp) text += "HP: +" + stats.hp+"<br>";
+	if (stats.patt) text += "Physical Attack +" + stats.patt+"<br>";
+	if (stats.matt) text += "Magic Attack +" + stats.matt+"<br>";
+	if (stats.pdef) text += "Phys. Res.: +" + stats.pdef+"<br>"	;
+	if (stats.mres) {
+		var res = ["Metal", "Wood", "Water", "Fire", "Earth"];
+		for (var i in res) {
+			text += res[i] +" Resistance +"+ stats.mres+"<br>"	;
+		}
+	}
+	if (stats.spirit) text += "Spirit +" + stats.spirit+"<br>";
+	
+	text += this.getBlueStatText();
+	text += "Current Class " + classes[model.currentClass][0] + "<br>";
+	text += "Requisite Lv. " + this.reqLev + "<br>";
+	text += "Leadership Required " + this.leadership + "<br>";
+	if (this.awaken > 0) {
+		text += "Reawakenings " + this.awaken + "<br>";
+	}
+	text += "EXP gained after being devoured " + (this.baseXP + cardLevels[this.grade][this.level-1][1] + this.awaken*(cardLevels[this.grade][this.maxLev-1][1])) + "<br>";
+	text += "Price " + this.price + "<br><br>";
+	
+	if (this.evaluatedSet) {
+		text += this.renderSetText();
+	}
+	
+	text += "Doesn't drop on death.<br>Unable to be discarded<br>Unable to be sold<br>Unable to be traded<br>Unable to be put into Account Stash<br>"
+	if (this.description.length >0)
+		text += "<span style='color:#ffcb4a'>"+this.description.replace(/\r/g, "<br>")+"</span><br>";
+	text += "</span>";
+	return text;
+}
+
+var getBasicStats = function(slot, grade, awaken) {
+	for (var i in cards) {
+		if (cards[i][1] == slot && cards[i][6] == grade) {
+			var newCard = new Card(cards[i]);
+			newCard.awaken = awaken;
+			return newCard.getStats();
+		}
+	}
+	return -1;
+}
+
+Card.prototype.getSlot = function() {
+	for (i in model.selectedCards) {
+		if ( model.selectedCards[i] == this) 
+			return i;
+	}
+	return -1;
+}
+
+Card.prototype.isSlotMatched = function() {
+	return this.getSlot() == this.type;
+}
+
+var updateLeadership = function() {
+	var leadership = 0;
+	for (var i in model.selectedCards) {
+		if (model.selectedCards[i]) {
+			leadership += model.selectedCards[i].leadership;
+		}
+	}
+	$("#leadershipLabel").text("Leadership " + leadership + "/" + Math.max(10,leadership));
+}
+
+var isEmpty = function(list) {
+	for (var i in list) {
+		if (list[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+
+var update = function() {
+	encodeCards();
+	for (i in model.selectedCards) {
+		if(model.selectedCards[i])
+			model.selectedCards[i].evaluateSet();
+	}
+	for (i in model.selectedCards) {
+		$("#card"+i).removeClass("c b a s ss");
+		if (model.selectedCards[i])  {
+			$("#card"+i).css({"background-image": "url('images/cards/"+model.selectedCards[i].id+".jpg')"});
+			$("#card"+i).addClass(cardGradesClassname[model.selectedCards[i].grade]);
+			$("#item"+i).css({
+				"background-position": "-"+model.selectedCards[i].grade+"00% -"+model.selectedCards[i].type+"00%",
+				"top": $("#slot"+i).css("top"),
+				"left": $("#slot"+i).css("left"),
+				"display": "inline-block"}
+			).qtip({
+				content: model.selectedCards[i].getTooltipContent(),
+				show : {
+					delay: 300
+				},
+				position	 : {
+					type  : 'absolute',
+					my: 'bottom left',
+					at: 'top right',
+					//container : $(document),
+					viewport: $(window),
+					adjust: {
+						method: 'shift shift'
+					}
+				},
+				style: {
+					classes: "pwi-qtip items-qtip qtip-rounded",
+					tip: false
+				}
+			});
+		} else {
+			$("#item"+i).css({"display": "none"});
+			$("#card"+i).css({"background-image": "url('images/blankcard.png')"});
+		}
+	}
+	updateSelectedAvatarPanel();
+	updateLeadership();
+	updateAggregateInfo();
+	var card = model.selectedCards[model.currentSelection];
+	$("#levelMin").attr("disabled", card == 0 || card.level == 1);
+	$("#levelMinus").attr("disabled", card == 0 || card.level == 1);
+	$("#levelPlus").attr("disabled", card == 0 || card.level == card.maxLev);
+	$("#levelMax").attr("disabled", card == 0 || card.level == card.maxLev);
+	$("#levelAwaken").attr("disabled", card == 0 || card.level < card.maxLev);
+	$("#levelAwaken").attr("value","Awaken ("+(card != 0 ? card.awaken : 0)+")");
+	$("#leadershipAdjust").attr("value","Ldrship ("+(card != 0 ? card.leadership : 0)+")");
+	$("#exchangeButton").attr("disabled", isEmpty(model.storedCards));
+	$("#rememberStat").attr("disabled", isEmpty(model.selectedCards));
+}
+
+var findSetForCard = function(cardId) {
+	return cardId in model.cardSetMap ? model.cardSetMap[cardId] : -1;
+}
+
+var moveFocus = function() {
+	var direction = 0;
+	if (model.currentSelection == model.currentFocus) {
+		return;
+	} else if (model.currentSelection < model.currentFocus) {
+		direction = -1;
+	} else { 
+		direction = 1;
+	}
+	if (Math.abs(model.currentSelection - model.currentFocus) > 3) {
+		direction = direction * -1;
+	}
+	
+	model.currentFocus = (model.currentFocus + direction + 6) % 6;
+	
+	for(var i = 0; i < 6; i++) {
+		$("#card"+ i).animate(cardCss[(i-model.currentFocus+8) % 6], 200, "swing", moveFocus);
+	}
+}
+
+var getBasicStatTextForCard = function(card) {
+	text = ""
+	var stats = {"hp": 0, "patt": 0, "matt": 0, "pdef": 0, "mres": 0, "spirit":0}; 
+	if (card.isSlotMatched())
+		stats = card.getStats(false);
+	else if (card.grade > 0) {
+		stats = getBasicStats(card.getSlot(), card.grade, card.awaken);
+	}
+	text = 	text += "<span class='item_color4'>"
+	if (stats.hp) text += "HP +" + stats.hp+"<br>";
+	if (stats.patt) text += "Phy. ATT +" + stats.patt+"<br>";
+	if (stats.matt) text += "Mag. ATT +" + stats.matt+"<br>";
+	if (stats.pdef) text += "Phys. DEF +" + stats.pdef+"<br>";
+	if (stats.mres) text += "Mag. DEF +" + stats.mres+"<br>";
+	if (stats.spirit) text += "Spirit +" + stats.spirit+"<br>";
+	return text + "</span>"
+}
+
+var updateSelectedAvatarPanel = function() {
+	var card = model.selectedCards[model.currentSelection];
+	var text = "War Avatar<br><br>";
+	var color = "";
+	if (!card) {
+		text += "<br><br><span style='font-size: 80%'>Level: <br><br>";
+		text += "EXP:<br><br>"
+		$("#selectedAvatarPanel").html(text);
+		return;
+	}
+	if (!card.isSlotMatched()) color = "item_color5";
+	text += "<span class='"+color+"'>" + cardTypes[card.type] + "</span><br><br>";
+	text += "<span style='font-size: 80%'>Level: " + card.level + "/"+card.maxLev + "<br><br>";
+	text += "EXP:<br><br>" + card.xp + "/"+cardLevels[card.grade][card.level-1][0]+ "<br><br></span>";
+	text += getBasicStatTextForCard(card)
+	$("#selectedAvatarPanel").html(text);
+}
+
+var selectCard = function(pos) {
+	for(var i = 0; i < 6; i++) {
+		$("#slot"+i).removeClass("selected");
+	}
+	$("#slot"+pos).addClass("selected");
+	model.currentSelection = pos;
+	update();
+	moveFocus();
+};
+
+var incrementCardLevel = function() {
+	var card = model.selectedCards[model.currentSelection];
+	if (card.level < card.maxLev) {
+		card.level += 1;
+		update();
+	}
+}
+
+var decrementCardLevel = function() {
+	var card = model.selectedCards[model.currentSelection];
+	if (card.level > 1) {
+		card.level -= 1;
+		update();
+	}
+}
+
+var incrementCardLevel = function() {
+	var card = model.selectedCards[model.currentSelection];
+	card.level = card.maxLev;
+	update();
+}
+
+var incrementCardLevel = function() {
+	var card = model.selectedCards[model.currentSelection];
+	card.level = 1;
+	update();
+}
+
+var loadCards = function() {
+	model.cardSetMap = {}
+	for (var i in cardSets) {
+		for (var j in cardSets[i][2]) {
+			model.cardSetMap[cardSets[i][2][j]] = i
+		}
+	}
+	
+	model.allCards = [];
+	model.cardMap = {};
+	for (var i in cards) {
+		model.allCards.push(new Card(cards[i]));
+		model.cardMap[model.allCards[i].id] = model.allCards[i];
+	}
+}
+
+var selectClass = function(classID) {
+	model.currentClass = classID;
+	for (var i = 0; i < 10; i++)
+		$("#class"+i).removeClass("selected");
+	$("#class"+model.currentClass).addClass("selected");
+	classLabel.text("Class: " + classes[model.currentClass][0]);
+	update();
+}
+
+var initClassSelector = function() {
+	var top = 90;
+	var left = 25;
+	classLabel = $("<div id='classLabel' class='label'>Class: Archer</div>")
+	classLabel.css({"top": "72px", "left": "30px", "width": "180px"});
+	$("#avatarWindow").append(classLabel);
+	
+	for (var i = 0; i < 10; i++) {
+		selector = $("<div id='class"+i+"' class='classSelector'></div>");
+		selector.css({
+			"left": left+"px",
+			"top": top+"px"
+		}).click(function() {
+			classId = $(this).attr("id").substring(5);
+			selectClass(classId);
+		});
+		$("#avatarWindow").append(selector);
+		left += 30;
+		if (i == 4) {left -= 30*5; top += 30;}
+	}
+	$("#class2").addClass('selected');
+}
+
+var pickerFilter = {
+	grade:  5,
+	type: 6
+};
+
+var selectPickerGrade = function(grade) {
+	for (var i = 0; i < 6; i++) {
+		$("#grade"+i).removeClass("selected");
+	}
+	$("#grade"+grade).addClass("selected");
+	pickerFilter.grade = grade;
+	for (var i = 0; i < 6; i++) {
+		$("#type"+i).css({"background-position": "-"+Math.min(grade,4)+"00% -"+i+"00%"});
+	}
+	populatePicker();
+}
+
+var selectPickerType = function(type) {
+	for (var i = 0; i < 7; i++) {
+		$("#type"+i).removeClass("selected");
+	}
+	$("#type"+type).addClass("selected");
+	pickerFilter.type = type;
+	
+	for (var i = 0; i < 5; i++) {
+		$("#grade"+i).css({"background-position": "-"+i+"00% -"+type+"00%"});
+	}
+	populatePicker();
+}
+
+var makeWidgetForCard = function(card, enablePickerClick, enableTooltip) { 
+	var nameLabel = $("<div class='pickernamelabel'></div>").addClass("item_color"+(card.grade+1)).text(card.name);
+	var icon = $("<div class='item icon'></div>");
+	icon.css({
+		"background-position": "-"+card.grade+"00% -"+card.type+"00%"
+	});
+	
+	var htmlForCard = function(card) {
+		return "<div class='card "+cardGradesClassname[card.grade]+" picker-qtip-card .higher-zindex' style=\"background-image: url('images/cards/"+card.id+".jpg')\"><div class='frame'></div></div>";
+	}
+	
+	var widget = $("<div id='pick"+card.num+"' class='picker'></div>"
+		).append(icon).append(nameLabel);
+	if (enableTooltip) widget.qtip({
+		content: htmlForCard(card)+card.getTooltipContent(),
+		show : {
+			delay: 300
+		},
+		position	 : {
+			//type  : 'absolute',
+			my: 'bottom left',
+			at: 'top center',
+			//container : $("#qtipPickerCache"),
+			viewport: $(window),
+			adjust: {
+				method: 'flip flip'
+			}
+		},
+		style: {
+			classes: "pwi-qtip items-qtip qtip-rounded pwi-picker-qtip higher-zindex",
+			tip: false
+		}
+	})
+	
+	if (enablePickerClick) {
+		widget.click(function(){
+			card =  new Card(cards[$(this).attr("id").substring(4)]);
+			model.selectedCards[model.currentSelection] = card;
+			update();
+		});
+	}
+	return widget;
+}
+
+var populatePicker = function() {
+	$('.cardPickerResults .picker').qtip('destroy', true);
+	$("#cardPickerResults").empty();
+	for (var i = 0; i < model.allCards.length; i++) {
+		if (pickerFilter.type != 6 && model.allCards[i].type != pickerFilter.type) continue;
+		if (pickerFilter.grade != 5 && model.allCards[i].grade != pickerFilter.grade) continue;
+		$("#cardPickerResults").append(makeWidgetForCard(model.allCards[i], true, true));
+	}
+}
+
+var shortenStat = function(text) {
+	return text.replace(/Physical/g, "Phys.").replace(/Magical/g, "Mag.").replace(/Maximum/g, "Max.");
+}
+
+var getTotalStats = function() {
+	var totalStats = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+	for (var i in model.selectedCards) {
+		var card = model.selectedCards[i];
+		if (card) {
+			var stats = card.getAdjustedStats();
+			for (var j in stats) {
+				totalStats[j] += stats[j]
+			}
+		}
+	}
+	return totalStats;
+}
+
+var updateAggregateInfo = function() {
+	$('#aggregateInfo .picker').qtip('destroy', true);
+	$('#aggregateInfo').empty();
+	var cardPanel = $('<div style="display: inline-block; width:510px; vertical-align:top; padding-left: 10px"/>');
+	var totalStats = getTotalStats();
+	for (var i in model.selectedCards) {
+		var card = model.selectedCards[i];
+		if (card) {
+			widget = makeWidgetForCard(card, false, false);
+			var statText = getBasicStatTextForCard(card);
+			if (card.isSlotMatched())
+				statText += shortenStat(card.getBlueStatText());
+			widget.append($(statText));
+			cardPanel.append(widget);
+		}
+	}
+	
+	
+	var text = '<span class="item_color3" ">Total From All Cards</span><br><br><span class="item_color1">';
+	for (var i in totalStats) {
+		if (totalStats[i] || (model.rememberedStats && model.rememberedStats[i])) {
+			text += statRenderText[i].replace(/\$1/g, totalStats[i]);
+			if (model.rememberedStats && model.rememberedStats[i] != totalStats[i]) {
+				var color = totalStats[i] > model.rememberedStats[i] ? "9F9" : "F99";
+				var plusMinus = totalStats[i] > model.rememberedStats[i] ? "+" : "";
+				text += " <span class='item_color0'>(<span style='color:#" + color + "'>" + plusMinus + (totalStats[i]-model.rememberedStats[i]) + "</span>)</span>";
+			}			
+			text += " <br>";
+		}
+	}
+	text += '</span>';
+	var statPanel = $('<div id="statPanel" style="display: inline-block; width: 165px; padding-top: 10px; height: 100%; border-right: #166 1px solid;">' + shortenStat(text) + '</div>');
+	
+	var comparePanel = $('<div></div>');
+	comparePanel.append($('<div class="item_color3 title" style="margin-top: 10px">Comparison<div>'));
+	var compareButton = $('<input type=button id="rememberStat" class="button rememberStat" value="Store Current Avatars" style="width: 150px"></input>').click(function(){
+			model.rememberedStats = getTotalStats();
+			for (var i in model.selectedCards) {
+				if (model.selectedCards[i]) {
+					model.storedCards[i] = model.selectedCards[i].clone();
+				} else {
+					model.storedCards[i] = 0;
+				}
+			}
+			update();
+	});
+	var exchangeButton = $('<input disabled type=button id="exchangeButton" class="button" value="Swap Avatars" style="width: 150px"></input>').click(function(){
+			model.rememberedStats = getTotalStats();
+			for (var i in model.selectedCards) {
+				var temp = model.selectedCards[i];
+				model.selectedCards[i] = model.storedCards[i];
+				model.storedCards[i] = temp;
+			}
+			update();
+	});
+	comparePanel.append(compareButton);
+	comparePanel.append(exchangeButton);
+	
+	statPanel.append(comparePanel);
+			
+	$('#aggregateInfo').append(statPanel).append(cardPanel);
+
+}
+
+var initAvatarSets = function() {
+	var holder = $("#avatarSets");
+	holder.qtip({
+		//id: "avatarSetWindow",
+		show : {
+			delay: 300
+		},
+		content: {
+			text: $('#avatarSetsWindow'),
+			title: {
+				text: 'War Avatar Sets',
+				button: 'Close'
+			}
+		},
+		position: {
+			my: 'bottom center',
+			at: 'center',
+			target: $("#avatarWindow"),
+			adjust: {
+				"y": 200
+			}
+		},
+		show: {
+			event: 'click',
+			solo: true,
+			modal: {
+				on: false,
+				blur: true,
+				escape: true // On by default
+			}
+		},
+		hide: false,
+		style: {
+			classes: 'qtip-rounded modal pwi-qtip',
+		},
+		events: {
+			show: function(event, api) {populateSets()},
+			hide: function(event, api) {$("#avatarSetsWindow .picker").qtip('destroy', true);}
+		}
+	});
+	
+
+}
+
+var populateSets = function() {
+	$('#avatarSetsWindow').empty();
+	var sortedSets = cardSets.slice(0).sort(function(a,b){return b[1]-a[1];});
+	for (var i in sortedSets) {
+		var panel = $("<div class='setpanel'></div>");
+		var label = $("<div class='settitle'></div>").text(sortedSets[i][0] + " ("+sortedSets[i][2].length+"): " + (sortedSets[i][1]*100).toFixed(2)+"%" );
+		var equipAllButton = $('<input type=button id="equipAll" class="button equipall" value="Equip All"></input>').click(function(){
+			$(this).next().children().each(function(){
+				if ($(this).attr("id")) {
+					card =  new Card(cards[$(this).attr("id").substring(4)]);
+					model.selectedCards[card.type] = card;
+				}
+			});
+			update();
+		});
+		var cardHolder = $("<div class='setCardPanel'></div>");
+		panel.append(label).append(equipAllButton).append(cardHolder);
+		//var sortedCards = sortedSets[i][2].slice(0).sort(function(a,b){return findCard(a).type-findCard(b).type;})
+		var setCards = [0, 0, 0, 0, 0, 0];
+		for(var j in sortedSets[i][2]) {
+			setCards[findCard(sortedSets[i][2][j]).type] = findCard(sortedSets[i][2][j]);
+		}
+		for(var j in setCards) {
+			if (setCards[j])
+				cardHolder.append(makeWidgetForCard(setCards[j], false, true));
+			else {
+				var empty = $("<div class='picker'></div>").append($("<div class='item icon'></div>").css({
+					"background-position": "-"+findCard(sortedSets[i][2][0]).grade+"00% -"+j+"00%"
+				})).addClass("none").append($('<div class="pickernamelabel">&nbsp;</div>'));
+				cardHolder.append(empty);
+			}
+		}
+		$('#avatarSetsWindow').append(panel);
+	}
+}
+
+var initAggregateInfo = function() {
+	var aggregateInfo = $('<div id="aggregateInfoHolder"></div>');
+	$("#avatarWindow").append(aggregateInfo);
+	aggregateInfo.qtip(
+	{
+	id: "avatarCardPicker",
+	content: {
+		text: $('#aggregateInfo'),
+		title: {
+			text: 'Total Stats',
+			button: 'Close'
+		}
+	},
+	position: {
+		my: 'bottom center',
+		at: 'center',
+		target: $("#avatarWindow"),
+		adjust: {
+			"y": 200
+		}
+	},
+	show: {
+		event: 'click',
+		solo: true,
+		modal: {
+			on: false,
+			blur: true,
+			escape: true // On by default
+		}
+	},
+	hide: false,
+	style: {
+		classes: 'qtip-rounded modal pwi-qtip',
+	}
+	});
+}
+
+
+var initCardPicker = function() {
+	var cardPicker = $('<div id="avatarPicker"></div>');
+	$("#avatarWindow").append(cardPicker);
+	for (var i = 0; i < 6; i++) {
+		$("#grade"+i).click(function() {selectPickerGrade($(this).attr("id").substring(5));
+			}).css({"background-position": "-"+i+"00% 0%"
+			}).qtip({
+				show : {
+					delay: 300
+				},
+				position: {
+					my: 'bottom left',
+					at: 'top center',
+				},
+				content: "Grade: " + (i < 5 ? cardGrades[i] : "Any"),
+				style: {
+					classes: 'qtip-rounded pwi-qtip'
+				}
+			});
+	}
+	for (var i = 0; i < 7; i++) {
+		$("#type"+i).click(function() {selectPickerType($(this).attr("id").substring(4));
+		}).css({"background-position": "-300% -"+i+"00%"
+		}).qtip({
+				show : {
+					delay: 300
+				},
+				position: {
+					my: 'bottom left',
+					at: 'top center',
+				},
+				content: "Type: " + (i < 6 ? cardTypes[i] : "Any"),
+				style: {
+					classes: 'qtip-rounded pwi-qtip'
+				}
+			});
+	}
+
+	cardPicker.qtip(
+	{
+	id: "avatarCardPicker",
+	content: {
+		text: $('#cardPicker'),
+		title: {
+			text: 'Avatar Picker',
+			button: 'Close'
+		}
+	},
+	position: {
+		my: 'bottom center',
+		at: 'center',
+		target: $("#avatarWindow"),
+		adjust: {
+			"y": 200
+		}
+	},
+	show: {
+		event: 'click',
+		solo: true,
+		modal: {
+			on: false,
+			blur: true,
+			escape: true // On by default
+		}
+	},
+	hide: false,
+	style: {
+		classes: 'qtip-rounded modal pwi-qtip',
+	}
+	});
+	
+	
+
+}
+
+var initSlots = function() {
+	for(var i = 0; i < 6; i++) {
+		$("#item"+i).draggable({
+			cursor: "hand",
+			revert: true,
+			revertDuration: 0,
+			zIndex: 1000,
+			start: function(event, ui) {
+				$(this).qtip('hide');
+				$(this).qtip('api').disable(true);
+				ui.helper.data('dropped', false);
+			},
+			stop: function(event, ui) {
+				$(this).qtip('api').disable(false);
+				if(!ui.helper.data('dropped')) {
+					model.selectedCards[$(this).attr("id").substring(4)] = 0;
+					update();
+				}
+			}
+		}).click(function() {
+			var pos = $(this).attr("id").substring(4);
+			if (model.currentSelection == pos) {
+				selectPickerType($(this).attr("id").substring(4));
+				$("#avatarPicker").qtip().show();
+			} else {
+				selectCard($(this).attr("id").substring(4));
+			}
+		});
+		$("#slot"+i).droppable({
+			drop:  function( event, ui ) {
+					if (!ui.draggable.hasClass('item')) {
+						return true;
+					}
+					ui.draggable.data('dropped', true);
+					myPos = $(this).attr("id").substring(4);
+					itemPos = ui.draggable.attr("id").substring(4);
+					if (myPos == itemPos) 
+						return true;
+					temp = model.selectedCards[myPos];
+					model.selectedCards[myPos] = model.selectedCards[itemPos];
+					model.selectedCards[itemPos] = temp;
+					update();
+					selectCard(myPos);
+					return false;
+				}
+		}).click(function() {
+			var pos = $(this).attr("id").substring(4);
+			if (model.currentSelection == pos) {
+				selectPickerType($(this).attr("id").substring(4));
+				$("#avatarPicker").qtip().show();
+			} else {
+				selectCard($(this).attr("id").substring(4));
+			}
+		});
+		
+		$("#card"+i).click(function() {
+			selectCard($(this).attr("id").substring(4));
+		});
+	}
+}
+
+var modifyLevel = function(amount) {
+	card = model.selectedCards[model.currentSelection];
+	if (!card) 
+		return;
+	if (amount == 'reset') {
+		card.level = 1;
+	} else if (amount == 'max') {
+		card.level = card.maxLev;
+	} else if (amount == 'awaken') {
+		card.awaken = (card.awaken + 1) % 3
+		card.level = 1
+	} else {
+		card.level = Math.min(card.maxLev, Math.max(1, card.level + amount));
+	}
+	
+	update();
+}
+
+var modifyLeadership = function(amount) {
+	card = model.selectedCards[model.currentSelection];
+	if (!card) 
+		return;
+	card.leadership = (card.leadership + 1 - card.minLeadership) % (card.maxLeadership + 1 - card.minLeadership) + card.minLeadership
+	update();
+}
+
+function setCookie(hash) {
+	var exdate=new Date();
+	exdate.setDate(exdate.getDate() + 40); // 40 day expiration
+	var cookieSuffix = ";expires=" + exdate.toUTCString() + ";path=/";
+	document.cookie = "AVATARS="+hash;
+}
+
+function encodeCards() {
+	var hash = "";
+	hash += "class=" + model.currentClass;
+	for (var i = 0; i < model.selectedCards.length; i++) {
+		if(model.selectedCards[i]) {
+			hash += "&a" + i + "=" + 
+				model.selectedCards[i].num + "," +
+				model.selectedCards[i].level + "," +
+				model.selectedCards[i].awaken + "," +
+				model.selectedCards[i].leadership;
+		}
+	}
+	window.location.replace(window.location.href.split('#')[0] + '#' +hash);
+	setCookie(hash);
+}
+
+function getCookie() {
+	if (document.location.hash.length == 0 && document.cookie) {
+		loadCardsFromHash(document.cookie);
+	}
+}
+
+function loadCardsFromUrl() {
+	var hash = unescape(self.document.location.hash.substring(1));
+	loadCardsFromHash(hash);
+}
+
+function loadCardsFromHash(hash) {
+	  var re = new RegExp("class=([0-9]+)");
+	  var m = re.exec(hash);
+	  if (m != null) {
+		selectClass(m[1]);
+	  } 
+	
+	for (var i = 0; i < model.selectedCards.length; i++) {
+		var re = new RegExp("a"+i+"=([0-9,]+)");
+		var m = re.exec(hash);
+		if (m != null) {
+			var vals = m[1].split(',');
+			if (vals.length != 4) continue
+			model.selectedCards[i] = new Card(cards[parseInt(vals[0])]);
+			model.selectedCards[i].level = parseInt(vals[1]);
+			model.selectedCards[i].awaken = parseInt(vals[2]);
+			model.selectedCards[i].leadership = parseInt(vals[3]);
+		} 
+	}
+}
+
+$(document).ready(function(){
+	loadCards();
+	initSlots();
+	initClassSelector();
+	initCardPicker();
+	initAggregateInfo();
+	initAvatarSets();
+	getCookie();
+	loadCardsFromUrl();
+	update();
+	selectCard(3);
+});
+	
+
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21331594-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+	 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+<script src="../js/navbox.js" type="text/javascript"></script>
+<div style='position: relative; text-align: left; width: 790px; margin:0 auto'>
+<h1>PWI War Avatar Calculator</h1>
+
+<div id="avatarWindow">
+<div id="leadershipLabel" class="label">Leadership 6/10</div>
+<div id="title" class="windowtitle">War Avatar</div>
+<div id="selectedAvatarPanel" class="panel"></div>
+<div id="card0" class="card card-left a"><div class="frame"></div></div>
+<div id="card1" class="card card-center s"><div class="frame"></div></div>
+<div id="card2" class="card card-right b"><div class="frame"></div></div>
+<div id="card3" class="card card-offleft c"><div class="frame"></div></div>
+<div id="card4" class="card card-offright a"><div class="frame"></div></div>
+<div id="card5" class="card card-invisible ss"><div class="frame"></div></div>
+<div id="slot0" class="slot"></div>
+<div id="slot1" class="slot"></div>
+<div id="slot2" class="slot"></div>
+<div id="slot3" class="slot"></div>
+<div id="slot4" class="slot"></div>
+<div id="slot5" class="slot"></div>
+<div id="item0" class="item"></div>
+<div id="item1" class="item"></div>
+<div id="item2" class="item"></div>
+<div id="item3" class="item"></div>
+<div id="item4" class="item"></div>
+<div id="item5" class="item"></div>
+<input type=button id="avatarPickerButton" onclick="$('#avatarPicker').qtip().show()" style=" top: 528px; left: 615px" class='button' value="Avatar Picker"></input>
+<input type=button id="avatarSets" onclick="$(this).qtip().show()" style=" top: 568px; left: 615px;" class='button' value="Avatar Sets"></input>
+<input type=button id="aggregatedInfoButton" onclick="$('#aggregateInfoHolder').qtip().show()" style=" top: 608px; left: 615px;" class='button' value="Total Stats"></input>
+<input type=button id="levelMin" onclick="modifyLevel('reset')" style=" top: 608px; width: 80px; left: 50px" class='button' value="Reset Level"></input>
+<input type=button id="levelMinus" onclick="modifyLevel(-1)" style=" top: 608px; width: 80px; left: 139px" class='button' value="Level -"></input>
+<input type=button id="levelPlus" onclick="modifyLevel(1)" style=" top: 608px; width: 80px; left: 228px" class='button' value="Level +"></input>
+<input type=button id="levelMax" onclick="modifyLevel('max')" style=" top: 608px; width: 80px; left: 317px" class='button' value="Level Max"></input>
+<input type=button id="levelAwaken" onclick="modifyLevel('awaken')" style=" top: 608px; width: 80px; left: 406px" class='button' value="Awaken (0)"></input>
+<input type=button id="leadershipAdjust" onclick="modifyLeadership()" style=" top: 608px; width: 80px; left: 495px" class='button' value="Ldrship (0)"></input>
+<input type="checkbox" value="None" id="showFullStat" class="checkbox"/>
+</div>
+<div style="display:none;">
+	<div id="cardPicker">
+		<div class="label" style="top: 20px; left: 20px;">Select Grade:</div> 
+		<div id="grade5" class="item selected" style="top: 20px; left: 120px; background-size: 100%; background-image: url('images/any.gif')"></div>
+		<div id="grade4" class="item" style="top: 20px; left: 160px;"></div>
+		<div id="grade3" class="item" style="top: 20px; left: 200px;"></div>
+		<div id="grade2" class="item" style="top: 20px; left: 240px; "></div>
+		<div id="grade1" class="item" style="top: 20px; left: 280px;"></div>
+		<div id="grade0" class="item" style="top: 20px; left: 320px;"></div>
+		
+		<div class="label" style="top: 70px; left: 20px;">Select Type:</div> 
+		<div id="type6" class="item selected" style="top: 70px; left: 120px; background-size: 100%; background-image: url('images/any.gif')"></div>
+		<div id="type0" class="item" style="top: 70px; left: 160px;"></div>
+		<div id="type1" class="item" style="top: 70px; left: 200px;"></div>
+		<div id="type2" class="item" style="top: 70px; left: 240px;"></div>
+		<div id="type3" class="item" style="top: 70px; left: 280px;"></div>
+		<div id="type4" class="item" style="top: 70px; left: 320px;"></div>
+		<div id="type5" class="item" style="top: 70px; left: 360px;"></div>
+		
+		<div id="cardPickerResults" style="position: relative; top: 120px; left: 20px; width: 95%; height: 280px; overflow-x: none; overflow-y: auto"></div>
+	</div>
+	<div id="aggregateInfo">
+	
+	</div>
+	<div id ="avatarSetsWindow" style="height: 450px; width: 606px; overflow-x: hidden; overflow-y: auto; position: relative">
+	</div>
+</div>
+<p class="footer">
+<a href="http://pwi-forum.perfectworld.com/showthread.php?t=1667591">Leave feedback</a><br><br	>
+2014-01-27 - Initial Release <br>
+2014-01-28 - Added Avatar Sets window <br>
+2014-01-30 - Added Total Stats window <br>
+2014-02-21 - Added build comparison to Total Stats window <br>
+-Asterelle 
+</p>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'asterspwstuff'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</body>
+</html>

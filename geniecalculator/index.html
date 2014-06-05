@@ -1,0 +1,839 @@
+<html>
+<head>
+<title>PWI Genie Affinity Calculator</title>
+<link rel="stylesheet" type="text/css" href="../js/jquery.qtip.css" />
+<link rel="icon"  type="image/png" href="images/favicon.png">
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<style type="text/css">
+table {
+    border-collapse: collapse;
+}
+.header {
+	background-color: #00C;
+	color: white;
+}
+
+.header td {
+	padding: 3px;
+}
+.odd {
+	color: #FC9;
+	background-color: #333;
+}
+
+.even {
+	color: #FC9;
+	background-color: #000;
+}
+
+body {
+	color: #FFF;
+	background: black;
+	font-family: arial,sans-serif;
+}
+
+.stat {
+	color: white;
+	font-size: 95%;
+	font-weight: bold;
+}
+
+.err {
+	color: #F33;
+}
+
+.label {
+	color: #FDCA55;
+	font-size: 95%;
+	font-weight: bold;
+	font-family: Times;
+}
+
+.ar {
+	text-align: right;
+	color: white;
+}
+
+.skillbox {
+	cursor: pointer; text-decoration: none;
+	z-index: 100;
+}
+
+.skilldrawbox {
+	max-width: 34px;
+	max-height: 34px;
+	z-index: 98;
+}
+
+.selectedSkill {
+	max-width: 26px;
+	max-height: 26px;
+	border: 4px solid yellow;
+}
+
+.disabledSkill {
+	opacity: .75;               /* Standard style for transparency */
+    -moz-opacity: .75;          /* Transparency for older Mozillas */
+    filter: alpha(opacity=75);  /* Transparency for IE */
+	background-color: #000;
+}
+
+.tooltip {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #166;
+	background-color: rgba(20, 20, 20, 0.93);
+	white-space: nowrap;
+	color: #FFF;
+	max-width: 500px;
+	min-width: 100px;
+	font-size: 80% !important;
+	line-height: 140%;
+	/*padding: 5px;*/
+}
+
+select {
+	height: 20px;
+	border: #5c3823 1px solid;
+	background: #241013;
+	border-radius: 5px;
+	color: #EEE;
+	display: inline-block;
+	box-shadow: inset 0 0 1px 1px rgba(71, 36, 31, 0.9);
+	/*-webkit-appearance: none;*/
+}
+
+input[type=text] {
+	height: 20px;
+	border: #5c3823 1px solid;
+	background: #241013;
+	color: #EEE;
+	padding: 2px 18px 0px 7px;
+	display: inline-block;
+	box-shadow: inset 0 0 1px 1px rgba(71, 36, 31, 0.9);
+}
+
+a {
+	color: #CCF;
+}
+
+a.skillbox:hover .tooltip {
+	display: block;
+	margin-left: 0;
+}
+
+.skillicon {
+	background: white url("images/genieskills.png") 0px 0px no-repeat;
+	width: 34px;
+	height: 34px;
+	margin: 0px;
+   	padding:0px;
+	display: inline-block;
+	float: left;
+}
+
+.tooltip .title {
+	font-family: Candara, Tahoma, Geneva, sans-serif; font-size: 1.2em; font-weight: bold;
+	display: block; padding: 0.2em 0 0 0;
+}
+
+.tooltip .subtitle {
+	display: block; padding: 0.1em 0 0.3em 0; 
+}
+
+.aff0{color: #CC0;}
+.aff1{color: #0C0;}
+.aff2{color: #C63;}
+.aff3{color: #69F;}
+.aff4{color: #C33;}
+
+* html a:hover { background: transparent; }
+.footer {
+	font-size: 85%;
+	color: #CCC;
+}
+
+span.genie {
+  color: rgb(255,160,131);
+}
+
+span.genie2 {
+  color: rgb(114,254,0);
+}
+
+span.genie3 {
+  color: rgb(255,0,0);
+}
+
+span.bleuclair {
+  color: rgb(150,245,255);
+}
+span.culti {
+  color: rgb(255,203,74);
+}
+
+</style>
+<script type="text/javascript" src="js/geniestats.js"></script> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/jquery.qtip.js"></script>
+
+<script>
+
+var F_ARCHER = 0x1;
+var F_CLERIC = 0x2;
+var F_BARB = 0x4;
+var F_VENO = 0x8;
+var F_BM = 0x10;
+var F_WIZ = 0x20;
+var F_SIN = 0x40;
+var F_PSY = 0x80;
+var F_MYS = 0x100;
+var F_SEEK = 0x200;
+var F_ANYCLASS = 0x3FF;
+
+var F_LAND = 0x400;
+var F_WATER = 0x800;
+var F_AIR = 0x1000;
+var F_ALLTERRAIN = 0x1C00;
+
+//stolen from ecatomb
+var refIdMapping = [[10001,0],[10151,1],[10141,3],[10241,2],[9681,14],[9751,21],[9791,25],[9871,33],[9941,40],[9581,4],[9601,6],[9621,8],[9741,20],[9841,30],[9911,37],[9931,39],[9951,41],[10011,46],[10021,47],[10041,49],[9631,9],[9731,19],[9821,28],[9851,31],[9971,43],[10051,50],[10271,69],[10071,52],[9651,11],[9721,18],[9811,27],[9921,38],[9961,42],[10101,55],[10111,56],[10121,57],[10131,58],[10161,59],[9761,22],[9771,23],[10191,62],[10511,93],[9611,7],[10171,60],[10181,61],[9591,5],[9641,10],[9701,16],[9781,24],[9881,34],[9981,44],[10201,63],[10211,64],[10221,65],[10231,66],[9661,12],[9691,15],[9831,29],[9861,32],[9991,45],[10261,68],[10061,51],[10281,70],[10291,71],[9671,13],[9711,17],[9801,26],[9891,35],[10301,72],[10311,73],[10501,92],[10841,95],[10321,74],[10331,75],[10521,94],[10341,76],[10351,77],[10441,86],[10361,78],[10371,79],[10481,90],[10381,80],[10391,81],[10471,89],[10401,82],[10411,83],[10461,88],[10421,84],[10431,85],[10451,87],[10491,91]];
+
+var currentSkill = 0;
+
+function Skill(name, level, metal, wood, earth, water, fire, row, col, restriction){
+	this.name = name;
+	this.level = level;
+	this.affinity = [metal, wood, earth, water, fire];
+	this.row = row;
+	this.col = col;
+	this.classRestriction = F_ANYCLASS;
+	this.terrainRestriction = F_ALLTERRAIN;
+	if ((restriction & F_ANYCLASS) != 0) {
+		this.classRestriction = restriction & F_ANYCLASS;
+	}
+	if ((restriction & F_ALLTERRAIN) != 0) {
+		this.terrainRestriction = restriction & F_ALLTERRAIN;
+	}
+	if (currentSkill >= refIdMapping.length) 
+	currentSkill = refIdMapping.length -1;
+	this.refId = refIdMapping[currentSkill][0];
+	this.skillId = refIdMapping[currentSkill][1];
+	currentSkill++; 
+}
+
+var skills = [ //"name", level, metal wood earth water fire, r,c, id
+new Skill("Venom Stinger", 1, 0, 0, 0, 0, 0, -1, 2),
+new Skill("Earthflame", 1, 0, 0, 0, 0, 0, -1, 3),
+new Skill("Wind Force", 1, 0, 0, 0, 0, 0, -1, 4, F_AIR),
+new Skill("Eruption Fist", 1, 0, 0, 0, 0, 0, -1, 5),
+
+new Skill("Adrenaline Surge", 1, 1, 0, 0, 0, 0, 0, 1),
+new Skill("Qi Manipulation", 1, 0, 1, 0, 0, 0, 0, 2),
+new Skill("Blinding Sand", 1, 0, 0, 1, 0, 0, 0, 3, F_LAND),
+new Skill("Healing Ripple of Rebirth", 4, 0, 0, 0, 1, 0, 0, 4, F_CLERIC + F_WATER),
+new Skill("Explosion", 1, 0, 0, 0, 0, 1, 0, 5),
+new Skill("Cauterize", 5, 0, 0, 0, 1, 0, 0, 6),
+new Skill("Blood Cot", 5, 1, 0, 0, 0, 0, 0, 7),	
+
+new Skill("Gale", 6, 2, 0, 0, 0, 0, 1, 0, F_AIR),
+new Skill("Virulent Poison", 5, 0, 2, 0, 0, 0, 1, 1),
+new Skill("Earthquake", 5, 0, 0, 2, 0, 0, 1, 2, F_LAND),
+new Skill("Aiding Ripple of Luck", 5, 0, 0, 0, 2, 0, 1, 3, F_WATER),
+new Skill("Spark", 8, 0, 0, 0, 0, 2, 1, 4),
+new Skill("Searing Heat", 35, 0, 0, 0, 0, 2, 1, 5),
+new Skill("Solid Shield", 9, 0, 1, 1, 0, 0, 1, 6, F_BARB),
+new Skill("Tangling Mire", 5, 0, 0, 1, 1, 0, 1, 7),
+new Skill("Blade of Supreme Heat", 5, 1, 0, 0, 0, 1, 1, 8),
+
+new Skill("Wind Shield", 13, 3, 0, 0, 0, 0, 2, 0, F_AIR+F_LAND),
+new Skill("Nullify Poison", 10, 0, 3, 0, 0, 0, 2, 1),
+new Skill("Sand Shield", 11, 0, 0, 3, 0, 0, 2, 2, F_WIZ),
+new Skill("Dissolve", 15, 0, 0, 0, 3, 0, 2, 3, F_BARB + F_BM),
+new Skill("Smoldering Burst", 10, 0, 0, 0, 0, 3, 2, 4),
+new Skill("Leaf Dance", 10, 1, 1, 0, 1, 0, 2, 5),
+new Skill("Second Wind", 10, 0, 1, 1, 1, 0, 2, 6),
+new Skill("Soul of Fire", 10, 0, 0, 1, 1, 1, 2, 7),		
+
+new Skill("Heart of Steel", 10, 4, 0, 0, 0, 0, 3, 0),
+new Skill("Extreme Poison", 15, 0, 4, 0, 0, 0, 3, 1),
+new Skill("Tai Chi", 15, 0, 0, 4, 0, 0, 3, 2),
+new Skill("Impact", 10, 0, 0, 0, 4, 0, 3, 3),
+new Skill("Ying Yang Seal", 16, 0, 0, 0, 0, 4, 3, 4),
+new Skill("Celestial Sword", 15, 2, 0, 0, 0, 2, 3, 5),
+new Skill("Acidic Ripple of Poison", 18, 0, 2, 0, 2, 0, 3, 6, F_WATER),
+new Skill("Whirlwind", 15, 1, 0, 1, 2, 0, 3, 7),
+new Skill("Remove Paralysis", 10, 1, 0, 0, 1, 2, 3, 8),
+
+new Skill("Wind Prison", 22, 2, 0, 2, 1, 0, 4, 0),
+new Skill("Fortify", 21, 0, 5, 0, 0, 0, 4, 1),
+new Skill("Evil Ward", 20, 0, 0, 5, 0, 0, 4, 2),
+new Skill("Relentless Courage", 23, 0, 2, 2, 0, 1, 4, 3),
+new Skill("Piercing Flames", 20, 0, 0, 0, 0, 5, 4, 4, F_ARCHER+F_BARB),
+new Skill("Lightning Chaser", 22, 5, 0, 0, 0, 0, 4, 5),
+new Skill("Mantle Ripple of Death", 20, 0, 0, 1, 2, 2, 4, 6, F_LAND),
+new Skill("Rainbow Blessing", 20, 1, 0, 0, 2, 2, 4, 7, F_CLERIC),
+new Skill("Oxygen Bubble", 25, 0, 0, 0, 5, 0, 4, 8),
+
+new Skill("Air Strand", 29, 6, 0, 0, 0, 0, 5, 0, F_AIR+F_VENO+F_BARB+F_CLERIC+F_ARCHER),
+new Skill("Will Surge", 25, 0, 6, 0, 0, 0, 5, 1),
+new Skill("Frenzy", 25, 0, 0, 6, 0, 0, 5, 2),		
+new Skill("Life Drain", 25, 0, 0, 0, 6, 0, 5, 3),
+new Skill("Earthblaze", 28, 0, 0, 0, 0, 6, 5, 4),
+new Skill("Mantle Ripple of Rage", 28, 0, 0, 3, 0, 3, 5, 5, F_BARB),
+new Skill("Stunning Blast", 30, 0, 0, 3, 3, 0, 5, 6, F_ARCHER),	
+new Skill("Holy Path", 25, 2, 2, 2, 0, 0, 5, 7),	
+new Skill("True Emptiness", 29, 3, 0, 0, 3, 0, 5, 8, F_BARB+F_BM),
+
+new Skill("Rumbling Thunder", 31, 7, 0, 0, 0, 0, 6, 0, F_AIR+F_ARCHER+F_CLERIC+F_BARB+F_BM+F_WIZ),
+new Skill("Poisonous Swarm", 30, 0, 7, 0, 0, 0, 6, 1),
+new Skill("Earth Strand", 30, 0, 0, 7, 0, 0, 6, 2,F_LAND),
+new Skill("Occult Ice", 30, 0, 0, 0, 7, 0, 6, 3),
+new Skill("Thunderstorm", 31, 0, 0, 0, 0, 7, 6, 4),
+new Skill("Law Breaker", 30, 3, 0, 4, 0, 0, 6, 5),
+new Skill("Tree of Protection", 31, 0, 3, 0, 4, 0, 6, 6),		
+new Skill("Badge of Courage", 31, 4, 0, 0, 0, 3, 6, 7),
+new Skill("Earth Claw", 10, 0, 0, 3, 0, 4, 6, 8, F_LAND),
+
+new Skill("Electro Dance", 35, 8, 0, 0, 0, 0, 7, 0, F_AIR),
+new Skill("Elemental Weakness", 36, 0, 8, 0, 0, 0, 7, 1),
+new Skill("Dust Storm", 37, 0, 0, 8, 0, 0, 7, 2),
+new Skill("Battle Ripple of Oblivion", 35, 0, 0, 0, 8, 0, 7, 3, F_WATER),
+new Skill("Aquaflame Armor", 38, 0, 0, 0, 4, 4, 7, 4, F_WIZ),
+new Skill("Seal", 35, 0, 4, 4, 0, 0, 7, 5, F_ARCHER+F_CLERIC+F_BARB+F_VENO),
+new Skill("Hollow Fist", 35, 0, 4, 4, 0, 0, 7, 6, F_LAND+F_VENO),
+
+new Skill("Balance", 41, 4, 0, 0, 0, 5, 8, 1, F_BM),
+new Skill("Alpha Male", 40, 0, 5, 4, 0, 0, 8, 2),
+new Skill("Mage Star", 41, 0, 0, 3, 3, 3, 8, 3, F_WIZ),
+new Skill("Reflective Aura", 41, 0, 5, 0, 3, 1, 8, 5, F_BM+F_BARB),
+
+new Skill("Blazing Shield", 45, 0, 0, 5, 0, 5, 9, 1),
+new Skill("Weakness", 46, 5, 0, 0, 5, 0, 9, 2),
+new Skill("Aquaflame Shot", 47, 0, 0, 0, 5, 5, 9, 3),
+
+new Skill("Frozen Domain", 52, 0, 0, 5, 6, 0, 10, 2, F_WATER),
+new Skill("Dampen Magic Curse", 50, 0, 6, 0, 0, 5, 10, 3),
+new Skill("Expel", 52, 5, 0, 0, 6, 0, 10, 4),
+
+new Skill("Phoenix Dance", 55, 0, 4, 0, 4, 4, 11, 1, F_ARCHER+F_CLERIC),
+new Skill("Absolute Domain", 55, 4, 0, 4, 4, 0, 11, 2),
+new Skill("Cloud Eruption", 55, 7, 0, 5, 0, 0, 11, 3),
+
+new Skill("Bramble Rage", 60, 6, 0, 7, 0, 0, 12, 2, F_LAND),
+new Skill("Dragon Fire", 60, 0, 0, 0, 6, 7, 12, 3, F_LAND),
+new Skill("Inflame", 60, 0, 0, 7, 0, 6, 12, 4, F_LAND),
+
+new Skill("Chi Siphon", 60, 0, 0, 7, 7, 0, 13, 1),
+new Skill("Ice Blast", 60, 0, 7, 0, 0, 7, 13, 2),
+new Skill("Chaotic Spirit", 60, 7, 7, 0, 0, 0, 13, 3, F_VENO),
+new Skill("Faith", 60, 0, 7, 0, 0, 7, 13, 4)
+];
+
+function loadSkills() {
+	var hash = unescape(self.document.location.hash.substring(1));
+	  var re = new RegExp("skills=([a-fA-F0-9]+)");
+	  var m = re.exec(hash);
+	  if (m == null) {
+	    return;
+	  } 
+	skillBits = m[1];
+
+	while(skillBits.length > 0) {
+		skillIndex = parseInt("0x" + skillBits.slice(0,2));
+		skillBits = skillBits.substring(2);
+		if (skillIndex > 0 && skillIndex <= document.skillform.skill.length) {
+			document.skillform.skill[skillIndex-1].checked = true;
+		}
+	}
+	
+	m = new RegExp("lev=([0-9]+)").exec(hash);
+	if (m != null)
+	document.genie.genielev.value = m[1];
+
+	m = new RegExp("lp=([0-9]+)").exec(hash);
+	if (m != null)
+	document.genie.genielp.value = m[1];	
+	
+	m = new RegExp("cls=([0-9]+)").exec(hash);
+	if (m != null)
+	document.skillform.classname.selectedIndex = parseInt(m[1]);
+
+	m = new RegExp("ter=([0-9]+)").exec(hash);
+	if (m != null)
+	document.skillform.terrain.selectedIndex = parseInt(m[1]);
+	
+	refresh();
+}
+
+function encodeSkills() {
+	var hash = "#skills=";
+	for (var i = 0; i < document.skillform.skill.length; i++) {
+		if (document.skillform.skill[i].checked) {
+			hash += (i+257).toString(16).substring(1);
+		}
+	}
+
+	var selectedGenieLevel = parseInt(document.genie.genielev.value);
+	if (!isNaN(selectedGenieLevel)) {
+		hash += "&lev=" + selectedGenieLevel;
+	}
+	var selectedLuckyPoints = parseInt(document.genie.genielp.value);
+	if (!isNaN(selectedLuckyPoints)) {
+		hash += "&lp=" + selectedLuckyPoints;
+	}
+	if (document.skillform.classname.selectedIndex!=0) {
+		hash += "&cls=" + document.skillform.classname.selectedIndex;
+	}
+	if (document.skillform.terrain.selectedIndex!=0) {
+		hash += "&ter=" + document.skillform.terrain.selectedIndex;
+	}
+	
+	window.location.replace(window.location.href.split('#')[0] + hash);
+}
+
+function toggleCheck(i) {
+	document.skillform.skill[i].checked = !document.skillform.skill[i].checked;
+	refresh();
+}
+
+function getTooltip(skill) {
+	var elements = ["MT", "WD", "ER", "WT", "FR"];
+	affinString = "";
+	for (var i = 0; i < 5; i++) {
+		if (skill.affinity[i] > 0) 
+			affinString += " <span class=\"aff" + i + "\">" + elements[i] + ": </span> " + skill.affinity[i];		
+	}
+	/*
+	var classnames = {0x1:"Archer", 
+		0x2:"Cleric",
+		0x4: "Barbarian",
+		0x8: "Venomancer",
+		0x10: "Blademaster",
+		0x20: "Wizard",
+		0x40: "Assassin",
+		0x80: "Psychic",
+		0x100: "Mystic",
+		0x200: "Seeker"};
+	var terrainNames = { 0x400: "Land", 0x800: "Water", 0x1000: "Air"};
+	var classRestrictionStr = "";
+	if (skill.classRestriction != F_ANYCLASS) {
+		classRestrictionStr += "<br> Required class: ";
+		for (var j = 1; j < F_ANYCLASS; j *= 2) {
+			if ((skill.classRestriction & j) != 0) {
+				classRestrictionStr += classnames[j] +" "; 
+			}
+		}
+	}
+	var terrainRestrictionStr = "";
+	if (skill.terrainRestriction != F_ALLTERRAIN) {
+		terrainRestrictionStr += "<br> Terrain: ";
+		for (var j = F_LAND; j < F_ALLTERRAIN; j *= 2) {
+			var test = skill.terrainRestriction & j;
+			if (test != 0) {
+				terrainRestrictionStr += terrainNames[j] +" "; 
+			}
+		}
+	}*/
+	
+	xPos = 116 + 40*skill.col;
+	yPos = 131 + 40*skill.row;
+	var iconstr = "<div class=\"skillicon\" style=\"float: right; background-position: -" + xPos + "px -" + yPos + "px;\"></div>";
+	
+/*	return "<span class=\"info tooltip\"><em class=\"title\">" + skill.name 
+		+ iconstr +"</em>" + affinString + "<br>"+"<span class=\"culti\">Required Level </span>" + skill.level 
+		+"<br>"+getSkillDescription(skill)+" </span><br>";*/
+	return "<em class=\"title\">" + skill.name 
+		+ iconstr +"</em>" + affinString + "<br>"+"<span class=\"culti\">Required Level </span>" + skill.level 
+		+"<br>"+getSkillDescription(skill);
+	
+}
+
+
+function makeGrid() {
+	for (var i=0; i < skills.length; i++) {
+		xPos = 116 + 40*skills[i].col;
+		yPos = 131 + 40*skills[i].row;
+		id = "skillbox" + i;
+		// Had problems with the tooltip interfering with hover so I put
+		// the hover box above the tooltip and the highlighted box behind it
+		document.write("<a class=\"skillbox\"><div id=\""+ id +"\" class=\"skillbox\" style=\"position: absolute; left:" + xPos +"px;  top:"
+		+ yPos + "px; width:34px; height:34px\" onclick=\"toggleCheck(" + i +")\">"
+		//+ getTooltip(skills[i]) 
+		+ "</div></a><div id=\"skilldrawbox" + i+ "\" class=\"skilldrawbox\" style=\"position: absolute; left:" + xPos +"px;  top:"
+		+ yPos + "px; width:34px; height:34px\"\"></div>")
+	}
+}
+
+function writeCell(text) {
+	document.write("<td>" + text + "</td>");
+}
+
+function writeCellWithStyle(style, text) {
+	document.write("<td class=\""+style+"\">" + text + "</td>");
+}
+
+function makeCheckbox(skill) {
+   var text = "<input type=\"checkbox\" name=\"skill\" onclick=\"refresh()\">";
+	writeCell(text);
+}
+
+function makeTable() {
+	document.write("<table style=\"display: none\">");
+	document.write("<tr class=\"header\">"); 
+	writeCell("Skill Name");
+	writeCell("");
+	writeCell("Genie Level");
+	writeCell("Metal");
+    writeCell("Wood");
+	writeCell("Earth");
+	writeCell("Water");
+	writeCell("Fire");
+	writeCell("")
+	document.write("</tr>"); 
+	for (var i=0; i<skills.length; i++) {
+		var skill = skills[i];
+		tableClass = i % 2 == 0 ? "even" : "odd";
+		document.write("<tr class=\""+ tableClass +"\">\n")
+		writeCell(skill.name);
+		makeCheckbox(i);
+		for(var j=0; j<5; j++) {
+			writeCellWithStyle("ar aff"+j, skill.affinity[j]);
+		}
+	    document.write("</tr>\n")
+	}
+	document.write("</table>");
+	
+	makeGrid();
+}
+
+
+function calcAffinityLevelFromGenieLevel(genieLevel) {
+	return 1 + Math.floor(genieLevel/5) + Math.min(4, Math.max(0, genieLevel - 100));
+}
+
+function calcGenieLevelFromSkills(skills) {
+	var maxAffinities = getAffinityRequirements(skills);
+	var minGenieLevel = 1;
+	
+	for (var i = 0; i < skills.length; i++) {
+		minGenieLevel = Math.max(minGenieLevel, skills[i].level);
+	}
+	
+	var skillCount = skills.length;
+	
+	if (skillCount == 5) {
+		minGenieLevel = Math.max(minGenieLevel, 60);
+	} else if (skillCount == 6) {
+		minGenieLevel = Math.max(minGenieLevel, 80);
+	} else if (skillCount == 7) {
+		minGenieLevel = Math.max(minGenieLevel, 90);
+	} else if (skillCount == 8) {
+		minGenieLevel = Math.max(minGenieLevel, 100);
+	}
+	
+	var totalAffinityPoints = countAffinityPoints(maxAffinities);
+	if (totalAffinityPoints <= 21)
+		minGenieLevel = Math.max(minGenieLevel, (totalAffinityPoints-1)*5);
+	else 
+		minGenieLevel = Math.max(minGenieLevel, (totalAffinityPoints-21) + 100);
+	return minGenieLevel;
+}
+
+function countAffinityPoints(affinities) {
+	var totalAffinityPoints = 0;
+	for (var k = 0; k < affinities.length; k++) {
+		totalAffinityPoints += affinities[k];
+	}
+	return totalAffinityPoints;
+}
+
+function getAffinityRequirements(skills) {
+	var maxAffinities = [0,0,0,0,0];
+	for (var i = 0; i < skills.length; i++) {
+		for (var j = 0; j < maxAffinities.length; j++) {
+			maxAffinities[j] = Math.max(skills[i].affinity[j], maxAffinities[j]);
+		}
+	}
+	return maxAffinities;
+}
+
+function calcLuckyPoints(genieLevel, skills) {
+	var luckyPoints = 0;
+	if (skills.length == 5) {
+		luckyPoints = 51;
+	} else if (skills.length == 6) {
+		luckyPoints = 71;
+	} else if (skills.length == 7) {
+		luckyPoints = 81;
+	} else if (skills.length == 8) {
+		luckyPoints = 91;
+	} else if (skills.length > 8) {
+		luckyPoints = 1000; // too many skills
+	}
+	
+	luckyPoints = Math.max(luckyPoints, Math.floor(genieLevel/10));
+	return luckyPoints;
+}
+
+function getSelectedSkills() {
+	var totalSkills = 0;
+	var hasInitialSkill = false;
+	var selectedSkills = [];
+	for (var i = 0; i < document.skillform.skill.length; i++) {
+		var drawboxElem = document.getElementById("skilldrawbox"+i);
+		drawboxElem.setAttribute("class", "skilldrawbox");
+		if (document.skillform.skill[i].checked) {
+			if (totalSkills == 8 || ((i < 4) && hasInitialSkill)) {
+				document.skillform.skill[i].checked = false;
+				continue;
+			}
+			if (i < 4) 
+			    hasInitialSkill = true;
+			drawboxElem.setAttribute("class", drawboxElem.getAttribute("class") + " selectedSkill");
+			totalSkills++;
+			selectedSkills[selectedSkills.length] = skills[i];
+		}
+		if (document.skillform.skill[i].disabled) {
+			document.getElementById("skilldrawbox"+i).setAttribute("class", drawboxElem.getAttribute("class") + " disabledSkill");
+		}
+	}
+	return selectedSkills;
+}
+
+function getSelectedGenieLevel() {
+	var selectedGenieLevel = parseInt(document.genie.genielev.value);
+	if (isNaN(selectedGenieLevel)) {
+		selectedGenieLevel = Math.min(105, getSelectedLuckyPoints()*10);
+	}
+	return selectedGenieLevel;
+}
+
+function getSelectedLuckyPoints() {
+	var selectedLuckyPoints = parseInt(document.genie.genielp.value);
+	if (isNaN(selectedLuckyPoints)) {
+		selectedLuckyPoints = 91;
+	}
+	return selectedLuckyPoints;
+}
+
+
+function setSkillEnabled() {
+	var selectedGenieLevel = getSelectedGenieLevel();
+	var selectedLuckyPoints = getSelectedLuckyPoints();
+	var selectedClass = parseInt(document.skillform.classname.options[
+		document.skillform.classname.selectedIndex].value);
+	var selectedTerrain = 	parseInt(document.skillform.terrain.options[
+		document.skillform.terrain.selectedIndex].value);
+				
+	var selectedSkills = getSelectedSkills();
+	var hasInitialSkill = skills.slice(0,4).indexOf(selectedSkills[0]) != -1;
+	
+	for (var i = 0; i < document.skillform.skill.length; i++) {
+		document.skillform.skill[i].disabled = false;
+		if (selectedSkills.indexOf(skills[i]) != -1) {
+			continue;
+		}
+
+		selectedSkills.push(skills[i]);
+		
+		if (i < 4 && hasInitialSkill) {
+			document.skillform.skill[i].disabled = true;
+		}
+		
+		var neededLevel = calcGenieLevelFromSkills(selectedSkills);
+		if (neededLevel > selectedGenieLevel) {
+			document.skillform.skill[i].disabled = true;
+		}	
+		
+		if (calcLuckyPoints(selectedGenieLevel, selectedSkills) > selectedLuckyPoints) {
+			var j = calcLuckyPoints(selectedGenieLevel, selectedSkills);
+			document.skillform.skill[i].disabled = true;
+		}
+		
+		if ((selectedClass & skills[i].classRestriction) == 0) {
+			document.skillform.skill[i].disabled = true;
+		}
+		
+		if ((selectedTerrain & skills[i].terrainRestriction) == 0) {
+			document.skillform.skill[i].disabled = true;
+		}
+
+		selectedSkills.pop();
+	}
+}
+
+function refresh() {
+	setSkillEnabled();
+	
+	var selectedSkills = getSelectedSkills();
+	var minGenieLevel = calcGenieLevelFromSkills(selectedSkills);
+	var luckyPoints = calcLuckyPoints(minGenieLevel, selectedSkills);
+		
+	document.getElementById("resultGenieLevel").innerHTML = minGenieLevel;
+	document.getElementById("resultGenieLevel").setAttribute("class", "stat " 
+		+ (minGenieLevel > getSelectedGenieLevel() ? "err" : "") );
+		
+	document.getElementById("resultSkills").innerHTML = selectedSkills.length;
+	document.getElementById("resultLP").innerHTML = luckyPoints + "/" + 10*Math.floor(minGenieLevel/10);
+	document.getElementById("resultLP").setAttribute("class", "stat " 
+		+ (luckyPoints > getSelectedLuckyPoints() ? "err" : "") );
+	
+	var affinities = getAffinityRequirements(selectedSkills);
+	for (var i = 0; i < affinities.length; i++) {
+		document.getElementById("resultAff" + i).innerHTML = affinities[i];
+	}
+	
+	var skillList = "";
+	for (var j = 0; j < selectedSkills.length; j++)
+		skillList += selectedSkills[j].name + "<br>";
+	
+	document.getElementById("skillList").innerHTML = skillList;	
+	
+	var selectedGenieLevel = parseInt(document.genie.genielev.value);
+	var affinityPoints = calcAffinityLevelFromGenieLevel(minGenieLevel);
+	var leftoverAffPoints = "--"
+	
+	if (!isNaN(selectedGenieLevel)) {
+		affinityPoints = calcAffinityLevelFromGenieLevel(selectedGenieLevel);
+		var leftoverAffPoints = calcAffinityLevelFromGenieLevel(selectedGenieLevel) 
+			- countAffinityPoints(getAffinityRequirements(selectedSkills));
+	}
+	document.getElementById("resultFreeAffinity").innerHTML = leftoverAffPoints;
+	document.getElementById("resultAffinities").innerHTML = affinityPoints;
+	
+	encodeSkills();
+}
+
+$(document).ready(function(){
+	$('div.skillbox').each(function(){
+		var skillId = $(this).attr("id").substring("skillbox".length);
+		var skill = skills[skillId];
+		$(this).qtip({
+			content: getTooltip(skill),
+			position	 : {
+				//type  : 'relative',
+				container : $('#skillWindow'),
+				viewport: $(window),
+				adjust: {
+					method: 'shift flip'
+				}
+			},
+			style: {
+				classes: "qtip-rounded tooltip",
+				tip: false
+			}
+		});
+	});
+});
+
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21331594-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body onLoad=loadSkills()>
+<script src="../js/navbox.js" type="text/javascript"></script>
+<div style='position: relative; text-align: left; width: 840px; margin:0 auto'>	
+<h1>PWI Genie Affinity Calculator</h1>Select up to 8 skills you want on your genie.  Set your current genie level and lucky points on the right. <br>
+
+<!--[if IE]>
+	<span style="color:red; text-decoration: blink;">DOES NOT WORK IN INTERNET EXPLORER YET</span> <br>
+	Use a real browser <a href="http://www.google.com/chrome">Chrome</a> or  <a href="http://www.firefox.com">Firefox</a><br>
+<![endif]-->
+
+<p>
+	<div style="left:0; right: auto; position: absolute; margin-left: 530">
+		<form name="genie">
+			<div style="position:absolute">
+				<img src="images/geniewindow.png">
+				<div class="label" style="position: absolute; left:44px;  top:251px; width:250px; height:40px; overflow: auto;">Skills: <span class="stat" id="resultSkills"></span></div>
+				<div class="label" style="position: absolute; left:110px;  top:86px; width:175px; height:40px; overflow: none;"><table><tr><td class="label">Genie Level:</td><td><input type="text" name="genielev" maxlength="3" size="3" value="-" onchange="refresh();"></td></tr>
+					<tr><td class="label">Lucky Points:</td><td><input type="text" name="genielp" maxlength="3" size="3" value="-" onchange="refresh();"></td></tr></table>
+
+					Req: <span class="stat">Lvl <span id="resultGenieLevel"></span> &nbsp;&nbsp;LP <span id="resultLP"></span></span></div>
+
+					<div class="stat" style="position: absolute; left:81px;  top:208px; width:40px; height:40px; overflow: auto;"><span id="resultAff0"></span></div>
+					<div class="stat" style="position: absolute; left:131px;  top:208px; width:40px; height:40px; overflow: auto;"><span id="resultAff1"></span></div>
+					<div class="stat" style="position: absolute; left:175px;  top:208px; width:40px; height:40px; overflow: auto;"><span id="resultAff2"></span></div>
+					<div class="stat" style="position: absolute; left:225px;  top:208px; width:40px; height:40px; overflow: auto;"><span id="resultAff3"></span></div>
+					<div class="stat" style="position: absolute; left:271px;  top:208px; width:40px; height:40px; overflow: auto;"><span id="resultAff4"></span></div>
+					<div class="stat" style="position: absolute; left:47px;  top:269px; width:230px; height:155px; overflow: auto;"><span id="skillList"></span></div>
+					<div class="label" style="position: absolute; left:44px;  top:182px; width:250px; height:40px; overflow: auto;">Affinity Level: <span class="stat" id="resultAffinities"></span> &nbsp;&nbsp;&nbsp; Free: <span class="stat" id="resultFreeAffinity">--</span></div>
+			</div>
+		</form>
+	</div>
+	
+<form name="skillform">
+<div id="skillWindow" style="left:15px; right: auto; position: absolute;">	
+	<div style="position: absolute; left:100px;  top:52px; width:400px; height:20px; overflow: none;">
+	Class: <select name='classname' onchange="refresh()">
+		<option value="0x3FF" selected>Any</option>
+		<option value="0x1">Archer</option>
+		<option value="0x2">Cleric</option>
+		<option value="0x4">Barbarian</option>
+		<option value="0x8">Venomancer</option>
+		<option value="0x10">Blademaster</option>
+		<option value="0x20">Wizard</option>
+		<option value="0x40">Assassin</option>
+		<option value="0x80">Psychic</option>
+		<option value="0x100">Seeker</option>
+		<option value="0x200">Mystic</option>
+	</select>&nbsp;&nbsp;&nbsp;&nbsp;
+	Terrain: <select name='terrain' onchange="refresh()">
+		<option value="0x1C00" selected>Any</option>
+		<option value="0x400">Land</option>
+		<option value="0x800">Water</option>
+		<option value="0x1000">Air</option>
+	</select></div>
+<script>
+makeTable();
+</script>
+<img width="515" height="739" src="images/genieskills.png">
+<p class="footer">
+<a href="http://pwi-forum.perfectworld.com/showthread.php?t=846172">Leave feedback</a><br><br	>
+2010-10-14 - added new skill grid for selecting genie skills (bookmarks need to be remade) <br>
+2010-10-18 - added support for Initial Skills <br>
+2010-11-07 - fixed tooltips in Firefox.. currently supported browsers are Firefox, Chrome, Safari <br>
+2011-05-44 - new web host<br>
+2011-07-13 - allows user to enter genie level and lucky points <br>
+2011-07-20 - filter skills by class and terrain <br>
+2011-08-10 - added skill descriptions (adapted from ecatomb) <br>
+2012-01-15 - corrected affinity on "Hollow Fist" <br>
+2012-07-14 - updated description of Absolute Domain <br>
+2012-07-30 - switched tooltips from css to jquery qtips, some style tweeks <br>
+2012-10-28 - added Disqus discussion box <br>
+2014-05-04 - corrected class restriction on "Phoenix Dance" <br>
+-Asterelle 
+</p>
+
+		<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'asterspwstuff'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+		</div>
+</div>
+</form>
+</div>
+</body>
+</html>

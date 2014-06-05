@@ -1,0 +1,1648 @@
+<html>
+<head>
+<title>PWI Refining Simulator</title>
+<link rel="stylesheet" type="text/css" href="../js/jquery.qtip.css" />
+<link rel="stylesheet" type="text/css" href="../fonts/fonts.css" />
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<!--link href="js/jquery.selectbox.css" rel="stylesheet" type="text/css" /-->
+<link rel="icon"  type="image/gif" href="../images/icons/f/11208.gif">
+<style type="text/css">
+body {
+	color: #FFF;
+	background: black;
+	font-family: Arial,Tahoma,Helvetica,sans-serif;
+}
+.footer {
+	margin-top: 720px;
+	font-size: 85%;
+	color: #CCC;
+	width: 600px;
+}
+a {
+	color: #CCF;
+}
+
+#refineWindow {
+	width: 276px;
+	height: 426px;
+	background-image: url('images/refinewindow.png');
+	display: inline-block;
+	margin-right: 15px;
+	position: absolute;
+	font-family: FZXiHei,Arial,Tahoma,Helvetica,sans-serif;
+}
+
+#chatWindow {
+	margin-top: 450px;
+	width: 352px;
+	height: 262px;
+	background-image: url('images/chatwindow.png');
+	display: inline-block;
+	overflow: hidden;
+	font-size: 75%;
+	position: absolute;
+}
+
+#inventoryWindow {
+	width: 317px;
+	height: 457px;
+	background-image: url('images/inventorywindow_f.png');
+	display: inline-block;
+	margin-right: 15px;
+	margin-left: 290px;
+	position: absolute;
+}
+
+#resultsWindow {
+	width: 272px;
+	height: 680px;
+	background-image: url('images/resultswindow.png');	
+	display: inline-block;
+	margin-right: 15px;
+	margin-left: 620px;
+	position: absolute;
+}
+
+#optionsWindow {
+	width: 242px;
+	height: 265px;
+	background-image: url('images/optionswindow.png');	
+	display: inline-block;
+	margin-top: 450px;
+	margin-right: 15px;
+	margin-left: 364px;
+	position: absolute;
+}
+
+.windowtitle {
+	color: #fdca55;
+	font-weight: bold;
+	height: 30px;
+	position: absolute;
+}
+
+.windowtitle a {
+	color: #fdca55;
+}
+
+#optionsWindow table {
+	margin-left: 20px;
+	font-size: 85%;
+}
+
+#numMiragesNeeded {
+	width: 70px;
+	height: 20px;
+	top: 195px;
+	left: 171px;
+}
+
+#gearName {
+	width: 143px;
+	height: 20px;
+	top: 59px;
+	left: 99px;
+}
+
+#refineAidName {
+	width: 70px;
+	height: 20px;
+	top: 218px;
+	left: 171px;
+}
+
+#refineMessagesContainer {
+	position: absolute;
+	width: 241px;
+	height: 75px;
+	top: 294px;
+	left: 19px;
+	overflow: hidden;
+}
+
+#refineMessages {
+	width: 238px;
+	height: 75px;
+	overflow: auto;
+	font-size: 75%;
+}
+
+
+#chatMessages {
+	position: absolute;
+	width: 332px;
+	height: 216px;
+	top: 0;
+	left: 19px;
+	overflow: auto;
+	text-shadow: 1px 1px #000
+}
+
+#currentRefine {
+	width: 100px;
+	height: 20px;
+	top: 150px;
+	left: 100px;
+	color: #0FF;
+	display: none;
+}
+
+#refineAidDescription {
+	width: 138px;
+	height: 27px;
+	top: 244px;
+	left: 99px;
+}
+
+.label {
+	position: absolute;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 85%;
+	padding-left: 3px;
+	padding-top: 2px;
+}
+
+.resultlabel {
+	position: absolute;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 100%;
+	height: 31px;
+	padding: 6px 4px 2px 4px;
+	text-align: right;
+	color:#EEE;
+	background: #131d24;
+	border: #1f3847 1px solid;
+	box-shadow: 0 0 3px 1px rgba(31, 56, 71, 0.9);
+	border-radius: 5px;
+}
+
+
+.center {
+	text-align: center;
+}
+
+.small {
+	font-size: 75%;
+}
+
+.small > * {
+margin:3px;
+}
+
+.item {
+	width: 32px;
+	height: 32px;
+	position: absolute !important;
+	display: inline-block;
+}
+
+.success {
+	color: #0F0;
+	display: block;
+}
+
+.failure {
+	color: #FFA500;
+	display: block;
+}
+
+#chatMessages .chat {
+	display: block;
+}
+
+#chatMessages .chat img {
+	width: 32px;
+	height: 32px;
+	vertical-align:text-top;
+}
+.chatmessage {
+	color: #d8dcbe;
+}
+
+.icon {
+	height: 15px;
+	width: 40px;
+	display: inline-block;
+	margin: 3px;
+}
+.wcname {
+	color: #fddb8e;
+}
+
+.worldchat .icon {background-image: url('../images/wc.png');}
+.whisperchat .icon {background-image: url('../images/whisper.png');}
+.syschat .icon {background-image: url('../images/system.png');}
+.gchat .icon {background-image: url('../images/guild.png');}
+
+.whisperchat {color: #ec49a5;}
+.syschat {color: #ff321a;}
+.gchat, .gchat .wcname:after {color: #3ff;}
+.worldchat, .worldchat .wcname:after {color: #FD0;}
+
+.itemlink {white-space: nowrap;}
+.itemlink:before {content: "\3010";}
+.itemlink:after {content: "\3011";}
+.purple {color: #aa3bfc;}
+.white {color: #FFF;}
+.orange {color: #FF6000;}
+.yellow {color: #fddb5b;}
+
+.gchat .wcname:after, .worldchat .wcname:after {
+	content: "\FF1a";
+}
+
+.debug {
+	background: red;
+	opacity: 0.3;
+}
+
+.pwi-qtip {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #166;
+	background-color: rgba(20, 20, 20, 0.9);
+	white-space: nowrap;
+	color: #FFF;
+	max-width: 500px;
+	min-width: 100px;
+	font-size: 80% !important;
+	line-height: 140%;
+}
+
+.pwi-qtip .qtip-titlebar {
+	background-color: #2b3a44;
+}
+
+.pwi-qtip table {
+	font-size: 100%;
+	text-align: right !important;
+}
+.pwi-qtip table tr td {
+	text-align: left;
+}
+.pwi-qtip table tr td+td {
+	text-align: right;
+	color: #0FF;
+}
+
+.higher-zindex{
+    z-index: 10000000 !important;
+}
+
+.modal {
+	max-width: 420px;
+	-moz-box-shadow: 0 0 10px 3px rgba(0,0,0,.5);
+	-webkit-box-shadow: 0 0 10px 3px rgba(0,0,0,.5);
+	box-shadow: 0 0 10px 3px rgba(0,0,0,.5);
+	border-width: 3px;
+	font-family: Arial,Tahoma,Helvetica,sans-serif;
+}
+ 
+#qtip-loadPWCalc .qtip-content{
+	padding: 10px;
+}
+
+.textarea {
+	height: 20px;
+	border: 1px solid #23585c;
+	background: #131d24;
+	border-radius: 5px;
+	color: #EEE;
+	text-align: right;
+	padding: 2px; 
+	box-shadow: inset 0 0 1px 1px rgba(31, 56, 71, 0.9);
+}
+
+select {
+	height: 20px;
+	border: #23585c 1px solid;
+	background: #131D24;
+	border-radius: 5px;
+	color: #EEE;
+	padding: 0px 18px 0px 2px;
+	width: 110px;
+	display: inline-block;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: url('../images/downarrow.png') no-repeat right #131D24;
+	background-position: 92px 3px;
+	box-shadow: inset 0 0 1px 1px rgba(31, 56, 71, 0.9);
+	vertical-align: middle;
+}
+
+/*Browser specific font hacks :<*/
+@-moz-document url-prefix() { /*Firefox selectboxes suck*/
+    select {padding: 2px !important;}
+	#chatMessages {font-family: FZXiHei,Arial,Tahoma,Helvetica,sans-serif;}
+	.items-qtip {font-family: FZXiHei,Arial,Tahoma,Helvetica,sans-serif;}
+}
+.mac-os #chatMessages {font-family: FZXiHei,Arial,Tahoma,Helvetica,sans-serif;}
+.mac-os .items-qtip {font-family: FZXiHei,Arial,Tahoma,Helvetica,sans-serif;}
+
+
+.pwcalclink {
+	text-align: left;
+}
+
+#optionsWindow select {
+	margin-top: 3px;
+}
+
+.button {
+	vertical-align:top;
+	text-align: center;
+	border: 0px;
+	width: 48px;
+	height: 22px;
+	font-weight: normal;
+	background: transparent;
+	color: #FFFFCC;
+	background-image: url('../images/button_s.png');
+	text-shadow: 1px 0px #000, -1px 0px #000, 0px 1px #000, 0px -1px #000;
+	overflow: visible;
+	white-space:nowrap;
+	padding: 2px 0px;
+/*	font-family: FZXiHei, Arial, sans-serif;
+	font-size: 80%;*/
+}
+
+.button:hover {
+	background-image: url('../images/button_h.png');
+}
+
+.button:active {
+	opacity: 0.75;
+}
+
+.button[disabled]  {
+	color: #FFFFCC;
+	background-image: url('../images/button_s.png');
+	opacity: 0.5;
+}
+
+.resulticon {
+	opacity: 0.7;
+}
+
+.resulticon:hover {
+	opacity: 1;
+}
+
+.resultaid {
+	cursor: hand;
+}
+
+.smallicon {
+	width: 16px;
+	height: 16px;
+	vertical-align:middle;
+}
+
+.customScroll::-webkit-scrollbar { width: 13px;}
+.customScroll::-webkit-scrollbar-button { 
+	height: 15px;
+	width: 13px;
+	display: block;
+	background-image: url('../images/scrollbar.png');
+}
+.customScroll::-webkit-scrollbar-button:vertical:start:increment { display: none;; }
+.customScroll::-webkit-scrollbar-button:vertical:end:decrement { display: none; }
+.customScroll::-webkit-scrollbar-button:vertical:start:decrement { background-position: 0px -30px; }
+.customScroll::-webkit-scrollbar-button:vertical:end:increment { background-position: 0px -47px; }
+.customScroll::-webkit-scrollbar-button:vertical:decrement:active {  }
+.customScroll::-webkit-scrollbar-button:vertical:increment:active {  }
+.customScroll::-webkit-scrollbar-track { background-image: url('../images/scrollbar.png'); background-position: 0px -63px; background-repeat: no-repeat; }
+/*.customScroll::-webkit-scrollbar-thumb:vertical { background: url('../images/thumb.png') no-repeat bottom; height 28px;}  scroll bars suck*/
+.customScroll::-webkit-scrollbar-thumb:vertical { 
+	background: #082a37;
+	background: -webkit-linear-gradient(top, #25b3a2, #082a37 4%, #082a37 96%,#25b3a2);*/
+	background-image: rgba(255,0,0,0.5);
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 0 4px 1px #25b3a2;
+}
+
+</style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/jquery.qtip.js"></script>
+<!--script type="text/javascript" src="js/jquery.selectbox.js"></script-->
+
+<script type="text/javascript">
+var RefineMessages = {
+	"SUCCESS" : "<span class='success'>Refined successfully!</span>",
+	"RESET" : "<span class='failure'>Refining failed. Item level reset.</span>",
+	"DECREMENT" : "<span class='failure'>Refining failed. Item level reduced by 1.</span>",
+	"UNCHANGED" : "<span class='failure'>Refining failed. Item level unchanged.</span>"	
+};
+var RefineFail = {
+	"RESET" : 1,
+	"DECREMENT" : 2,
+	"DONT_CHANGE" : 3	
+};
+
+var settings = {
+	currentRefineAid : null,
+	currentGear : null,
+	gender : "",
+	items: {}
+}
+
+function RefineAid(name, description, id, failType, chances, tooltipContent, nameColor, price){
+	this.name = name;
+	this.description = description;
+	this.salePrice = price; //The price something can be bought for (user entered, -1=novalue)
+	this.manufacturePrice = null; //The price something can be manufactured (automatic)
+	this.price = price; //The price used for cost (minimum of above)
+	this.defaultPrice = price;  //The default sale Price
+	this.itemId = id;
+	this.failType = failType;
+	this.chances = chances;
+	this.tooltipContent = tooltipContent;
+	this.nameColor = nameColor;
+	this.count = 0;
+	this.successes = 0;
+	this.failures = 0;
+	this.manufacture = null;
+	settings.items[id] = this;
+}
+
+function DragonOrb(name, maxLev, manufacture, price){
+	chances = new Array(12);
+	for (var i = 0; i < 12; i++) {
+		chances[i] = i < maxLev ? 1 : 0;
+	}
+	var tooltipContent = "Price 100<br><br><span style='color: #ffcb4a'>100% chance to successfully increase an item's refinement level by 1.<br>"
+	if (maxLev < 12) tooltipContent += "Can be used to make higher rank Dragon Orbs at a Jewelcraftsman.</span><br>";
+	tooltipContent += "<span style='color: #0ff'>Maximum refinement level: +"+maxLev+"</span>";
+	// finish constructing...
+	this.constructor = RefineAid;
+	this.constructor("Dragon Orb " + name, "Ref. 1-"+maxLev+" 100%", 15037 + maxLev, RefineFail.RESET, chances, tooltipContent, "#FFF", price);
+	this.manufacture = manufacture;
+	this.manufacturePrice = 0;
+}
+
+function RefineGear(name, id, numMirages, nameColor) {
+	this.name = name;
+	this.nameColor = "#FF6000";
+	if (nameColor) {
+		this.nameColor = nameColor;
+	}
+	this.tooltipContent = "<span style='color:"+this.nameColor+"'>" +name+"%%REFINE%%</span>";
+	this.itemId = id;
+	this.initialRefineLevel = 0
+	this.refineLevel = 0;
+	this.refineCount = 0;
+	this.refineCounts = new Array(13);
+	for (var i = 0; i<=12; i++) {
+		this.refineCounts[i] = 0;
+	}
+	this.bestRefine = 0;
+	this.numMirages = numMirages;
+	settings.items[id] = this;
+}
+
+
+var refineTypes = [
+	new RefineAid("Mirage Celestone", "", 11208, RefineFail.RESET, [
+		0.5,
+		0.3,
+		0.3,
+		0.3,
+		0.3,
+		0.3,
+		0.3,
+		0.3,
+		0.25,
+		0.2,
+		0.12,
+		0.05
+		],'Price 10,000<br><br><span style="color:#ffcb4a">The most powerful medium of Chi in Perfect World.<br>Can be used to refine your equipment at any Elder<br>or trade for Dice Tickets in the Cube of Fate. </span>', "#AA32FF", 10000),
+	new RefineAid("Tienkang Stone", "Ref. rate up", 12750, RefineFail.RESET, [
+		0.65,
+		0.45,
+		0.45,
+		0.45,
+		0.45,
+		0.45,
+		0.45,
+		0.45,
+		0.40,
+		0.35,
+		0.27,
+		0.20
+		],'Price 100<br><br><span style="color:#ffcb4a">Useful in refining.<br></span><span style="color:#00ffff">Greatly increases refining chance.</span>', "#FFF", 100000),
+	new RefineAid("Tisha Stone", "Safer refining", 12751, RefineFail.DECREMENT, [
+		0.535,
+		0.335,
+		0.335,
+		0.335,
+		0.335,
+		0.335,
+		0.335,
+		0.335,
+		0.285,
+		0.235,
+		0.155,
+		0.085
+		],'Price 100<br><br><span style="color:#ffcb4a">Useful in refining.<br></span><span style="color:#00ffff">Increases refining chance.<br>Refining level decreases by 1 if refining fails.</span>', "#FFF", 100000),
+	new RefineAid("Chienkun Stone", "Safe, but...", 12980, RefineFail.DONT_CHANGE, [
+		1,
+		0.25,
+		0.1,
+		0.04,
+		1/60,
+		1/130,
+		1/215,
+		1/405,
+		1/750,
+		1/1370,
+		1/2525,
+		1/4645
+		],'Price 100<br><br><span style="color:#ffcb4a">Used for Refining equipment and Refinement Transfers.<br></span><span style="color:#00ffff">Refining Levels will not decrease if the Refining fails.<br>Success rates when used as a Refining Aid item:<br>	Refining Level 0:	100%<br>	Refining Level 1:	25%<br>	Refining Level 2:	10%<br>	Refining Level 3:	4%<br>	Refining Level 4:	1.67%<br>	Refining Level 5:	0.77%<br>	Refining Level 6:	0.47%<br>	Refining Level 7:	0.25%<br>	Refining Level 8:	0.13%<br>	Refining Level 9:	0.07%<br>	Refining Level 10:	0.04%<br>	Refining Level 11:	0.02%</span>', "#FFF", 675000),
+	new DragonOrb("(1 Star)", 1, null, 95000),
+	new DragonOrb("(2 Star)", 2, [1,1,1,1], -1),
+	new DragonOrb("(3 Star)", 3, [1,1,2,2], -1),
+	new DragonOrb("(4 Star)", 4, [1,2,3,3], -1),
+	new DragonOrb("(5 Star)", 5, [3,4,4], -1),
+	new DragonOrb("(6 Star)", 6, [3,5,5], -1),
+	new DragonOrb("(7 Star)", 7, [4,5,6], -1),
+	new DragonOrb("(8 Star)", 8, [5,6,7], -1),
+	new DragonOrb("(9 Star)", 9, [6,7,8], -1),
+	new DragonOrb("Ocean", 10, [7,8,9], 40000000),
+	new DragonOrb("Mirage", 11, [8,9,10], -1),
+	new DragonOrb("Flame", 12, [9,10,11], -1)
+];
+
+var refineGears = [
+	new RefineGear("&#9733;&#9733;&#9733;Firmament", 34787, 5),
+	new RefineGear("&#9733;&#9733;Traceless Dimension", 25680, 2),
+	new RefineGear("&#9733;&#9733;Glaive of Nirvana", 25678, 2),
+	new RefineGear("&#9733;&#9733;Puzzle Cube Badge&#183;Broken", 23614, 1),
+	new RefineGear("&#9733;Sign of Antiquity: Chaos", 16034, 1, "#FFDC50"),
+	new RefineGear("&#9733;&#9733;Sanctity Robe", 28597, 1),
+	new RefineGear("&#9733;&#9733;Dragon Rise Robe", 25697, 1),
+	new RefineGear("&#9733;&#9733;Cascade Glow Helm", 25685, 1),
+	new RefineGear("&#9733;&#9733;Myriad Blossom Greaves", 25691, 1),
+	new RefineGear("&#9733;Ocean Supreme Armor", 26731, 1, "#FFDC50")
+];
+
+var randomMessages = [
+	"!@S>TM69! 750k/run lv60-80 Gold or $back FREE mirage PM MEEEEEEEEEEEEEEEE %%normal-44%%",
+	"!@anyone doing AEU?",
+	"!@BH Abba 5 Spots! FREE WINE! NO SINS! PM Me Class!",
+	"!@need Cleric +1 for bh Delta 2! PM class!",
+	"!@S>[[pGeneral Summer's Token]]8m each! PM me! %%normal-46%%",
+	"!@Umm.. am I the only one on WC today?!  WTF!%%normal-6%%",
+	"!@Giving away [[wChronobike Key]] FREE! Dropping outside West Gate.",
+	"!@WTS[[yDiamond of Dragon]]pm offers!",
+	"!@Anyone had good luck with refining today?  PM me!",
+	"!@Does anyone know what BH it is today?",
+	"!@Paying people 50k to help open TT! %%tiger-4%% pm me!",
+	"!@WTB AEU SKILL WHISPER SHOT! PAYING WELL!",
+	"!@SELL FCC MOBS+HEADS 300k lv 87-98 2 spots %%normal-39%%",
+	"!@UGGH! BH Lunar again! %%normal-31%%%%normal-31%%",
+	"!@PC> [[o&#9733;&#9733;Traceless Dimension]]?",
+	"!@WOOO! Thanks to my BH SEAT squad![[yExcitement Card]]%%tiger-25%%%%tiger-25%%",
+	"!@Anyone need [[wWraithslayer Missive]]? Need Shroud +5. PM Me order/class!",
+	"!@Quilue is giving away 100m to the 10th PM who PMs her!  PM Quilue!!!",
+	"!^Duke Shouts: Let it be known that <span class='wcname'>Asterelle</span> has recently acquired Giant Bunny Pet Egg.",
+	"//whispers: any luck yet?",
+	"!~sign up for TW!",
+	"!@OMG!! sTommys is BOTTING @ 148,352!!! GM needs to come BAN HIM!!%%monkey-7%%"
+];
+
+function doWorldChat() {
+	//http://ecatomb.net/emote/tiger-25.gif
+	var message = randomMessages[Math.floor(Math.random()*randomMessages.length)];
+	var prefix = message.substring(0,2);
+	message = message.substring(2);
+	message = message.replace(/%%([^%]*)%%/g,"<img src='../images/icons/emotes/$1.gif'>")
+	message = message.replace(/\[\[p/g, "<span class='itemlink purple'>"
+		).replace(/\[\[o/g, "<span class='itemlink orange'>"
+		).replace(/\[\[w/g, "<span class='itemlink white'>"
+		).replace(/\[\[y/g, "<span class='itemlink yellow'>"
+		).replace(/\]\]/g, "</span>");
+	if (prefix == "!^") 
+		message = "<span class='syschat chat'><span class='icon'>&nbsp;</span>"+message+"</span>";
+	else if (prefix == "//")	
+		message = "<span class='whisperchat chat'><span class='icon'>&nbsp;</span><span class='wcname'>Asterelle</span>&nbsp;"+message+"</span>";
+	else if (prefix == "!~")
+		message = "<span class='gchat chat'><span class='icon'>&nbsp;</span><span class='wcname'>Asterelle</span>" + message +"</span>";
+	else
+		message = "<span class='worldchat chat'><span class='icon'>&nbsp;</span><span class='wcname'>Asterelle</span>" + message +"</span>";
+	$("#chatMessages").append(message);
+	trimMessages($("#chatMessages"), 200);
+	$("#chatMessages").scrollTop(0);
+	$("#chatMessages").scrollTop($("#chatMessages").children().last().offset().top);
+	setTimeout(doWorldChat, 1000 + Math.floor(Math.random()*30000));
+}
+
+function trimMessages(messages, limit) {
+	var numToRemove = messages.children().size() - limit;
+	if(numToRemove > 0) {
+		messages.children("span:lt("+numToRemove+")").remove();
+	}
+}
+
+function refineMessageLog(origRefine, newRefine) {
+	if (newRefine > origRefine) {
+		$("#refineMessages").append(RefineMessages.SUCCESS);
+		settings.currentRefineAid.successes++;
+	} else{
+		settings.currentRefineAid.failures++;
+	 	if (newRefine == 0 && origRefine > 0) {
+			$("#refineMessages").append(RefineMessages.RESET);
+		} else if (newRefine == origRefine) {
+			$("#refineMessages").append(RefineMessages.UNCHANGED);
+		} else {
+			$("#refineMessages").append(RefineMessages.DECREMENT);
+		}
+	}
+	trimMessages($("#refineMessages"), 200);
+	$("#refineMessages").scrollTop(0);
+	$("#refineMessages").scrollTop($("#refineMessages").children().last().offset().top);
+	$("#currentRefine").text("Refine = +"+newRefine);
+	
+}
+
+function refine() {
+	var refineAid = settings.currentRefineAid;
+	var refineGear = settings.currentGear;
+	if (refineAid == null || refineGear == null) {
+		return;
+	}
+	var originalRefineLevel = refineGear.refineLevel;
+	var successChance = refineAid.chances[Math.min(originalRefineLevel, 11)];
+	consume(refineAid, refineGear.numMirages);
+	if (Math.random() < successChance) {
+		//Congrats!
+		refineGear.refineLevel = Math.min(12, refineGear.refineLevel+1);
+	} else {
+		if (refineAid.failType == RefineFail.RESET)
+			refineGear.refineLevel = 0;
+		else if (refineAid.failType == RefineFail.DECREMENT) 
+			refineGear.refineLevel = Math.max(0, refineGear.refineLevel - 1);
+	}
+	refineGear.refineCount++;
+	refineGear.refineCounts[refineGear.refineLevel]++;
+	refineGear.bestRefine = Math.max(refineGear.bestRefine, refineGear.refineLevel);
+	refineMessageLog(originalRefineLevel, refineGear.refineLevel);
+	updateResults();
+}
+
+function updatePrices() {
+	//Updates prices on manufacturing aids
+	updateDragonOrbManufacturePrices();
+	//Don't rewrite the content so we won't lose pending events on the buttons
+	for (var i in refineTypes) {
+		var item = refineTypes[i];
+		var salePrice = item.salePrice == -1 ? "" : item.salePrice;
+		$(".priceDialog"+item.itemId+" .pricetext").attr('value', salePrice);
+		if (item.manufacture != null) {
+			$(".priceDialog"+item.itemId+" .manufacturePrice").html(formatMoney(item.manufacturePrice));
+		}
+	}
+	setCookie();
+}
+
+function updateDragonOrbManufacturePrices(){
+	var dragonOrbs = refineTypes.slice(4);
+	// For every dragon orb calc the manufacture price and compare with the sale price
+	for(var i = 1; i < dragonOrbs.length; i++) {
+		dragonOrbs[i].manufacturePrice = 0;
+		var recipe = dragonOrbs[i].manufacture;
+		for (var j in recipe) {
+			dragonOrbs[i].manufacturePrice += dragonOrbs[recipe[j]-1].price;
+		}
+		dragonOrbs[i].price = dragonOrbs[i].salePrice != -1 ? Math.min(dragonOrbs[i].salePrice, dragonOrbs[i].manufacturePrice) : dragonOrbs[i].manufacturePrice;
+	}
+	updateResults(true);
+}
+
+function updatePrice(refineAidId) {
+	// done when user enters a new price for an aid
+	var refineAid = settings.items[refineAidId];
+	var price = $('.priceDialog'+refineAidId+" .pricetext").attr('value');
+	refineAid.salePrice = price.length > 0 ? parseInt(price) : refineAid.manufacture != null ? -1 : 0;
+	refineAid.price = refineAid.salePrice;
+	updatePrices();
+}
+
+function defaultPrice(refineAidId) {
+	var refineAid = settings.items[refineAidId];
+	refineAid.salePrice = refineAid.defaultPrice;
+	refineAid.price = refineAid.salePrice;
+	updatePrices();
+}
+
+function setupResults() {
+	updateDragonOrbManufacturePrices();
+	for(var i = 0; i < refineTypes.length; i++) {
+		var id = refineTypes[i].itemId;
+		var style = "top: "+(82+34*i)+ "px; left: 153px; background-image: url("+getItemImgUrl(id)+");";
+		$("#resultsWindow").append("<div id='resulticon"+id+"'class='item resulticon resultaid' style='"+style+"'></div>");
+		$("#resultsWindow").append("<div id='count"+id+"' class='resultlabel' style='top:"+(83+34*i)+ "px; left: 190px; width: 55px; height: 20px'></div>")
+		// The result aid icons have 2 qtips, one on hover and one when you click on them.  
+		// I found a bug with QTIP api not being able to give the price dialog a unique ID 
+		// after I disconnect it, delete it, and recreate it.  
+		// Instead I use a unique classname as a selector		
+		if($(".priceDialog"+id).length > 0) {
+			$(".priceDialog"+id).qtip('api').destroy();
+			$(".priceDialog"+id).remove();
+		}
+		$("#resulticon"+id).qtip(
+		{
+			id: ("priceDialog"+id),
+			content: {
+				text: getPriceDialogContentFor(refineTypes[i]),
+				title: {
+					text: 'Adjust Price',
+					button: 'Close'
+				}
+			},
+			position: {
+				my: 'top center',
+				at: 'bottom center',
+				container : $('#resultsWindow'),
+				viewport: $(window),
+				adjust: {
+					method: 'shift none'
+				}
+			},
+			show: {
+				event: 'click',
+				solo: true,
+				modal: {
+					on: false,
+					blur: true,
+					escape: true // On by default
+				}
+			},
+			prerender: true,
+			hide: false,
+			style: {
+				classes: "pwi-qtip qtip-rounded modal priceDialog"+id,
+				tip: true
+			}
+		}).removeData('qtip').qtip({  // unnattach the price dialog so it wont be overwritten by the other tooltip
+//		}).qtip({
+			content: getResultsAidTooltipContent(refineTypes[i]),
+			position	 : {
+				container : $('#resultsWindow'),
+				viewport: $(window),
+				adjust: {
+					method: 'shift none'
+				}
+			},
+			style: {
+				classes: "pwi-qtip qtip-rounded",
+				tip: false
+			}
+		});
+	}
+	for(i = 0; i < refineGears.length; i++) {
+		var id = refineGears[i].itemId;
+		var style = "top: "+(82+34*i)+ "px; left: 16px; background-image: url("+getItemImgUrl(id)+");";
+		$("#resultsWindow").append("<div id='resulticon"+id+"' class='item resulticon' style='"+style+"'></div>");
+		$("#resultsWindow").append("<div id='oref"+id+"' class='resultlabel center' style='top:"+(83+34*i)+ "px; left: 53px; width: 24px; height: 20px'></div>");
+		$("#resultsWindow").append("<div id='cref"+id+"' class='resultlabel center' style='top:"+(83+34*i)+ "px; left: 105px; width: 24px; height: 20px'></div>");
+		$("#resultsWindow").append("<div class='windowtitle arrow' style='top:"+(90+34*i)+ "px; left: 88px; width: 24px; height: 20px'>&#9658;</div>");
+		$("#resulticon"+id).qtip({
+			content: getResultsGearTooltipContent(refineGears[i]),
+			position	 : {
+				type  : 'absolute',
+				container : $('#resultsWindow'),
+				viewport: $(window),
+				adjust: {
+					method: 'shift none'
+				}
+			},
+			style: {
+				classes: "pwi-qtip qtip-rounded",
+				tip: false
+			}
+		});
+	}
+	updatePrices();
+	waitForDialogRenderToAddMoreTooltips();
+}
+
+function waitForDialogRenderToAddMoreTooltips() {
+	setTimeout(function(){
+		$(".smallicon").each(function() {
+			item = settings.items[$(this).attr("name")];
+			$(this).qtip({
+				content: getTooltipContent(item, false),
+				position	 : {
+					type  : 'absolute',
+					my: 'top right',
+					at: 'bottom left',
+					container : $('#resultsWindow'),
+					viewport: $(window),
+					adjust: {
+						method: 'shift none'
+					}
+				},
+				style: {
+					classes: "pwi-qtip items-qtip qtip-rounded",
+					tip: false
+				}
+			});
+		});
+	}, 100);
+}
+
+function addCommas(nStr) {
+	nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
+}
+
+function formatMoney(value) {
+	var money = addCommas(value);
+	var color = "#FFF";
+	if (value >= 1000000)
+		color = "#FC5";
+	if (value >= 10000000)
+		color = "#D51";
+	if (value >= 100000000)
+		color = "#71fa56";
+	return "<span style='color:"+color+"'>"+money+"</span>";
+}
+
+function getPriceDialogContentFor(refineAid) {
+	var salePrice = refineAid.salePrice == -1 ? "" : refineAid.salePrice;
+	
+	var content = "<table><tr><td colspan=2 style='color:" + refineAid.nameColor + "; font-weight: bold'>\
+	<img class='smallicon' style='width: 24px; height: 24px;' name='"+refineAid.itemId+"' src='"+getItemImgUrl(refineAid.itemId)+"'/>&nbsp;"+ refineAid.name+"</td></tr>";
+	if (refineAid.manufacture != null) {
+		content += "<tr><td>Ingredients:</td><td>";
+		for (var i in refineAid.manufacture) {
+			var ingredient = refineTypes[refineAid.manufacture[i] + 3];
+			content += "&nbsp;<img class='smallicon' name='"+ingredient.itemId+"' src='"+getItemImgUrl(ingredient.itemId)+"'/>";			
+		}
+		content += "</td></tr>"
+		content += "<tr><td>Manufacture Cost:</td>\
+		<td><span class='manufacturePrice'>"+formatMoney(refineAid.manufacturePrice)+"</span></td></tr>";
+	}
+	content += "<tr><td>Sale Price:</td>\
+	<td><input type=text class='textarea pricetext' style='text-align: right' onchange='updatePrice("+refineAid.itemId+");' value='"+salePrice+"' size=15></input></td></tr>";
+	if (refineAid.manufacture != null) {
+		content += "<tr><td colspan=2  style='color: cyan; text-align: left'>Dragon Orbs use the cheaper of the <br>sale price and the manufacturing cost.</td></tr>";
+	}
+	content += "</table>"; 
+	content += "<div style='width: 100%; text-align: center'><input type=button class='button defaultPrice' value='Default' onClick='defaultPrice("+refineAid.itemId+");'><input type=button class='button ok' value='OK' onclick='$(\".priceDialog"+refineAid.itemId+"\").qtip(\"hide\");'></div> ";
+	return content;
+}
+
+function getResultsAidTooltipContent(item) {
+	var content = "<span style='color:" + item.nameColor + "'>" + item.name+"</span>";
+	content += "<br><table><tr><td>Used:</td><td>"+addCommas(item.count) +"</td></tr>";
+	content += "<tr><td>Price:</td><td >" + formatMoney(item.price) + "</td></tr>"
+	/*if (item.manufacture != null) {
+		content += "<tr><td>Recipe:</td><td>";
+		for (var i in item.manufacture) {
+			var ingredient = refineTypes[item.manufacture[i] + 3];
+			content += "&nbsp;<img class='smallicon' name='"+ingredient.itemId+"' src='"+getItemImgUrl(ingredient.itemId)+"'/>";			
+		}
+		content += "</td></tr>"
+	}*/
+	if (item.manufacturePrice != null && item.manufacturePrice > item.price){
+		content += "<tr><td>Manufacture:</td><td >" + formatMoney(item.manufacturePrice) + "</td></tr>"
+	}
+	content += "<tr><td>Cost:</td><td>" + formatMoney(item.price * item.count) + "</td></tr>";
+	content += "<tr><td>Success:</td><td>" + addCommas(item.successes) + "</td></tr>";
+	content += "<tr><td>Failure:</td><td>" + addCommas(item.failures) + "</td></tr>";
+	if ((item.successes + item.failures) > 0) {
+		content += "<tr><td>Percent:</td><td>" + (100*item.successes/(item.successes + item.failures)).toPrecision(3) + "%</td></tr>"
+	}
+	content += "</table>";
+	return content;
+}
+
+function getResultsGearTooltipContent(item) {
+	var content = "<span style='color:" + item.nameColor + "'>" + item.name+"</span><br>";
+	content += "<table><tr><td>Refine Count:</td><td>"+addCommas(item.refineCount) +"</td></tr>";
+	content += "<tr><td>Best Refine:</td><td>+" + item.bestRefine + "</td></tr>";
+	content += "<tr><td>Initial Refine:</td><td>+" + item.initialRefineLevel + "</td></tr>";
+	content += "<tr><td>Current Refine:</td><td>+" + item.refineLevel + "</td></tr>"
+	for (var i = 0; i<=12; i++) {
+		if (item.refineCounts[i] > 0) {
+			content += "<tr><td>+"+i+" Count:</td><td>"+ addCommas(item.refineCounts[i]) + "</td></tr>";
+		}
+	}
+	content += "</table>";
+	return content;
+}
+
+function updateResults(doFullUpdate) {
+	//doFullUpdate = false means we only update tooltip+result label for current aid + gear + mirages + total cost field
+	var totalCost = 0;
+	for(var i in refineTypes) {
+		var item = refineTypes[i];
+		totalCost += item.count * item.price;
+		if (doFullUpdate || settings.currentRefineAid == refineTypes[i] || i == 0) {
+			$("#resulticon" + item.itemId).qtip('option', 'content.text', getResultsAidTooltipContent(item));
+			$("#count" + item.itemId).html(addCommas(item.count));
+		}
+		//only do this when we update the price
+		//$("#qtip-priceDialog" + item.itemId).qtip('option', 'content.text', getPriceDialogContentFor(item));
+	}
+	$("#totalcost").html(formatMoney(totalCost));
+	
+	for(i in refineGears) {
+		var refineGear = refineGears[i];
+		if (doFullUpdate || refineGear == settings.currentGear) {
+			var id = refineGear.itemId;
+			$("#oref" + id).html("+"+refineGear.initialRefineLevel)
+			var color = "#FFF";
+			if (refineGear.refineLevel > refineGear.initialRefineLevel)
+				color = "#71fa56"
+			else if (refineGear.refineLevel < refineGear.initialRefineLevel)
+				color = "#D51";
+			$("#cref" + id).html("<span style='color:"+color+";'>+"+refineGear.refineLevel+"</span>");
+			$("#resulticon" + id).qtip('option', 'content.text', getResultsGearTooltipContent(refineGear));
+			$("#item" + id).qtip('option', 'content.text', getTooltipContent(refineGear, true));
+		}
+	}
+}
+
+function clearResults() {
+	for(var i in refineTypes) {
+		var item = refineTypes[i];
+		item.count = 0;
+		item.successes = 0;
+		item.failures = 0;
+	}
+	for(i in refineGears) {
+		var refineGear = refineGears[i];
+		refineGear.initialRefineLevel = refineGear.refineLevel;
+		refineGear.bestRefine = refineGear.refineLevel;
+		refineGear.refineCount = 0;
+		for (var j=0; j<=12; j++)
+			refineGear.refineCounts[j] = 0;
+	}
+	updateResults(true);
+}
+
+function resetResults() {
+	for(var i in refineGears) {
+		refineGears[i].refineLevel = refineGears[i].initialRefineLevel;
+	}
+	clearResults(true);
+	clearMessages();
+}
+
+function clearMessages() {
+	$("#refineMessages").html("");
+}
+
+function addChatMessage(message) {
+	$("#chatMessages").append("<span class='chatmessage chat'>"+message+"</span>");
+	trimMessages($("#chatMessages"), 200);
+	$("#chatMessages").scrollTop(0);
+	$("#chatMessages").scrollTop($("#chatMessages").children().last().offset().top);
+}
+
+function consume(refineAid, numMirages) {
+	if (refineAid != refineTypes[0]) {
+		refineAid.count++;
+		addChatMessage("1 " + refineAid.name + " disappeared");
+	}
+	refineTypes[0].count += numMirages;
+	addChatMessage(numMirages + " " + refineTypes[0].name + " disappeared");
+}
+
+var itemPos = 0;
+
+function getItemImgUrl(itemId) {
+	// strip off the letters added to item gear ids used to tell the rings apart
+	var id = (""+itemId).replace(/[a-z]/,"")
+	return "../images/icons/"+settings.gender+"/"+id+".gif";
+//	return "http://www.pwdatabase.com/images/icons/generalf/"+id+".gif";
+}
+
+function makeItem(className, item) {
+	var itemEl = $("<img id='item" + item.itemId +"' class='item' src='"+getItemImgUrl(item.itemId)+"'></img>");
+	itemEl.addClass(className).css({
+		top: (280+35*Math.floor(itemPos/8))+ "px",
+		left: (23+33*(itemPos%8)) + "px"
+	}).draggable({
+		cursor: "hand",
+		opacity: 0.75,
+		revert: true,
+		revertDuration: 0,
+		zIndex: 1000,
+		start: function(event, ui) {
+			$(this).qtip('hide');
+			$(this).qtip('api').disable(true);
+		},
+		stop: function(event, ui) {
+			$(this).qtip('api').disable(false);
+		}
+	}).click( function(){
+		if (className == "aid") {
+			setCurrentRefineAid(item.itemId);
+		} else {
+			setCurrentGear(item.itemId);
+		}
+	}).appendTo($("#inventoryWindow"));
+		
+	itemPos++;
+	if (itemPos == 4) { 
+		itemPos = 8;
+	} else if (itemPos == 20) {
+		itemPos = 32 - Math.max(refineGears.length, 8);
+	}
+}
+
+function setCurrentRefineAid(refineAidId) {
+	if (refineAidId == null)
+		refineAidId = refineTypes[0].itemId;
+	settings.currentRefineAid = settings.items[refineAidId];
+	if (refineAidId == refineTypes[0].itemId){
+		$('#refineAidName').text('');
+		$('#refineAidDescription').text('');
+		$('#refineAid').css({"background-image": ""});
+	} else {
+		$('#refineAidName').text(settings.currentRefineAid.name);
+		$('#refineAidDescription').text(settings.currentRefineAid.description);
+		$('#refineAid').css({"background-image": "url("+getItemImgUrl(settings.currentRefineAid.itemId)+")"});
+	}
+}
+
+function setCurrentGear(gearId) {
+	if (gearId == null) {
+		settings.currentGear = null;
+		$('#gearName').html('');
+		$('#numMiragesNeeded').text('');
+		$('#refineGear').css({"background-image": ''});
+		$("#currentRefine").text("");
+		$("#refineButton").attr("disabled", true);
+		return;
+	}
+	settings.currentGear = settings.items[gearId];
+	if (settings.currentGear.tooltipContent.indexOf("Unable to be refined") > -1) {
+		addChatMessage("You can't refine this item.");
+		setCurrentGear(null);
+		return;
+	}
+	$('#gearName').html(settings.currentGear.name);
+	$('#numMiragesNeeded').text(settings.currentGear.numMirages);
+	$("#currentRefine").text("Refine = +" + settings.currentGear.refineLevel);
+	$('#refineGear').css({"background-image": "url("+getItemImgUrl(settings.currentGear.itemId)+")"});
+	$("#refineButton").attr("disabled", false);
+}
+
+function makeDropTargets() {
+	$("#refineWindow").append("<div id='refineAid' class='item'></div>").append("<div id='refineGear' class='item'></div>");
+	$("#refineAid").css({
+		top: 240+"px",
+		left: 60+"px"
+	}).droppable({
+		drop:  function( event, ui ) {
+			if (!ui.draggable.hasClass('aid')) {
+				return;
+			}
+			setCurrentRefineAid(ui.draggable.attr("id").substring(4));
+		}
+	}).click(function () {
+			setCurrentRefineAid(null);
+	});
+	
+	$("#refineGear").css({
+		top: 50+"px",
+		left: 60+"px"
+	}).droppable({
+		drop:  function( event, ui ) {
+			if (!ui.draggable.hasClass('gear')) {
+				return;
+			}
+			setCurrentGear(ui.draggable.attr("id").substring(4));
+		}
+	}).click(function () {
+		setCurrentGear(null);
+	});
+	
+}
+
+function setGender(gender){
+	if(gender == settings.gender)
+		return;
+	$("#inventoryWindow").css("background-image", "url(images/inventorywindow_"+gender+".png)");
+	settings.gender = gender;
+	$("#inventoryWindow .item").remove();
+	$("#resultsWindow .item").remove();
+	$("#resultsWindow .resultlabel").remove();
+	$("#resultsWindow .arrow").remove();
+	setupAllItems();
+};
+
+function makeGenderButtons() {
+	var femaleButton = $("<div/>").css({
+		position : "absolute",
+		height: "22px",
+		width: "88px",
+		top: "42px",
+		left: "20px",
+		cursor: "hand"
+	}).click(function(){
+		setGender('f');
+	}).appendTo($("#inventoryWindow"));
+		
+	var maleButton = femaleButton.clone(false).css({
+		left: "115px"
+	}).click(function(){
+		setGender('m');
+	}).appendTo($("#inventoryWindow"));
+}
+
+function getTooltipContent(item, isGear) {
+	var tiptitle = item.name;
+	var tipcontent = "";
+	if (isGear) {
+		var content = item.tooltipContent;
+		var refineString = item.refineLevel > 0 ? " +"+item.refineLevel : "";
+		content = content.replace("%%REFINE%%", refineString);
+		return content;
+	} else {
+		return "<span style='color:" + item.nameColor + "'>" + item.name+"</span><br>" + item.tooltipContent;
+	}
+}
+
+function makeTooltips() {
+	$("#inventoryWindow .item").each(function() {
+		item = settings.items[$(this).attr("id").substring(4)];
+		$(this).qtip({
+			content: getTooltipContent(item, $(this).hasClass("gear")),
+			position	 : {
+				type  : 'absolute',
+				container : $('#inventoryWindow'),
+				viewport: $(window),
+				adjust: {
+					method: 'shift none'
+				}
+			},
+			style: {
+				classes: "pwi-qtip items-qtip qtip-rounded",
+				tip: false
+			}
+		})
+	});
+}
+
+
+function loadItemFromHash(itemId, tooltip) {
+	$("#inventoryWindow .item").remove();
+	$("#resultsWindow .item").remove();
+	$("#resultsWindow .resultlabel").remove();
+	$("#resultsWindow .arrow").remove();
+	itemPos = 0;
+	refineGears = [];
+	tooltip = tooltip.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+	tooltip = tooltip.replace(/\[img\].*?\[\/img\]/gi, '');
+	tooltip = tooltip.replace(/\[url(=.*?)?\](.*?)\[\/url\]/gi, '$2');
+	tooltip = tooltip.replace(/\[color=#([a-fA-F0-9]+)\]/gi, '<font style="color: #$1">');
+	tooltip = tooltip.replace(/\[\/color\]/gi, '</font>');
+	tooltip = tooltip.replace(/\n/g, '<br>\n')
+	
+	var name = tooltip.substring(0, tooltip.indexOf("<br>"));
+	var insertPoint = name.indexOf("</font>");
+	if (insertPoint == -1)
+		insertPoint = name.length;
+	var nameMacro = name.substring(0, insertPoint) + "%%REFINE%%" + name.substring(insertPoint);
+	var nameColor = "#FFF";
+	var re = /(#[0-9A-Fa-f]*)/;
+	var match = re.exec(name);
+	if (match != null) {
+		nameColor = match[1];
+	}
+	var numMirages = 1;
+	if (/Weapons/.exec(tooltip) != null) {
+		numMirages = 2
+		if (itemId >= 34760 && itemId <= 34791) { 
+			//r9 3rd cast & g16 nirv weapons = 5 mirages
+			numMirages = 5; 
+		}
+	}
+	
+	name = name.replace(/\([1-4].*/,"");
+	
+	var newGear = new RefineGear(name, itemId, numMirages);
+	newGear.nameColor = nameColor;
+	newGear.tooltipContent = nameMacro + tooltip.substring(tooltip.indexOf("<br>"))
+	newGear.name = newGear.name.replace(/<font[^>]*>/, "").replace("</font>", "");
+	newGear.refineLevel = 0
+	newGear.initialRefineLevel = newGear.refineLevel;
+	newGear.bestRefine = newGear.refineLevel;
+	refineGears.push(newGear);	
+	setupAllItems();
+}
+
+function loadItemsFromPWCalcData(equips) {
+	$("#inventoryWindow .item").remove();
+	$("#resultsWindow .item").remove();
+	$("#resultsWindow .resultlabel").remove();
+	$("#resultsWindow .arrow").remove();
+	itemPos = 0;
+	refineGears = [];
+	// 11 gears = 6 armor + 4 ornament + weapon
+	for (var i = 0; i < 11; i++) {
+		if (equips[i].id.length > 0) {
+			var numMirages = 1;
+			if (i == 10) { //weapon
+				numMirages = 2; 
+				if (equips[i].id >= 34760 && equips[i].id <= 34791) { 
+					//r9 3rd cast & g16 nirv weapons = 5 mirages
+					numMirages = 5; 
+				}
+			}
+			
+			var name = equips[i].text.substring(0, equips[i].text.indexOf("<br>"));
+			name = name.replace(/\+[0-9]+/,"");
+			var insertPoint = name.indexOf("</font>");
+			if (insertPoint == -1)
+				insertPoint = name.length;
+			var nameMacro = name.substring(0, insertPoint) + "%%REFINE%%" + name.substring(insertPoint);
+			// add a unique letter to the id since the two rings can have same item id
+			var id = equips[i].id  + String.fromCharCode('a'.charCodeAt()+i);
+			
+			var nameColor = "#FFF";
+			var re = /(#[0-9A-Fa-f]*)/;
+			var match = re.exec(name);
+			if (match != null) {
+				nameColor = match[1];
+			}
+			//strip off name color and socket info like "(4)"
+			name = name.replace(/<font[^>]*>/, "").replace("</font>", "").replace(/\([0-4]\)/,"");
+			var newGear = new RefineGear(name, id, numMirages);
+			newGear.nameColor = nameColor;
+			newGear.tooltipContent = nameMacro +
+				equips[i].text.substring(equips[i].text.indexOf("<br>"));
+			// Some fields are colored red from pwcalc but we don't really have a character
+			newGear.tooltipContent = newGear.tooltipContent.replace(/color="red"/g, 'color=#FFF')
+			newGear.name = newGear.name.replace(/<font[^>]*>/, "").replace("</font>", "");
+			newGear.refineLevel = parseInt(equips[i].improv.aa);
+			newGear.initialRefineLevel = newGear.refineLevel;
+			newGear.bestRefine = newGear.refineLevel;
+			refineGears.push(newGear);
+		}
+	}
+	$('#loadPWCalc').qtip('hide');
+	setupAllItems();
+}
+
+function loadItemsFromPWCalcProfileId(profileId) {
+	document.location.hash = "#pwcalc=" + profileId; 
+	// retrieve.php proxies the cross-domain request since browsers are lame 
+	/*$.getJSON("retrieve.php", {"profile": profileId}, function(data, status, xhr) {
+		$("#qtip-loadPWCalc .button").attr("disabled", false);
+		$('#qtip-loadPWCalc .pwcalclink').attr("disabled", false);
+		if(data && data.result && data.result.q && data.result.q.eq)
+		loadItemsFromPWCalcData(data.result.q.eq);
+	});*/
+	
+	
+	$.ajax({
+	'url' : 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22http%3A%2F%2Fwww.pwcalc.com%2Floadgt.php%3FjsonData%3D%257B%2522stat%2522%253A%2522l2%2522%2C%2522text%2522%253A%2522'+profileId+'%2522%257D%22%20&format=json&diagnostics=true&callback=',
+	'success': function(data){
+				$("#qtip-loadPWCalc .button").attr("disabled", false);
+				$('#qtip-loadPWCalc .pwcalclink').attr("disabled", false);
+				if( data &&
+					data.query && 
+					data.query.results && 
+					data.query.results.json && 
+					data.query.results.json.result && 
+					data.query.results.json.result.q &&
+					data.query.results.json.result.q.eq)
+				
+				loadItemsFromPWCalcData(data.query.results.json.result.q.eq);
+			}
+
+		});
+		
+}
+
+function loadPWCalcProfile() {
+	var text = $('#qtip-loadPWCalc .pwcalclink').attr('value');
+	var regX = /(http:\/\/)?pwcalc.com\/([a-fA-F0-9]+)/;
+	var match = regX.exec(text);
+	if (match == null) {
+		return;
+	}
+	$('#qtip-loadPWCalc .pwcalclink').attr("disabled", true);
+	$('#qtip-loadPWCalc .button').attr("disabled", true);
+	loadItemsFromPWCalcProfileId(match[2])
+}
+
+function loadPWCalcSetup() {
+	$('#loadPWCalc').qtip(
+	{
+	id: "loadPWCalc",
+	content: {
+		text: $('#loadPWCalcDialog'),
+		title: {
+			text: 'Load PWCalc.com Profile',
+			button: 'Close'
+		}
+	},
+	position: {
+		my: 'center',
+		at: 'center',
+		target: $(window)
+	},
+	show: {
+		event: 'click',
+		solo: true,
+		modal: {
+			on: true,
+			blur: true,
+			escape: true // On by default
+		}
+	},
+	hide: false,
+	style: 'qtip-light qtip-rounded modal pwi-qtip'
+	});
+}
+
+function loadPWCalcFromUrl(){
+	var hash = unescape(self.document.location.hash.substring(1));
+	var re = new RegExp("pwcalc=([a-fA-F0-9]+)");
+	var m = re.exec(hash);
+	if (m == null) {
+	  return;
+	}
+	var profileId = m[1];
+	loadItemsFromPWCalcProfileId(profileId);
+}
+
+function loadGearFromUrl(){
+	var hash = self.document.location.hash.substring(1);
+	var re = new RegExp("id=([0-9]+)&tip=(.*)");	
+	var m = re.exec(hash);
+	if (m == null) {
+	  return;
+	}
+	var hmm = m[2].replace(/\+/g, "%20");
+	hmm = unescape(hmm);
+	loadItemFromHash(unescape(m[1]), unescape(m[2].replace(/\+/g, "%20")))	
+}
+
+function setCookie() {
+	var exdate=new Date();
+	exdate.setDate(exdate.getDate() + 40); // 40 day expiration
+	var cookieSuffix = ";expires=" + exdate.toUTCString() + ";path=/";
+	
+	for (var i in refineTypes) {
+		var cookie = refineTypes[i].itemId + ".price=" + refineTypes[i].salePrice + cookieSuffix;
+		document.cookie = cookie;
+	}
+	
+	document.cookie = "gender="+settings.gender;
+}
+
+function getGookie() {
+	if (document.cookie) {
+	var cookieData = document.cookie.split(";");
+	for (var i in cookieData) {
+		var cookieItem = cookieData[i].split("=");
+		if (cookieItem[0].indexOf(".price") != -1) {
+			var itemId = $.trim(cookieItem[0].substr(0, cookieItem[0].indexOf(".price")));
+			settings.items[itemId].salePrice = parseInt(cookieItem[1]);
+			settings.items[itemId].price = settings.items[itemId].salePrice;
+		}
+		if (cookieItem[0] == "gender") {
+			setGender(cookieItem[1]);
+		}
+	}
+	}
+	updateDragonOrbManufacturePrices();
+}
+
+function setupAllItems() {
+	itemPos = 0;
+	for(var i in refineTypes) {
+		makeItem("aid", refineTypes[i]);
+	}
+	for(i in refineGears) {
+		makeItem("gear", refineGears[i]);
+	}
+	makeTooltips();
+	
+	setupResults();
+	setCurrentRefineAid(null);
+	setCurrentGear(null);
+}
+
+$(document).ready(function(){
+	if(navigator.userAgent.indexOf('Mac') > 0)
+	    $('body').addClass('mac-os');
+	makeGenderButtons();
+	loadPWCalcSetup();
+	makeDropTargets();
+	getGookie();
+	if (settings.gender == "") 
+		setGender('f'); // also makes items
+	loadPWCalcFromUrl();
+	loadGearFromUrl();
+	setTimeout(doWorldChat, 15000);
+});
+</script>
+<script type="text/javascript" src="js/autoRefine.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21331594-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+	 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+<script src="../js/navbox.js" type="text/javascript"></script>
+<div style='position: relative; text-align: left; width: 900px; margin:0 auto'>
+<h1>PWI Refining Simulator</h1>
+
+<div id="refineWindow">
+	<div id="gearName" class='label'></div>
+	<div id="refineAidName" class='label small'></div>
+	<div id="refineAidDescription" class='label'></div>
+	<div id="refineMessagesContainer">
+		<div id="refineMessages" class='label customScroll'></div>
+	</div>
+	<div id="currentRefine" class='label'></div>
+	<div id="numMiragesNeeded" class='label small'></div>
+	<input type=button id="refineButton" onclick="refine()" style="position: absolute; top: 382px; left: 80px" class='button' value="Refine" disabled></input>
+	<input type=button onclick="clearMessages()" style="position: absolute; top: 382px; left: 152px" class='button' value="Cancel"></input>
+</div>
+<div id="inventoryWindow">
+	<div class='windowtitle'style='position: absolute; top: 433px; left: 51px'><a href='http://pwcalc.com' target="_blank">PWCalc.com</a> Profile:</div>
+	<input type=button id="loadPWCalc" style='position: absolute; top: 430px; left: 222px' class='button' value="Load"></input>
+	<div id='loadPWCalcDialog' style="display: none;">
+		<ol>
+			<li> Visit <a href='http://pwcalc.com' target="_blank">PWCalc.com</a> and create your profile there.
+			<li> Hit the 'Save' button to save your profile.
+			<li> Enter your profile link below!
+		</ol>
+		<div>
+		<a href='http://pwcalc.com' target="_blank">PWCalc.com</a> Link: <input type=text class='textarea pwcalclink' onchange="loadPWCalcProfile();" size=20></input> 
+		<input type=button class='button' Value='Load' onclick="loadPWCalcProfile();"></input><br />
+		</div>
+	</div>	
+</div>
+<div id="resultsWindow">
+	<div class='windowtitle' style='width: 272px; margin-top: 6px; text-align: center'>Results</div>
+	<div class='windowtitle' style='position: absolute; top: 49px; left: 20px'>Total Cost</div>
+	<div class='label 'id="totalcost" style='position: absolute; top: 49px; left: 100px; width: 146px; text-align: right'>0</div>
+
+		<input type=button onclick="resetResults()" title="Clears counts and refines" style="position: absolute; top: 632px; left: 68px" class='button' value="Reset"></input>
+		<input type=button onclick="clearResults()" title="Clears counts without resetting refines" style="position: absolute; top: 632px; left: 148px" class='button' value="Start"></input>
+</div>
+<br>
+<div id="chatWindow">
+	<div id="chatMessages" class='customScroll'></div>
+	<div style="position: absolute; top: 245px; left: 46px; width: 13px; height: 13px;" onclick="$('#chatMessages').html('');"></div>
+</div>
+<div id="optionsWindow">
+	<div class='windowtitle' style="margin-left: 60px; margin-top: 10px;">Luck Options</div>
+	<table style='margin-top: 33px'>
+		<tr><td>NPC:</td><td>
+	<select>
+	  <option>Elder of Streams</option>
+	  <option>Elder of Archosaur</option>
+	  <option>Elder of Plume</option>
+	  <option>Elder of Lost City</option>
+	  <option>Elder of Etherblade</option>
+	  <option>Elder of Tellus</option>
+	  <option>Elder of Tides</option>
+	  <option>Count Misfortune</option>
+	  <option>Sirry Wine Camp</option>
+	</select>
+	</td></tr>
+	<tr><td> Time:</td><td>
+	<select>
+	  <option>12:00am</option>
+	  <option>1:00am</option>
+	  <option>2:00am</option>
+	  <option>3:00am</option>
+	  <option>4:00am</option>
+	  <option>5:00am</option>
+	  <option>6:00am</option>
+	  <option>7:00am</option>
+	  <option>8:00am</option>
+	  <option>9:00am</option>
+	  <option>10:00am</option>
+	  <option>11:00am</option>
+	  <option>12:00pm</option>
+	  <option>1:00pm</option>
+	  <option>2:00pm</option>
+	  <option>3:00pm</option>
+	  <option>4:00pm</option>
+	  <option>5:00pm</option>
+	  <option>6:00pm</option>
+	  <option>7:00pm</option>
+	  <option>8:00pm</option>
+	  <option>9:00pm</option>
+	  <option>10:00pm</option>
+	  <option>11:00pm</option>
+	</select>
+</td></tr>
+	<tr><td>Nearby:</td><td>
+	<select>
+	  <option>Crowded</option>
+	  <option>Uncrowded</option>
+	</select>
+	</td></tr>
+	<tr><td>Squad size:</td><td>
+	<select>
+	  <option>1</option>
+	  <option>2</option>
+	  <option>3</option>
+	  <option>4</option>
+	  <option>5</option>
+	  <option>6</option>
+	  <option>7</option>
+	  <option>8</option>
+	  <option>9</option>
+	  <option>10</option>
+	</select>
+	</td></tr>
+	<tr><td>Chi:</td><td>
+	<select>
+	  <option>0 sparks</option>
+	  <option>1 spark</option>
+	  <option>2 sparks</option>
+	  <option>3 sparks</option>
+	  <option>Full Chi</option>
+	</select>
+	</td></tr>
+	<tr><td>On Mount:</td><td>
+	<select>
+	  <option>Yes</option>
+	  <option>No</option>
+	</select>
+	</td></tr>
+	<tr><td>Faction Land:</td><td>
+	<select>
+	  <option>Yes</option>
+	  <option>No</option>
+	</select>
+	</td></tr>
+	<tr><td>Favorite Pony:</td><td>
+	<select>
+	  <option>Fluttershy</option>
+	  <option>Twilight Sparkle</option>
+	  <option>Rainbow Dash</option>
+	  <option>Rarity</option>
+	  <option>Pinkie Pie</option>
+	  <option>Applejack</option>
+	  <option>Spike</option>	
+	</select>
+	</td></tr>
+	</table>
+</div>
+<p class="footer">
+<a href="http://pwi-forum.perfectworld.com/showthread.php?t=1391191">Leave feedback</a><br><br	>
+2012-07-20 - Initial Release <br>
+2012-07-22 - Cleaned up the interface, added IE support (tooltips broken though)<br>
+2012-07-24 - Added PWCalc.com integration<br>
+2012-07-24 - Added Auto-Refine plugin by STommys - Heavens Tear<br>
+2012-07-25 - Added change refine prices by clicking result icon<br>
+2012-07-31 - Embedded in-game fonts!<br>
+2012-08-11 - Added a few more random gears for no reason<br>
+2012-08-16 - Added a discussion box cause why not!<br>
+2012-09-18 - Added option to select male/female, fixed autorefine bug on item reset<br>
+-Asterelle 
+</p>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'asterspwstuff'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</body>
+</html>

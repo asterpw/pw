@@ -1,0 +1,799 @@
+<html>
+<head>	
+<title>PWI Socket/Survival Calculator</title>
+<style type="text/css">
+body {
+	color: #FFF;
+	background: black;
+	font-family: arial;
+}
+
+.panel {
+	padding: 1em 1em 0.5em 0.5em;
+	margin: 0.5em;
+	border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.panel em {
+	margin: -35px 0 0 0px;
+	font-size: 200%;
+	font-weight: bold;
+	
+	position: absolute;
+}
+
+.infoheader { 
+	color: #FFC;
+	font-weight: bold;
+}
+.maxvalue {
+	color: #FCC;
+}
+
+.result td {
+	padding: 0.1em 1em 0em 0em;
+}
+
+.result th {
+	text-align: left;
+	color: #FFC;
+	padding: 1em 1em 0em 0em;
+}
+
+.result table {
+	margin-top: -.8em;
+}
+
+.label {
+	font-weight: 200;
+}
+
+a {
+	color: #CCF;
+}
+
+div.spacer{clear:both; height:10px; display:block;}
+
+* html a:hover { background: transparent; }
+.footer {
+	font-size: 85%;
+	color: #CCC;
+}
+
+.char { background: #000033; border: 2px solid #0B90D7;	float: left;}
+.opp { background: #330000; border: 2px solid #993333;	float: left;}
+.result { background: #003300; border: 2px solid #009900;  float: left;}
+
+.button, button {
+	display: inline-block; /* well just screw browsers that don't support this */
+	font-weight: bold;
+	padding: 5px 15px;
+	margin: 2px;
+	color: white;
+
+	border: 1px solid #70A5CB;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+
+	cursor: hand;
+	cursor: pointer;
+
+background: #b1dbed;
+background: -moz-linear-gradient(top, #b1dbed 0%, #4c92c4 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b1dbed), color-stop(100%,#4c92c4));
+background: -webkit-linear-gradient(top, #b1dbed 0%,#4c92c4 100%);
+background: -o-linear-gradient(top, #b1dbed 0%,#4c92c4 100%);
+background: -ms-linear-gradient(top, #b1dbed 0%,#4c92c4 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b1dbed', endColorstr='#4c92c4',GradientType=0 );
+background: linear-gradient(top, #b1dbed 0%,#4c92c4 100%);
+}
+.button:hover, button:hover {
+	border-color: #68B1E3;
+
+background: #c0e7f7;
+background: -moz-linear-gradient(top, #c0e7f7 0%, #61a4d3 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c0e7f7), color-stop(100%,#61a4d3));
+background: -webkit-linear-gradient(top, #c0e7f7 0%,#61a4d3 100%);
+background: -o-linear-gradient(top, #c0e7f7 0%,#61a4d3 100%);
+background: -ms-linear-gradient(top, #c0e7f7 0%,#61a4d3 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c0e7f7', endColorstr='#61a4d3',GradientType=0 );
+background: linear-gradient(top, #c0e7f7 0%,#61a4d3 100%);
+
+}
+
+</style>
+<script>
+
+
+var gemGrades = [
+	["Super Endgame",
+		[ //"name", hp, vit, deflev, pdef, mres
+			["Jade of Steady Defense", 0, 0, 2, 0, 0],
+			["Creation Stone", 0, 12, 0, 0, 0],
+			["Stone of Gaea", 150, 0, 0, 0, 0],
+			["Drakeflame Stone", 0, 0, 0, 170, 0],
+			["Icebourne Stone", 0, 0, 0, 0, 125]
+		]
+	],
+	["Endgame",
+		[
+			["Jade of Steady Defense", 0, 0, 2, 0, 0],
+			["Vit Stone", 0, 10, 0, 0, 0],
+			["Citrine Gem", 115, 0, 0, 0, 0],
+			["Garnet Gem", 0, 0, 0, 125, 0],
+			["Sapphire Gem", 0, 0, 0, 0, 100],
+			["Diamond of Dragon", 0, 0, 1, 0, 0]
+		]
+	],
+	["Perfect",
+		[
+			["Perfect Citrine Shard", 62, 0, 0, 0, 0],
+			["Perfect Garnet Shard", 0, 0, 0, 66, 0],
+			["Perfect Sapphire Shard", 0, 0, 0, 0, 53]
+		]
+	],
+	["Immaculate",
+		[
+			["Immaculate Citrine Shard", 50, 0, 0, 0, 0],
+			["Immaculate Garnet Shard", 0, 0, 0, 53, 0],
+			["Immaculate Sapphire Shard", 0, 0, 0, 0, 42]
+		]
+	],
+	["Flawless",
+		[
+			["Flawless Citrine Shard", 40, 0, 0, 0, 0],
+			["Flawless Garnet Shard", 0, 0, 0, 41, 0],
+			["Flawless Sapphire Shard", 0, 0, 0, 0, 33]
+		]
+	],
+	["Average",
+		[
+			["Average Citrine Shard", 25, 0, 0, 0, 0],
+			["Average Garnet Shard", 0, 0, 0, 26, 0],
+			["Average Sapphire Shard", 0, 0, 0, 0, 21]
+		]
+	]
+];
+
+
+var gems = [];
+
+var FIELD = {
+	TEXT : 0,
+	CHECKBOX : 1,
+	SELECT : 2
+}
+
+var dataFields = {
+	charClass : FIELD.SELECT,
+	level : FIELD.TEXT,
+	vit : FIELD.TEXT,
+	mag : FIELD.TEXT,
+	str : FIELD.TEXT,
+	dex : FIELD.TEXT,
+	hp : FIELD.TEXT,
+	pdef : FIELD.TEXT,
+	mres : FIELD.TEXT,
+	deflev : FIELD.TEXT,
+	opplev : FIELD.TEXT,
+	oppattlev : FIELD.TEXT,
+	pdefbuff : FIELD.TEXT,
+	mresbuff : FIELD.TEXT,
+	hpbuff : FIELD.TEXT,
+	pdefgearbuff : FIELD.TEXT,
+	mresgearbuff : FIELD.TEXT,
+	hpgearbuff : FIELD.TEXT,
+	dlevbuff : FIELD.TEXT,
+	optimalType : FIELD.SELECT,
+	opppreset : FIELD.SELECT,
+	buffpreset : FIELD.SELECT,	
+	gemquality : FIELD.SELECT,	
+	calcOptimal : FIELD.CHECKBOX,	
+	optimalType : FIELD.SELECT,
+	numSock : FIELD.TEXT	
+}
+
+function getFieldValue(fieldName) {
+	var fieldType = dataFields[fieldName];
+	switch(fieldType) {
+		case FIELD.SELECT: return document.info[fieldName].selectedIndex;
+		case FIELD.TEXT: return parseInt(document.info[fieldName].value);
+		case FIELD.CHECKBOX: return document.info[fieldName].checked ? 1 : 0;
+	}
+}
+
+function setFieldValue(fieldName, fieldValue) {
+	var fieldType = dataFields[fieldName];
+	switch(fieldType) {
+		case FIELD.SELECT: document.info[fieldName].selectedIndex = fieldValue; return;
+		case FIELD.TEXT:  document.info[fieldName].value = fieldValue; return;
+		case FIELD.CHECKBOX: document.info[fieldName].checked = fieldValue == 1; return;
+	}
+}
+
+
+function getState() {
+	var stateString = "";
+	for (var fieldName in dataFields) {
+		stateString += (stateString.length > 0 ? "&" : "") + fieldName + "=" + getFieldValue(fieldName);
+	}
+	return stateString;
+}
+
+function loadState(stateString) {
+	var fields = stateString.split("&");
+	for (var i=0; i < fields.length; i++) {
+		var field = fields[i];
+		if (field.indexOf("=") == -1) 
+			continue;
+		var fieldName = field.substr(0,field.indexOf("="));
+		var fieldValue = parseInt(field.substr(field.indexOf("=")+1));
+		setFieldValue(fieldName, fieldValue);
+	}
+}
+
+function load() {
+	var hash = unescape(self.document.location.hash.substring(1));
+	loadState(hash);
+	setOppPreset();
+	setBuffPreset();
+	updateSelectedGems();
+	update();
+}
+
+function calculateEquipment(charinfo) {
+	charinfo.equippdef = (charinfo.pDef - Math.round((charinfo.str + charinfo.vit - 2)/4) - 1) / 
+		(1+Math.round((3*charinfo.str +  2*charinfo.vit)/25)/100 + charinfo.pDefGearBuff);
+	charinfo.equipmres = (charinfo.mRes - Math.round((charinfo.mag + charinfo.vit - 2)/4)) / 
+		(1+Math.round((3*charinfo.mag +  2*charinfo.vit)/25)/100 + charinfo.mResGearBuff);
+}
+
+function getCharacter() {
+	var charinfo = {};
+	charinfo.charClass = parseInt(document.info.charClass.value.substring(5));
+	charinfo.level = parseInt(document.info.level.value);
+	charinfo.vit = parseInt(document.info.vit.value);
+	charinfo.mag = parseInt(document.info.mag.value);
+	charinfo.str = parseInt(document.info.str.value);
+	charinfo.dex = parseInt(document.info.dex.value);
+	charinfo.hp = parseInt(document.info.hp.value);
+	charinfo.pDef = parseInt(document.info.pdef.value);
+	charinfo.mRes = parseInt(document.info.mres.value);
+	charinfo.defLev = parseInt(document.info.deflev.value);
+	charinfo.pDefGearBuff = parseInt(document.info.pdefgearbuff.value) / 100;
+	charinfo.mResGearBuff = parseInt(document.info.mresgearbuff.value) / 100;
+	charinfo.hpGearBuff = parseInt(document.info.hpgearbuff.value) / 100;
+	
+	calculateEquipment(charinfo);
+	return charinfo;
+}
+
+function getOpponent() {
+	var oppinfo = {};
+	oppinfo.level = parseInt(document.info.opplev.value);
+	oppinfo.attLev = parseInt(document.info.oppattlev.value);
+	return oppinfo;
+}
+
+function getBuffs() {
+	var buffs = {};
+	buffs.pDefBuff = parseInt(document.info.pdefbuff.value) / 100;
+	buffs.mResBuff = parseInt(document.info.mresbuff.value) / 100;
+	buffs.hpBuff = parseInt(document.info.hpbuff.value) / 100;
+	buffs.defLevBuff = parseInt(document.info.dlevbuff.value);
+	return buffs;
+}
+
+function calculateSurvivability(character, opp, buffs, statsFromGems) {
+	//gem = "name", hp, vit, deflev, pdef, mres
+	var result = [];
+	var hpPerVitPerClass = [13, 10, 17, 12, 15, 10, 13, 10, 15, 10];
+	
+	var vit = character.vit + statsFromGems[2];
+	var hp = character.hp + statsFromGems[1] + hpPerVitPerClass[character.charClass] * statsFromGems[2];
+	var hp = hp * (1 + buffs.hpBuff);
+	var deflev = character.defLev + statsFromGems[3] + buffs.defLevBuff;
+	var equipPDef = character.equippdef + statsFromGems[4];
+	var equipMRes = character.equipmres + statsFromGems[5];
+	
+	var pdef = Math.round((character.str + vit - 2)/4) 
+		+ Math.round(equipPDef * (1+ Math.round((3 * character.str + 2 * vit)/25)/100)) + 1
+		+ (buffs.pDefBuff + character.pDefGearBuff) * equipPDef;
+	var mres = 	Math.round((character.mag + vit - 2)/4) 
+		+ Math.round(equipMRes * (1+ Math.round((3 * character.mag + 2 * vit)/25)/100))
+		+ (buffs.mResBuff + character.mResGearBuff) * equipMRes;
+	var defLevModifier = opp.attLev > deflev 
+		? 1 / (1 + (opp.attLev - deflev) / 100 )
+		: 1 + 1.2 * (deflev - opp.attLev) / 100;
+	result[0] = Math.floor(hp*(1 + pdef / (40 * opp.level)) * defLevModifier);
+	result[1] = Math.floor(hp*(1 + mres / (40 * opp.level)) * defLevModifier);
+	result[2] = Math.floor((result[0] + result[1]) / 2);
+	return result;
+}
+
+function calculateSurvivabilities(character, opp, buffs, numSock) {
+	var result = {};
+	for (var i = 0; i < gems.length; i++) {
+		statsFromGems = [gems[i][0], numSock*gems[i][1], numSock*gems[i][2], numSock*gems[i][3], numSock*gems[i][4], numSock*gems[i][5]];
+		result[gems[i][0]] = calculateSurvivability(character, opp, buffs, statsFromGems);
+	}
+	return result;
+}
+
+function getStatsFromGems(gemCounts) {
+	statsFromGems = new Array(gems[0].length);
+	var test = 0;
+	for (var i = 0; i < gems[0].length; i++) {
+		statsFromGems[i] = 0;
+	}
+
+	for (var j = 0; j < gemCounts.length; j++) {
+		for (i = 1; i < gems[0].length; i++) {
+			statsFromGems[i] += gems[j][i] * gemCounts[j];
+		}
+		test += gemCounts[j];
+	}
+	if (test != 24) { 
+		test = 100000;
+	}
+	return statsFromGems;
+}
+
+function calculateOptimal(character, opp, buffs, currentGemCount, currentGemIndex, numSock) {
+	if (numSock <= 0) {
+		gemCount = currentGemCount.slice(0);
+		currentGemCount[currentGemIndex] = 0;
+		return [calculateSurvivability(character, opp, buffs, getStatsFromGems(currentGemCount)), gemCount];
+	} 
+	if (currentGemIndex == gems.length - 1) {
+		currentGemCount[currentGemIndex] = numSock;
+		return calculateOptimal(character, opp, buffs, currentGemCount, currentGemIndex, 0);
+	}
+	
+	var maxSurvival = [0,0,0];
+	var maxGemCount = [];
+	for (var i = 0; i <= numSock; i++) {
+		currentGemCount[currentGemIndex] = i;
+		var result = calculateOptimal(character, opp, buffs, currentGemCount, currentGemIndex + 1, numSock - i);
+		var survival = result[0];
+		var gemCount = result[1];
+		var statToMax = document.info.optimalType.selectedIndex;
+		if (survival[statToMax] > maxSurvival[statToMax]) {
+			maxSurvival = survival;
+			maxGemCount = gemCount;
+		}
+	}
+	currentGemCount[currentGemIndex] = 0;
+	return [maxSurvival, maxGemCount];
+}
+
+function calculateOptimalGems(character, opp, buffs, numSock) {
+	var currentGemCount = new Array(gems.length);
+	for (var i = 0; i < gems.length; i++) {
+		currentGemCount[i] = 0;
+	}
+	var result = calculateOptimal(character, opp, buffs, currentGemCount, 1, numSock);
+	return result;	
+}
+
+function setOppPreset() {
+	if (document.info.opppreset.selectedIndex == 0) {
+		return;
+	}
+	var oppInfo = document.info.opppreset.value.split(",");
+	document.info.opplev.value = oppInfo[0];
+	document.info.oppattlev.value = oppInfo[1];
+}
+
+function setBuffPreset() {
+	if (document.info.buffpreset.selectedIndex == 0) {
+		return;
+	}
+	var buffInfo = document.info.buffpreset.value.split(",");
+	document.info.pdefbuff.value = buffInfo[0];
+	document.info.mresbuff.value = buffInfo[1];
+	document.info.hpbuff.value = buffInfo[2];
+	document.info.dlevbuff.value = buffInfo[3];
+}
+
+function updateSelectedGems() {
+	selectedGems = gemGrades[document.info.gemquality.selectedIndex][1];
+	gems = [["Empty", 0, 0, 0, 0, 0]].concat(selectedGems);
+}
+
+function findMaxes(results) {
+	var max = [0,0,0];
+	for (var j = 0; j < 3; j++) {
+		for (var i = 1; i < gems.length; i++) {
+			results[gems[i][0]][j] -= results[gems[0][0]][j];
+			if (results[gems[i][0]][j] > max[j]) {
+				max[j] = results[gems[i][0]][j];
+			}
+		}
+	}
+	return max;
+}
+
+function getCell(value) {
+	return "<td>" + value + "</td>";
+}
+
+function getCell(value, max) {
+	if (value >= max) {
+		return "<td class=\"maxvalue\">" + value + "</td>";
+	}
+	return "<td>" + value + "</td>";
+}
+
+function showResults(results, optimal) {
+	var strRes = "<table>"
+	var max = findMaxes(results);
+    strRes += "<tr><th></th><th>Physical</th><th>Magical</th><th>Average</th></tr>";	
+	strRes +="<tr>"
+	strRes += "<td>Base Survival Index</td>" + getCell(results[gems[0][0]][0]) + getCell(results[gems[0][0]][1]) + getCell(results[gems[0][0]][2]);
+	strRes +="</tr>\n"
+	strRes += "<tr><th colspan=4>Survivability Added by Gems</th></tr>"
+	
+	for (var i = 1; i < gems.length; i++) {
+		strRes +="<tr>"
+		strRes += "<td>" +gems[i][0] + "</td>" + getCell(results[gems[i][0]][0], max[0]) + getCell(results[gems[i][0]][1], max[1]) + getCell(results[gems[i][0]][2], max[2]);
+		strRes +="</tr>\n"
+	}
+	
+	if (optimal != 0) {
+		strRes += "<tr><th colspan=4>Best Gem Combination</th></tr>"
+		strRes +="<tr><td colspan=4>"
+		for (i = 1; i < gems.length; i++) {
+			if (optimal[1][i] > 0) {
+				strRes += gems[i][0]+": <span class=\"maxvalue\">" + optimal[1][i] + "</span><br>"
+			}
+		}
+		strRes +="</td></tr>"
+		strRes +="<tr>"
+		strRes += "<td>Added Survival</td>" + getCell(optimal[0][0], max[0]) + getCell(optimal[0][1], max[1]) + getCell(optimal[0][2], max[2]);
+		strRes +="</tr>\n"
+	}
+	
+	strRes += "</table>";
+	document.getElementById("result").innerHTML = strRes;
+	document.getElementById("resultCont").style.visibility = "visible";
+}
+
+function update() {
+	updateWithOptimal(document.info.calcOptimal.checked);
+}
+
+function updateWithOptimal(calculateOptimal) {
+	updateSelectedGems();
+	var character = getCharacter();
+	var opp = getOpponent();
+	var buffs = getBuffs();
+	var numSock = parseInt(document.info.numSock.value);
+	if (numSock > 24) {
+		numSock = 24; 
+		document.info.numSock.value = 24;
+	}
+	
+	var results = calculateSurvivabilities(character, opp, buffs, numSock);
+	var optimal = 0;
+	if (calculateOptimal) {
+		var optimal = calculateOptimalGems(character, opp, buffs, numSock);
+		optimal[0][0] -= results[gems[0][0]][0];
+		optimal[0][1] -= results[gems[0][0]][1];
+		optimal[0][2] -= results[gems[0][0]][2];
+	}
+	showResults(results, optimal);
+	document.location.hash = getState();
+}
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21331594-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</head>
+
+<body onload="load()">
+	
+	<h1>PWI Socket Calculator</h1>
+	<form method="post" name="info" onsubmit="" action="">
+		<div>
+			<div class="panel char">
+				<em>You</em>
+		<table>
+			<tr>
+				<td class="infoheader" colspan=4>Character Info</td>
+			</tr>
+			<tr>
+				<td><span class="label">Class</span>
+				</td>
+				<td>
+					<select name="charClass" onchange="update()">
+						<option value="class0" selected>Archer</option>
+						<option value="class1">Cleric</option>
+						<option value="class2">Barbarian</option>
+						<option value="class3">Venomancer</option>
+						<option value="class4">Blademaster</option>
+						<option value="class5">Wizard</option>
+						<option value="class6">Assassin</option>
+						<option value="class7">Psychic</option>
+						<option value="class8">Seeker</option>
+						<option value="class9">Mystic</option>
+					</select>	
+				</td>
+				<td>
+					<span class="label">Level</span>
+				</td>
+				<td>
+					<input type="text" name="level" maxlength="3" size="3" value="100" class="inputbox" onchange="update()">
+				</td>
+			</tr>
+			<tr>
+				<td class="infoheader" colspan=4>Attributes (with gear)</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="label">Vit</span>
+				</td>
+				<td>
+					<input type="text" name="vit" maxlength="3" size="3" value="5" class="inputbox" onchange="update()">
+				</td>
+				<td>
+					<span class="label">Mag</span>
+				</td>
+				<td>
+					<input type="text" name="mag" maxlength="3" size="3" value="5" class="inputbox" onchange="update()">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="label">Str</span>
+				</td>
+				<td>
+					<input type="text" name="str" maxlength="3" size="3" value="5" class="inputbox" onchange="update()">
+				</td>
+				<td>
+					<span class="label">Dex</span>
+				</td>
+				<td>
+					<input type="text" name="dex" maxlength="3" size="3" value="5" class="inputbox" onchange="update()">
+				</td>
+			</tr>
+			<tr>
+				<td class="infoheader" colspan=4>Unbuffed Stats (with gear)</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="label">HP</span>
+				</td>
+				<td>
+					<input type="text" name="hp" maxlength="6" size="6" value="7000" class="inputbox" onchange="update()">
+				</td>
+				<td>
+					<span class="label">PDef</span>
+				</td>
+				<td>
+					<input type="text" name="pdef" maxlength="6" size="6" value="4000" class="inputbox" onchange="update()">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="label">Def Lev</span>
+				</td>
+				<td>
+					<input type="text" name="deflev" maxlength="6" size="6" value="0" class="inputbox" onchange="update()">
+				</td>
+				<td>
+					<span class="label">MRes</span>
+				</td>
+				<td>
+					<input type="text" name="mres" maxlength="6" size="6" value="4000" class="inputbox" onchange="update()">
+				</td>
+			</tr>
+			<tr>
+				<td class="infoheader" colspan=4>Gear Bonus% (cube neck / TT Nirv)</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="label">HP %</span>
+				</td>
+				<td>
+					<input type="text" name="hpgearbuff" maxlength="4" size="3" value="5" class="inputbox" onchange="update();">
+				</td>
+				<td>
+					<span class="label">PDef %</span>
+				</td>
+				<td>
+					<input type="text" name="pdefgearbuff" maxlength="4" size="3" value="0" class="inputbox" onchange="update();">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					&nbsp;
+				</td>
+				<td>
+					&nbsp;
+				</td>
+				<td>
+					<span class="label">MRes %</span>
+				</td>
+				<td>
+					<input type="text" name="mresgearbuff" maxlength="4" size="3" value="0" class="inputbox" onchange="update();">
+				</td>
+			</tr>
+			<tr>
+				<td class="infoheader" colspan=4>Buffs</td>
+			</tr>
+			<tr>
+				<td><span class="label">Preset</span>
+				</td>
+				<td>
+					<select name="buffpreset" onchange="setBuffPreset(); update();">
+						<option value="0,0,0,0">Custom</option>
+						<option value="-30,-30,-15,0">Debuffed</option>
+						<option value="0,0,0,0">Unbuffed</option>
+						<option value="120,60,30,0" selected>Lvl 10 Buffs</option>
+						<option value="150,60,35,0">Lvl 11 Buffs</option>
+					</select>	
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="label">HP %</span>
+				</td>
+				<td>
+					<input type="text" name="hpbuff" maxlength="4" size="3" value="30" class="inputbox" onchange="document.info.buffpreset.selectedIndex = 0; update();">
+				</td>
+				<td>
+					<span class="label">PDef %</span>
+				</td>
+				<td>
+					<input type="text" name="pdefbuff" maxlength="4" size="3" value="120" class="inputbox" onchange="document.info.buffpreset.selectedIndex = 0; update();">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="label">Def Lev+</span>
+				</td>
+				<td>
+					<input type="text" name="dlevbuff" maxlength="4" size="3" value="0" class="inputbox" onchange="document.info.buffpreset.selectedIndex = 0; update();">
+				</td>
+				<td>
+					<span class="label">MRes %</span>
+				</td>
+				<td>
+					<input type="text" name="mresbuff" maxlength="4" size="3" value="60" class="inputbox" onchange="document.info.buffpreset.selectedIndex = 0; update();">
+				</td>
+			</tr>
+			
+		</table>
+
+		</div>
+		<div class="panel opp">
+							<em>Them</em>
+			<table>
+				<tr>
+					<td class="infoheader" colspan=4>Opponent Info</td>
+				</tr>
+				<tr>
+					<td><span class="label">Preset</span>
+					</td>
+					<td>
+						<select name="opppreset" onchange="setOppPreset(); update();">
+							<option value="0,0">Custom</option>
+							<option value="150,0">PVE</option>
+							<option value="100,30" selected>PVP</option>
+							<option value="101,93">PVP (R9)</option>
+						</select>	
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="label">Level</span>
+					</td>
+					<td>
+						<input type="text" name="opplev" maxlength="3" size="3" value="100" class="inputbox" onchange="document.info.opppreset.selectedIndex = 0; update();">
+					</td>
+					<td>
+						<span class="label">Att Lev</span>
+					</td>
+					<td>
+						<input type="text" name="oppattlev" maxlength="3" size="3" value="30" class="inputbox" onchange="document.info.opppreset.selectedIndex = 0; update();">
+					</td>
+				</tr>
+
+			</table>
+			</div>
+			
+			</div>
+			<div class="spacer"></div>
+		<span class="label">Number of open sockets:</span>
+		<input type="text" name="numSock" maxlength="2" size="2" value="24" class="inputbox" onchange="update();"><br>
+	<div class="spacer"></div>
+	<span id="resultCont" class="result panel" style="visibility: hidden">
+		<em>Survival</em>
+		<span class="label">Gem Quality:</span>
+		<select name="gemquality" onchange="update();">
+			<option>Super Endgame</option>
+			<option selected>Endgame</option>
+			<option>Perfect</option>
+			<option>Immaculate</option>
+			<option>Flawless</option>
+			<option>Average</option>
+		</select>
+		<span id="result"></span>
+		<br>
+		<input type="checkbox" name="calcOptimal" value=" Find Optimal Combination " onclick="update();"> Find combination that gives best <select name="optimalType" onchange="update();">
+			<option>Physical</option>
+			<option>Magical</option>
+			<option selected>Average</option>
+		</select> protection
+	</span>
+	</form>
+	
+	<div class="spacer"></div>
+
+<p class="footer">
+	<a href="http://pwi-forum.perfectworld.com/showthread.php?t=994202">Leave feedback</a><br>
+	<br>
+	2011/02/10 - Initial release<br>
+	2011/04/11 - Added Earthguard classes, calculated optimal combination<br>
+	2011/06/17 - Added support for lower level and super endgame gems<br>
+	2011/06/30 - Added option to choose which stat you want to maximize<br>
+	2011/09/24 - Fixed typo in title, added ponies<br>
+	2011/10/03 - Updated to exact defense equations from <a href="http://pwi-forum.perfectworld.com/showthread.php?t=1200001">AIethea</a>, corrected for small builtin buffs, allows people to bookmark or share builds
+	<br>
+	-Asterelle 
+</p>
+
+<script type="text/javascript">
+//<!--
+function loadPonies() {
+(function (srcs,cfg) { var cbcount = 1; var callback = function () { -- cbcount; if (cbcount === 0) { BrowserPonies.setBaseUrl(cfg.baseurl); if (!BrowserPoniesBaseConfig.loaded) { BrowserPonies.loadConfig(BrowserPoniesBaseConfig); BrowserPoniesBaseConfig.loaded = true; } BrowserPonies.loadConfig(cfg); if (!BrowserPonies.running()) {	BrowserPonies.start(); document.getElementById("ponybutton").value = "No Ponies :(";} } }; if (typeof(BrowserPoniesConfig) === "undefined") { window.BrowserPoniesConfig = {}; } if (typeof(BrowserPoniesBaseConfig) === "undefined") { ++ cbcount; BrowserPoniesConfig.onbasecfg = callback; } if (typeof(BrowserPonies) === "undefined") { ++ cbcount; BrowserPoniesConfig.oninit = callback; } var node = (document.body || document.documentElement || document.getElementsByTagName('head')[0]); for (var id in srcs) { if (document.getElementById(id)) continue; if (node) { var s = document.createElement('script'); s.type = 'text/javascript'; s.id = id; s.src = srcs[id]; node.appendChild(s); } else { document.write('\u003cscript type="text/javscript" src="'+ srcs[id]+'" id="'+id+'"\u003e\u003c/script\u003e'); } } callback();
+})({"browser-ponies-script":"http://web.student.tuwien.ac.at/~e0427417/browser-ponies/browserponies.js","browser-ponies-config":"http://web.student.tuwien.ac.at/~e0427417/browser-ponies/basecfg.js"},{"baseurl":"http://web.student.tuwien.ac.at/~e0427417/browser-ponies/","fadeDuration":500,"fps":25,"speed":3,"audioEnabled":false,"showLoadProgress":true,"speakProbability":0.1,"spawn":{"applejack":1,"fluttershy":1,"pinkie pie":1,"rainbow dash":1,"rarity":1,"twilight sparkle":1}});}
+var issued = false;
+function togglePonies() {
+	var player = document.getElementById("ponyplayer");
+	
+	if (!issued) {
+		issued = true;
+		loadPonies();
+		player.style.display = "inline";
+		
+		return;
+	}
+	if (typeof(BrowserPonies) != "undefined")
+	if (!BrowserPonies.running()) {
+		//player.playVideo();
+		player.style.display = "inline";
+		
+		BrowserPonies.start();
+		document.getElementById("ponybutton").value = "No Ponies :(";
+	} else {
+		BrowserPonies.stop();
+		player.style.display = "none";
+		document.getElementById("ponybutton").value = "Ponies!";
+	}
+}
+//-->
+</script>
+<input type="button" class="button" style="margin:6px" value="Ponies!" onclick=togglePonies() id="ponybutton"/>
+		<embed style="display:none; margin-bottom: -7px" id="ponyplayer" src="http://www.youtube.com/v/EbZx_9ulRiE&amp;autoplay=1&amp;loop=1&amp;showinfo=0&amp;volume=100&amp;start=0" type="application/x-shockwave-flash" allowscriptaccess="always" wmode="transparent" width="300" height="25" volume="100"></div>
+</div>
+</form>
+
+</body>
+</html>
