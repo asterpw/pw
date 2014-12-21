@@ -154,6 +154,8 @@ a {
 #class7 {background-image: url('images/class-7.png');}
 #class8 {background-image: url('images/class-8.png');}
 #class9 {background-image: url('images/class-9.png');}
+#class10 {background-image: url('images/class-10.png');}
+#class11 {background-image: url('images/class-11.png');}
 
 #slot0 {top: 540px; left: 90px;}
 #slot1 {top: 540px; left: 172px;}
@@ -526,7 +528,7 @@ Card.prototype.getBlueStatText = function() {
 
 Card.prototype.getTooltipContent = function() {
 	var text = "<span class='item_color0'>";
-	text += "<span class='item_color"+(this.grade+1)+"'>"+("&#9733;&#9733;".substring(0,this.awaken*7))+this.name+"</span><br>";
+	text += "<span class='item_color"+(this.grade+1)+"'>"+this.name+"</span><br>";
 	text += "Lv. " + cardGrades[this.grade] + "<br>";
 	text += "Type " + cardTypes[this.type] + "<br>";
 	text += "Lv " + this.level + "/" + this.maxLev+"<br>";
@@ -781,7 +783,7 @@ var loadCards = function() {
 
 var selectClass = function(classID) {
 	model.currentClass = classID;
-	for (var i = 0; i < 10; i++)
+	for (var i = 0; i < 12; i++)
 		$("#class"+i).removeClass("selected");
 	$("#class"+model.currentClass).addClass("selected");
 	classLabel.text("Class: " + classes[model.currentClass][0]);
@@ -795,7 +797,7 @@ var initClassSelector = function() {
 	classLabel.css({"top": "72px", "left": "30px", "width": "180px"});
 	$("#avatarWindow").append(classLabel);
 	
-	for (var i = 0; i < 10; i++) {
+	for (var i = 0; i < 12; i++) {
 		selector = $("<div id='class"+i+"' class='classSelector'></div>");
 		selector.css({
 			"left": left+"px",
@@ -806,7 +808,7 @@ var initClassSelector = function() {
 		});
 		$("#avatarWindow").append(selector);
 		left += 30;
-		if (i == 4) {left -= 30*5; top += 30;}
+		if (i == 5) {left -= 30*6; top += 30;}
 	}
 	$("#class2").addClass('selected');
 }
@@ -842,7 +844,7 @@ var selectPickerType = function(type) {
 }
 
 var makeWidgetForCard = function(card, enablePickerClick, enableTooltip) { 
-	var nameLabel = $("<div class='pickernamelabel'></div>").addClass("item_color"+(card.grade+1)).text(card.name);
+	var nameLabel = $("<div class='pickernamelabel'></div>").addClass("item_color"+(card.grade+1)).html(card.name);
 	var icon = $("<div class='item icon'></div>");
 	icon.css({
 		"background-position": "-"+card.grade+"00% -"+card.type+"00%"
