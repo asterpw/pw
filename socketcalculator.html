@@ -290,7 +290,7 @@ function getBuffs() {
 function calculateSurvivability(character, opp, buffs, statsFromGems) {
 	//gem = "name", hp, vit, deflev, pdef, mres
 	var result = [];
-	var hpPerVitPerClass = [13, 10, 17, 12, 15, 10, 13, 10, 15, 10];
+	var hpPerVitPerClass = [13, 10, 17, 12, 15, 10, 13, 10, 15, 10, 13, 10];
 	
 	var vit = character.vit + statsFromGems[2];
 	var hp = character.hp + statsFromGems[1] + hpPerVitPerClass[character.charClass] * statsFromGems[2];
@@ -532,6 +532,8 @@ function updateWithOptimal(calculateOptimal) {
 						<option value="class7">Psychic</option>
 						<option value="class8">Seeker</option>
 						<option value="class9">Mystic</option>
+						<option value="class10">Duskblade</option>
+						<option value="class11">Stormbringer</option>
 					</select>	
 				</td>
 				<td>
