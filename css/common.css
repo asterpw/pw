@@ -59,7 +59,7 @@ background-image: url('../waravatar/images/favicon.png');
 background-image: url('../geniecalculator/images/favicon.png');
 }
 #navlist .link a[href*=refining]{
-background-image: url('../images/icons/f/11208.gif');
+background-image: url('http://asterpw.github.io/pwicons/f/11208.gif');
 }
 
 #navlist .link a:hover {

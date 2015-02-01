@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="../fonts/fonts.css" />
 <link rel="stylesheet" type="text/css" href="../css/common.css" />
 <!--link href="js/jquery.selectbox.css" rel="stylesheet" type="text/css" /-->
-<link rel="icon"  type="image/gif" href="../images/icons/f/11208.gif">
+<link rel="icon"  type="image/gif" href="http://asterpw.github.io/pwicons/f/11208.gif">
 <style type="text/css">
 body {
 	color: #FFF;
@@ -619,7 +619,7 @@ function doWorldChat() {
 	var message = randomMessages[Math.floor(Math.random()*randomMessages.length)];
 	var prefix = message.substring(0,2);
 	message = message.substring(2);
-	message = message.replace(/%%([^%]*)%%/g,"<img src='../images/icons/emotes/$1.gif'>")
+	message = message.replace(/%%([^%]*)%%/g,"<img src='http://asterpw.github.io/pwicons/emotes/$1.gif'>")
 	message = message.replace(/\[\[p/g, "<span class='itemlink purple'>"
 		).replace(/\[\[o/g, "<span class='itemlink orange'>"
 		).replace(/\[\[w/g, "<span class='itemlink white'>"
@@ -1027,7 +1027,7 @@ var itemPos = 0;
 function getItemImgUrl(itemId) {
 	// strip off the letters added to item gear ids used to tell the rings apart
 	var id = (""+itemId).replace(/[a-z]/,"")
-	return "../images/icons/"+settings.gender+"/"+id+".gif";
+	return "http://asterpw.github.io/pwicons/"+settings.gender+"/"+id+".gif";
 //	return "http://www.pwdatabase.com/images/icons/generalf/"+id+".gif";
 }
 

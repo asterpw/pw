@@ -350,9 +350,10 @@ var cards = [
 [41993, 0, 'Nivastok Brave', 95, 1, 1, 0, 10, 0, 50, 50, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 215, 1],
 [41994, 3, 'Gnosis Treerat', 93, 1, 1, 0, 10, 83, 0, 0, 0, 175, 0, 1, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 216, 1],
 [41995, 0, 'Dustwraith', 47, 1, 1, 0, 10, 0, 50, 50, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 217, 1],
-[42336, 0, '&#9733;SP Sheomay', 1, 1, 1, 0, 5, 0, 3, 3, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, -1, 1],
-[42337, 0, '&#9733;SP Eastern Dream', 1, 1, 1, 0, 5, 0, 3, 3, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, -1, 1],
-[42338, 0, '&#9733;SP Princess of Moonlight', 1, 1, 1, 0, 5, 0, 3, 3, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, -1, 1]
+[42336, 0, '&#9733;SP Sheomay', 1, 1, 1, 0, 5, 0, 3, 3, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 218, 1],
+[42337, 0, '&#9733;SP Eastern Dream', 1, 1, 1, 0, 5, 0, 3, 3, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 219, 1],
+[42338, 0, '&#9733;SP Princess of Moonlight', 1, 1, 1, 0, 5, 0, 3, 3, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 220, 1]
+
 /*
 ,[100, 0, 'Applejack', 100, 1, 1, 4, 100, 0, 380, 380, 0, 0, 0, 0, 4, 4, 0, 0, 0, 100, 3009, 3020, 3010, 3010, 218, 100],
 [101, 1, 'Rainbow Dash', 100, 1, 1, 4, 100, 0, 380, 380, 0, 0, 0, 0, 4, 4, 0, 0, 0, 100, 3009, 3020, 3014, 3014, 219, 100],
@@ -581,7 +582,10 @@ var cardDescriptions = {
 41992 : "Snow Hounds are the best friends for people living in cold areas.\rBut now they are going to be wiped out by the Lethal \rAraneid Sharpfangs.",
 41993 : "Mysterious amulets you got from Nivastok Braves.\rPlace them in a snowfield, and they will automatically \rform into an avatar-like image.",
 41994 : "Gnosis Treerats used to live harmoniously with humans,\rbut the Wraiths corrupted them and turned them into cruel creatures.",
-41995 : "Conquesting Dustwraiths live in Sundown Town.\rThey use their cookware as weapons to fight."
+41995 : "Conquesting Dustwraiths live in Sundown Town.\rThey use their cookware as weapons to fight.",
+42336 : "<span style=\"color:#ff0f85\">War Avatar only for rookies. Not included in War Avatar Book.</span>",
+42337 : "<span style=\"color:#ff0f85\">War Avatar only for rookies. Not included in War Avatar Book.</span>",
+42338 : "<span style=\"color:#ff0f85\">War Avatar only for rookies. Not included in War Avatar Book.</span>"
 
 
 
