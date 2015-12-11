@@ -44,6 +44,18 @@ a {
 	background-position: 50%;
 }
 
+.card::before {
+	position: absolute;
+	display: inline-block;
+	height: 187px;
+	width: 154px;
+	top: 311px;
+	background-size: 74%;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-image: url('images/blankcard.png');
+}
+
 .card .frame {
 	width: 100%;
 	height: 100%;
@@ -62,6 +74,7 @@ a {
 .picker {
 	display: inline-block;
 	width:  170px;
+	vertical-align: top;
 }
 
 .item.icon {
@@ -177,6 +190,7 @@ a {
 
 .settitle {
 	border-top: #166 1px solid;
+	padding: 3px 0;
 }
 
 .pwi-qtip {
@@ -306,11 +320,19 @@ a {
 
 .pickernamelabel {
 	display: inline-block;
-	width:  170px;
-	height: 35px;
+	width:  135px;
 	margin-left: 35px;
 	margin-top: 5px;
 	cursor: hand;
+}
+
+#cardPicker .pickernamelabel {
+	height: 35px;
+}
+
+#aggregateInfo .pickernamelabel {
+	min-height: 35px;
+	width: 135px;
 }
 
 .button.equipall {
@@ -376,6 +398,7 @@ var model = {
 	allCards : [],
 	cardSetMap : {},
 	cardMap : {},
+	cardNumMap : {},
 	currentSelection : 2,
 	currentFocus : 2,
 	currentClass: 2,
@@ -423,7 +446,7 @@ Card.prototype.getAdjustedStats = function() {
 }
 
 Card.prototype.clone = function() {
-	var cloned = new Card(cards[this.num]);
+	var cloned = new Card(this.data);
 	stats = "awaken level xp".split(" ");
 	for (var i in stats) 
 		cloned[stats[i]] = this[stats[i]];
@@ -775,9 +798,11 @@ var loadCards = function() {
 	
 	model.allCards = [];
 	model.cardMap = {};
+	model.cardNumMap = {}
 	for (var i in cards) {
 		model.allCards.push(new Card(cards[i]));
 		model.cardMap[model.allCards[i].id] = model.allCards[i];
+		model.cardNumMap[model.allCards[i].num] = model.allCards[i];
 	}
 }
 
@@ -879,12 +904,16 @@ var makeWidgetForCard = function(card, enablePickerClick, enableTooltip) {
 	
 	if (enablePickerClick) {
 		widget.click(function(){
-			card =  new Card(cards[$(this).attr("id").substring(4)]);
+			card =  cardFromNum($(this).attr("id").substring(4));
 			model.selectedCards[model.currentSelection] = card;
 			update();
 		});
 	}
 	return widget;
+}
+
+var cardFromNum = function(num) {
+	return new Card(model.cardNumMap[num].data);
 }
 
 var populatePicker = function() {
@@ -1025,14 +1054,14 @@ var initAvatarSets = function() {
 
 var populateSets = function() {
 	$('#avatarSetsWindow').empty();
-	var sortedSets = cardSets.slice(0).sort(function(a,b){return b[1]-a[1];});
+	var sortedSets = cardSets.slice(0).sort(function(a,b){return (b[1]-a[1])*100000 - (b[2][0] - a[2][0]);});
 	for (var i in sortedSets) {
 		var panel = $("<div class='setpanel'></div>");
 		var label = $("<div class='settitle'></div>").text(sortedSets[i][0] + " ("+sortedSets[i][2].length+"): " + (sortedSets[i][1]*100).toFixed(2)+"%" );
 		var equipAllButton = $('<input type=button id="equipAll" class="button equipall" value="Equip All"></input>').click(function(){
 			$(this).next().children().each(function(){
 				if ($(this).attr("id")) {
-					card =  new Card(cards[$(this).attr("id").substring(4)]);
+					card =  cardFromNum($(this).attr("id").substring(4));
 					model.selectedCards[card.type] = card;
 				}
 			});
@@ -1301,12 +1330,12 @@ function loadCardsFromHash(hash) {
 	  } 
 	
 	for (var i = 0; i < model.selectedCards.length; i++) {
-		var re = new RegExp("a"+i+"=([0-9,]+)");
+		var re = new RegExp("a"+i+"=([0-9,-]+)");
 		var m = re.exec(hash);
 		if (m != null) {
 			var vals = m[1].split(',');
 			if (vals.length != 4) continue
-			model.selectedCards[i] = new Card(cards[parseInt(vals[0])]);
+			model.selectedCards[i] = cardFromNum(parseInt(vals[0]));
 			model.selectedCards[i].level = parseInt(vals[1]);
 			model.selectedCards[i].awaken = parseInt(vals[2]);
 			model.selectedCards[i].leadership = parseInt(vals[3]);
@@ -1314,7 +1343,25 @@ function loadCardsFromHash(hash) {
 	}
 }
 
+function preload(arrayOfImages) {
+	$(arrayOfImages).each(function(){
+		$('<img/>')[0].src = this;
+	});
+}
+
+function preLoadImages() {
+	preload([
+		'images/button_h.png',
+		'images/button_a.png',
+		'images/button_d.png',
+		'images/button.png',
+		'images/blankcard.png'
+	]);
+}
+
+
 $(document).ready(function(){
+	preLoadImages();
 	loadCards();
 	initSlots();
 	initClassSelector();
@@ -1417,6 +1464,8 @@ $(document).ready(function(){
 2014-01-30 - Added Total Stats window <br>
 2014-02-21 - Added build comparison to Total Stats window <br>
 2014-12-21 - Added new classes and more card descriptions <br>
+2015-03-11 - Added new Anniversary card set <br>
+
 -Asterelle 
 </p>
 <div id="disqus_thread"></div>
