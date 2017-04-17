@@ -1,0 +1,208 @@
+<html>
+<head>
+	<title>PWI Star Chart Calculator</title>
+	<link rel="stylesheet" type="text/css" href="../js/jquery.qtip.css" />
+	<link rel="stylesheet" type="text/css" href="../fonts/fonts.css" />
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<link rel="stylesheet" type="text/css" href="starchart.css" />
+	<link rel="icon" type="image/png" href="http://asterpw.github.io/pwicons/f/47470.png"/>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../js/jquery.qtip.js"></script>
+	<script type="text/javascript" src="js/starchart.js"></script>
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-21331594-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+</head>
+<body style="background-color: black">
+<script src="../js/navbox.js" type="text/javascript"></script>
+<div style='position: relative; text-align: left; width: 853px; margin:0 auto'>
+<h1>PWI Star Chart Calculator</h1>
+	<div id="starChart">
+		<div id="chartPanel">
+			<div id ="bars">
+				<div id="level" ></div>
+				<div id="levelControl" class="grabbar"></div>
+				<div id="astralEnergy"></div>
+				<div id="astralEnergyControl" class="grabbar"></div>
+				<div id="levelValue" class="chartLabel chartValue levelValue">1</div>
+				<div id="levelLabel" class="chartLabel">Level</div>
+				<div id="astralValue" class="chartLabel chartValue astralValue">1</div>
+				<div id="astralLabel" class="chartLabel">Astral Energy</div>
+			</div>
+			
+			<div id="starGlow">
+				<div id="piece0">
+					<div class="back"></div>
+					<div class="edge1 edge"></div>
+					<div class="edge2 edge"></div>
+				</div>
+				<div id="piece1">
+					<div class="back"></div>
+					<div class="edge1 edge"></div>
+					<div class="edge2 edge"></div>
+				</div>
+				<div id="piece2">
+					<div class="back"></div>
+					<div class="edge1 edge"></div>
+					<div class="edge2 edge"></div>
+				</div>
+				<div id="piece3">
+					<div class="back"></div>
+					<div class="edge1 edge"></div>
+					<div class="edge2 edge"></div>
+				</div>
+				<div id="piece4">
+					<div class="back"></div>
+					<div class="edge1 edge"></div>
+					<div class="edge2 edge"></div>
+				</div>
+				<div id="piece5">
+					<div class="back"></div>
+					<div class="edge1 edge"></div>
+					<div class="edge2 edge"></div>
+					<div class="edge3 edge"></div>
+					<div class="edge4 edge"></div>
+					<div class="edge5 edge"></div>
+				</div>
+				<div id="aptitudeValue" class="chartLabel chartValue totalAptitude">1</div>
+				<div id="aptitudeLabel" class="chartLabel ">Total Aptitude</div>
+			</div>
+			
+			
+			<div id="stars">
+				<div id="star0" class="star">1</div>
+				<div id="star1" class="star">1</div>
+				<div id="star2" class="star">1</div>
+				<div id="star3" class="star">1</div>
+				<div id="star4" class="star">1</div>
+				<div id="star5" class="star">2</div>
+				<div id="star6" class="star">2</div>
+				<div id="star7" class="star">2</div>
+				<div id="star8" class="star">2</div>
+				<div id="star9" class="star">2</div>
+			</div>
+			<div id="horoscope" class="button">Horoscope</div>
+			<div id="stargaze" class="button">Stargazing</div>
+			<div id="chartIcon" class="icon"></div>
+		</div>
+
+		<div id="rightPanel">
+			<div class="title attribute">Current Attribute</div>
+			<div class="title value">Value</div>
+			<div class="divider div1"></div>
+			<div class="divider div2"></div>
+			<div class="divider div3"></div>
+			<div class="divider div4"></div>
+			<div class="statContainer"></div>
+			
+			<div class="usage">
+				<div class="dustUsed" style="display: none">
+					<div class="dustIcon icon"></div>
+					<div class="dustUsedValue statvalue">1999</div>
+				</div>
+				<div class="powderUsed" style="display: none">
+					<div class="powderIcon icon"></div>
+					<div class="powderUsedValue statvalue">1999</div>
+				</div>
+				<div id="reset" class="button" style="display: none">Reset</div>
+			</div>
+		</div>
+	</div>
+<div id="hiddenStuff" style="display:none;">
+	<div class="clickPulse ready"></div>
+	<div id="chartIconTooltip">
+		<span id='chartName' class='item_color1'><span class='chartName'>Star Chart: Skycrest</span></span><br>
+		Level <span class="levelValue"></span><br>
+		EXP <span class="chartEXP"></span><br>
+		Total Aptitude <span class="totalAptitude"></span><br>
+		EXP yield after infused <span class="chartEXPTotal"></span><br>
+		Required Class: <span class="className"></span><br>
+		Requisite Lv. 100<br>
+		<span class="tooltipStats item_color1"></span>
+		Price 1<br><br>
+		Doesnt drop on death<br>
+		Unable to be discarded<br>
+		Unable to be sold<br>
+		Unable to be traded<br>
+		Unable to put into Account Stash<br>
+		<span class="item_color3"><span class="className"></span> exclusive</span>
+	</div>
+	<div id="levelTooltip">
+		Star Chart EXP: <span class="chartEXP"></span><br>
+		Total Star Chart EXP: <span class="chartEXPTotal"></span><br>
+		Level Cap: 50<br>
+		Attributes will scale up with level
+	</div>
+	<div id="astralEnergyTooltip">
+		Astral Energy EXP: <span class="astralEXP"></span><br>
+		Total Astral Energy EXP: <span class="astralEXPTotal"></span><br>
+		Astral Energy cap: 10<br>
+		Astral Energy determines your odds of successfully opening a Starglade Chest, <br>
+		and the lower-cap of the yielded attributes from Horoscopes.<br>
+		More attributes may be gained with a higher Astral Energy level.
+	</div>
+	<div id="nebulaDustTooltip">
+		<span class="item_color3">Nebula Dust Orb<br><br>
+		An essential item for <span class="item_color5">conducting Horoscopes</span>, it randomly shifts the <br>attribute quantity, attribute content, and attribute position.<br><br><span style="color: #96f5ff">Astral Energy gain from Horoscope: 1</span></span>
+	</div>
+	<div id="starseekerPowderTooltip">
+		<span class="item_color3">Starseeker Powder<br><br>
+		An essential item for <span class="item_color5">Stargazing</span>. Stargazing <br>is able to change the <span style="color: #96f5ff">attribute positions for a Star Chart.</span></span>
+	</div>
+	
+	<div class="starControlTooltipBase">
+		<span class="aptitudeControl"><span class="label">Aptitude:</span><input type="text" class="aptitudeValue"><br></span>
+		<span class="label">Stat:</span><select class="stats"></select>
+	</div>
+	<div class="birthstarTooltipBase">
+		Birthstar<br>
+		Current Aptitude: <span class="currAptitude"></span><br>
+		Effective Aptitude: <span class="effectiveAptitude"></span><br>
+		Aptitude Cap: 5.00
+	</div>
+	<div class="fatestarTooltipBase">
+		Fatestar<br>
+		Current Aptitude: <span class="currAptitude"></span><br>
+		Effective Aptitude: <span class="effectiveAptitude"></span><br>
+	</div>
+</div>
+
+<p class="footer">
+<a href="http://forum.arcgames.com/pwi/discussion/1204247">Leave feedback</a><br><br>
+2016-01-30 - Initial Version <br>
+2016-01-31 - Added a bunch of tooltips <br>
+2016-02-02 - Corrected Assassin damage, added horoscope animation <br>
+2016-02-19 - Corrected stat values for 20 aptitude chart <br>
+2017-01-04 - Added mobile support for the level/astral controls <br>
+
+<br>-Asterelle 
+</p>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'asterspwstuff'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+</body>
+</html>

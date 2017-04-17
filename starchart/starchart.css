@@ -1,0 +1,608 @@
+a {
+	color: #CCF;
+}
+
+#starChart {
+	width: 853px;
+	height: 490px;
+	margin: auto;
+	padding: 0px;
+	position: relative;
+	font-family: FZXiHei,Arial,Tahoma,Helvetica,sans-serif;
+}
+
+#chartPanel div, #rightPanel div {
+	position: absolute;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	user-select: none; 
+}
+	
+#chartPanel {
+	background: url('images/background.png');
+	width: 483px;
+	height: 490px;
+	position: absolute;
+}
+
+#piece0 .back {
+	background: url('images/1.png');
+	width: 80px;
+	height: 114px;
+	top: 40px;
+	left:201px;
+}
+
+#piece0 .edge1 {
+	background: url('images/1-left.png');
+	width: 33px;
+	height: 97px;
+	top: 40px;
+	left:209px;
+}
+
+#piece0 .edge2 {
+	background: url('images/1-right.png');
+	width: 33px;
+	height: 97px;
+	top: 40px;
+	left:242px;
+}
+
+#piece1 .back {
+	background: url('images/3.png');
+	width: 121px;
+	height: 73px;
+	top: 146px;
+	left: 275px;
+}
+
+#piece1 .edge1 {
+	background: url('images/3-up.png');
+	width: 95px;
+	height: 10px;
+	top: 146px;
+	left: 298px;
+}
+
+#piece1 .edge2 {
+	background: url('images/3-down.png');
+	width: 76px;
+	height: 55px;
+	top: 149px;
+	left:319px;
+}
+
+#piece2 .back {
+	background: url('images/5.png');
+	width: 102px;
+	height: 112px;
+	top: 214px;
+	left: 239px;
+}
+
+#piece2 .edge1 {
+	background: url('images/5-right.png');
+	width: 38px;
+	height: 92px;
+	top: 235px;
+	left: 308px;
+}
+
+#piece2 .edge2 {
+	background: url('images/5-left.png');
+	width: 92px;
+	height: 60px;
+	top: 268px;
+	left:252px;
+}
+
+
+#piece3 .back {
+	background: url('images/4.png');
+	width: 102px;
+	height: 112px;
+	top: 214px;
+	left: 141px;
+}
+
+#piece3 .edge1 {
+	background: url('images/4-right.png');
+	width: 92px;
+	height: 60px;
+	top: 268px;
+	left: 138px;
+}
+
+#piece3 .edge2 {
+	background: url('images/4-left.png');
+	width: 38px;
+	height: 92px;
+	top: 235px;
+	left: 138px;
+}
+
+#piece4 .back {
+	background: url('images/2.png');
+	width: 121px;
+	height: 73px;
+	top: 146px;
+	left: 87px;
+}
+
+#piece4 .edge1 {
+	background: url('images/2-down.png');
+	width: 76px;
+	height: 55px;
+	top: 149px;
+	left:87px;
+}
+
+#piece4 .edge2 {
+	background: url('images/2-up.png');
+	width: 95px;
+	height: 10px;
+	top: 146px;
+	left: 87px;
+}
+
+#piece5 .back {
+	background: url('images/6.png');
+	width: 135px;
+	height: 121px;
+	top: 143px;
+	left: 173px;
+}
+
+#piece5 .edge1 {
+	background: url('images/6-1.png');
+	width: 72px;
+	height: 6px;
+	top: 148px;
+	left: 209px;
+}
+
+#piece5 .edge2 {
+	background: url('images/6-3.png');
+	width: 39px;
+	height: 66px;
+	top: 148px;
+	left: 274px;
+}
+#piece5 .edge3 {
+	background: url('images/6-5.png');
+	width: 75px;
+	height: 45px;
+	top: 210px;
+	left: 243px;
+}
+#piece5 .edge4 {
+	background: url('images/6-4.png');
+	width: 75px;
+	height: 45px;
+	top: 210px;
+	left: 165px;
+}
+#piece5 .edge5 {
+	background: url('images/6-2.png');
+	width: 39px;
+	height: 66px;
+	top: 148px;
+	left: 170px;
+}
+
+#starGlow .back {
+	animation: pulsate 2s ease-in-out infinite alternate;
+}
+#starGlow .edge {
+	animation: pulsate .7s ease-in-out infinite alternate;
+}
+
+
+#bars {
+	top: 56px;
+	height: 259px;
+}
+#astralEnergy, #astralEnergyControl {
+	width: 94px;
+	height: 259px;
+	bottom: 0px;
+	left: 368px;
+}
+
+#astralEnergy {
+	background: url('images/astralenergy.png') no-repeat center bottom;
+}
+#level, #levelControl {
+	width: 94px;
+	height: 259px;
+	bottom: 0px;
+	left: 22px;
+}
+
+.grabbar {
+	cursor: grab;
+	cursor: -webkit-grab;
+}
+
+.grabbar:active {
+	cursor: grabbing;
+	cursor: -webkit-grabbing;
+}
+
+#level {
+	background: url('images/experience.png') no-repeat center bottom;
+}
+
+.chartLabel {
+	font-weight: bold;
+	color: #FDA;
+	font-size: 18px;
+	text-shadow: 1px 1px 1px #000, -1px 1px 1px #000, 1px -1px 1px #000, -1px -1px 1px #000;
+}
+.chartValue {
+	color: #CFF;
+}
+
+#levelLabel {
+	top: 280px;
+	left: 35px;
+}
+#levelValue {
+	top: 253px;
+	left: 50px;
+}
+#astralLabel {
+	top: 280px;
+	left: 350px;
+	width: 140px;
+}
+#astralValue {
+	top: 253px;
+	left: 405px;
+}
+/*#astralEnergy, #level {
+	animation: pulsate 1.5s ease-in-out infinite alternate;
+}*/
+
+#aptitudeLabel {
+	font-weight: normal;
+	top: 167px;
+	left: 206px;
+}
+#aptitudeValue {
+	top: 210px;
+	left: 218px;
+}
+
+
+.clickPulse {
+	top: -50px;
+	left: -9px;
+	height: 500px;
+	width: 500px;
+	background-image: url('images/ring.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+	pointer-events: none;
+	animation: pulse 0.6s normal forwards ease-in-out;
+}
+
+.clickPulse::after {
+	content: '';
+	display:block;
+	height: 100%;
+	width: 100%;
+	background-image: url('images/starfield-bar.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 80% 80%;
+	pointer-events: none;
+	opacity: 0.2;
+	animation: pulseback 0.6s normal forwards ease-in-out;
+}
+
+@keyframes pulse {
+	0% {background-size: 300px 300px; opacity: 0;}
+	40%{opacity: 0.5;}
+	100%{background-size: 400px 400px; opacity: 0;}
+}
+@keyframes pulseback {
+	0% {background-size: 100px 100px; opacity: 0;}
+	10% {background-size: 100px 100px; opacity: 0.1;}
+	25%{opacity: 0.5;}
+	65%{background-size: 500px 500px; opacity: 0;}
+	100%{opacity: 0;}
+}
+
+
+.star {
+	background: url('images/smallbutton.png');
+	width: 28px;
+	height: 28px;
+	text-align: center;
+	font-weight: bold;
+	color: #777;
+	text-shadow: 1px 1px 1px #000, -1px 1px 1px #000, 1px -1px 1px #000, -1px -1px 1px #000;
+	line-height: 28px;
+	cursor: pointer;
+}
+.star.active {
+	background: url('images/smallbutton-press.png');
+	color: #FFF;
+	width: 28px;
+	height: 28px;
+}
+.star.active:hover {
+	background: url('images/smallbutton-hover.png');
+	width: 28px;
+	height: 28px;
+}
+.star::after {
+	content: '';
+	background: url('images/ring.png');
+	position: absolute;
+	opacity: 0.3;
+	display: block;
+	width: 36px;
+	height: 36px;
+	left: -4px;
+	top: -4px;
+}
+
+.star.active::after {
+	opacity: 0.8;
+}
+
+#star0 {top: 136px; left: 190px;}
+#star1 {top: 136px; left: 264px;}
+#star2 {top: 202px; left: 288px;}
+#star3 {top: 242px; left: 228px;}
+#star4 {top: 202px; left: 168px;}
+#star5 {top: 33px; left: 228px;}
+#star6 {top: 140px; left: 373px;}
+#star7 {top: 302px; left: 321px;}
+#star8 {top: 302px; left: 134px;}
+#star9 {top: 140px; left: 87px;}
+
+
+#rightPanel {
+	background: url('images/rightpanel.png');
+	background-size: 370px 490px;
+	width: 370px;
+	height: 490px;	
+	left: 483px;
+	position: absolute;
+}	
+
+.title {
+	color: #CFF;
+	top: 17px;
+	height: 30px;
+	width: 140px;
+}
+
+.title.attribute {left: 28px;}
+.title.value {left: 250px;}
+.divider {
+	background: url('images/6-1.png') repeat-x;
+	width: 72px;
+	height:6px;
+	top: 40px;
+	position: absolute;
+}
+.divider.div1 {	left: 20px;}
+.divider.div2 {	left: 80px;}
+.divider.div3 {	left: 140px;}
+.divider.div4 {	left: 200px;}
+
+.statcontainer {
+	width: 340px;
+	height: 400px;
+	top: 50px;
+	left: 28px;
+}
+
+.statcontainer .label {
+	width: 260px;
+	display: inline-block;
+}
+
+.starstat {
+	height: 30px;
+	margin-bottom: 10px;
+	display: block;
+	line-height: 30px;
+}
+
+.starstat.selected {
+	background: url('images/highlight.png') no-repeat;
+	background-size: 275px 30px;
+	background-position: -11px;
+}
+
+.valuename, .statvalue {
+	/*color: #B96;*/
+	color: #FDA;
+	opacity: 0.9;
+}
+.birthstar {color: #CFF;}
+.fatestar {color: #B00;}
+
+@keyframes pulsate {
+	0%{ opacity: 0.3}
+	100% {opacity: 1.0}
+}
+
+.button {
+	width: 213px;
+	height: 44px;
+	background: url("images/longbutton.png");
+	background-size: 100% 200%;
+	line-height: 44px;
+	text-align: center;
+	cursor: pointer;
+	color: #CFF;
+	text-shadow: 1px 1px 1px #000, -1px 1px 1px #000, 1px -1px 1px #000, -1px -1px 1px #000;
+}
+
+.button:hover {
+	background-position: 0 -100%;
+}
+
+.button:active {
+	line-height: 46px;
+	text-indent: 2px;
+}
+
+
+.icon {
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+	background-size: 100% 100%;
+}
+
+#chartIcon {
+	top: 317px;
+	left: 227px;
+	background: url('http://asterpw.github.io/pwicons/f/47464.png');
+}
+
+.dustIcon {
+	background-image: url('http://asterpw.github.io/pwicons/f/47494.png');
+}
+.dustUsedValue {
+	top: 5px;
+	left: 35px;
+}
+.powderIcon {/*
+	top: 453px;
+	left: 133px;*/
+	left: 105px;
+	background-image: url('http://asterpw.github.io/pwicons/f/47500.png');
+}
+.powderUsedValue {
+	top: 5px;
+	left: 140px;
+}
+.usage .icon {
+	width: 25px;
+	height:25px;
+}
+.usage .statValue {
+	font-size: 13px;
+}
+.usage {
+	opacity: 0.5;
+	top: 453px;
+	left:  27px;
+	width: 343px;
+	height: 30px;
+}
+.usage:hover {
+	opacity: 1.0;
+}
+
+#reset {
+	width: 99px;
+	height: 33px;
+	top: -5px;
+	left: 210px;
+	line-height: 33px;
+	font-size: 13px;
+}
+
+#horoscope {
+	top: 387px;
+	left: 245px;
+}
+
+#stargaze {
+	top: 437px;
+	left: 245px;
+}
+
+.classSelector {
+	width: 33px;
+	height: 33px;
+	position: absolute !important;
+	opacity: 0.7;
+	background-position: -33px 0;
+	background-size: 66px 33px;
+	cursor: pointer;
+}
+.classSelector:hover {
+	opacity: 1.0;
+	background-position: 0 0;
+}
+
+.classSelector.selected {
+	background-position: 0 0;
+	opacity: 1.0;
+}
+
+#classLabel { color: #CFF;}
+
+#class0 {background-image: url('../waravatar/images/class-0.png');}
+#class1 {background-image: url('../waravatar/images/class-1.png');}
+#class2 {background-image: url('../waravatar/images/class-2.png');}
+#class3 {background-image: url('../waravatar/images/class-3.png');}
+#class4 {background-image: url('../waravatar/images/class-4.png');}
+#class5 {background-image: url('../waravatar/images/class-5.png');}
+#class6 {background-image: url('../waravatar/images/class-6.png');}
+#class7 {background-image: url('../waravatar/images/class-7.png');}
+#class8 {background-image: url('../waravatar/images/class-8.png');}
+#class9 {background-image: url('../waravatar/images/class-9.png');}
+#class10 {background-image: url('../waravatar/images/class-10.png');}
+#class11 {background-image: url('../waravatar/images/class-11.png');}
+
+.item_color0{color:#ffffff;}
+.item_color1{color:#8080ff;}
+.item_color2{color:#aa32ff;}
+.item_color3{color:#ffdc50;}
+.item_color4{color:#ff6000;}
+.item_color5{color:#ff0000;}
+.item_color6{color:#b0b0b0;}
+.item_color7{color:#00ffae;}
+
+.footer {
+	margin-top: 20px;
+	font-size: 85%;
+	color: #CCC;
+	width: 600px;
+}
+
+.pwi-qtip {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #169;
+	background-color: rgba(20, 20, 20, 0.9);
+	--white-space: nowrap;
+	color: #FFF;
+	max-width: 500px;
+	font-size: 80% !important;
+	line-height: 140%;
+	/*padding: 5px;*/
+}
+
+.pwi-qtip .qtip-titlebar {
+	background-color: #149;
+}
+
+.qtip .label {
+	display: inline-block;
+	width: 55px;
+	margin-right: 10px;
+}
+.qtip .aptitudeControl {
+	margin-bottom: 5px;
+	display: block;
+}
+
+.qtip .label + * {
+	display: inline-block;
+	width: 140px;
+	margin-right: 0px;
+}

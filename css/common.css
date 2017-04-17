@@ -55,11 +55,19 @@ background-size: 20px;
 background-image: url('../waravatar/images/favicon.png');
 }
 
+#navlist .link a[href*=starchart]{
+background-image: url('http://asterpw.github.io/pwicons/f/47470.png');
+}
+
 #navlist .link a[href*=geniecalc]{
 background-image: url('../geniecalculator/images/favicon.png');
 }
 #navlist .link a[href*=refining]{
 background-image: url('http://asterpw.github.io/pwicons/f/11208.gif');
+}
+
+#navlist .link a[href*=elysiumlocations]{
+background-image: url('http://asterpw.github.io/pwicons/f/33917.png');
 }
 
 #navlist .link a:hover {
@@ -73,4 +81,64 @@ color: #FFF;
 background: black;
 font-family: Arial,Tahoma,Helvetica,sans-serif;
 margin: 0px;
+}
+
+.footer {
+	margin-top: 20px;
+	font-size: 85%;
+	color: #CCC;
+	width: 600px;
+}
+a {
+	color: #CCF;
+}
+
+
+#hLang{
+    float:right;
+    text-align:right;
+    font-size: 14px;
+    padding:5px 5px 0px 0px;
+}
+#hLang span {
+    display: inline-block;
+    margin:2px;
+    width:24px;
+    height:18px;
+}
+#hLang span.cn{
+    background: url(/pw/images/flags2.png);
+}
+#hLang span.pwi{
+    background: -24px url(/pw/images/flags2.png);
+}
+#hLang span.ru{
+    background: -48px url(/pw/images/flags2.png);
+}
+#hLang span.fr{
+    background: -72px url(/pw/images/flags2.png);
+}
+#hLang span.de{
+    background: -96px url(/pw/images/flags2.png);
+}
+#hLang span.my{
+    background: -120px url(/pw/images/flags2.png);
+}
+#hLang span.ms{
+    background: -144px url(/pw/images/flags2.png);
+}
+#hLang span.mycn{
+    background: -168px url(/pw/images/flags2.png);
+}
+#hLang span.br{
+    background: -192px url(/pw/images/flags2.png);
+}
+#hLang span.es{
+    background: -216px url(/pw/images/flags2.png);
+}
+#hLang span.ph{
+    background: -240px url(/pw/images/flags2.png);
+}
+#hLang span.jp{
+    background: -264px url(/pw/images/flags2.png);
 }

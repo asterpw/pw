@@ -4,6 +4,8 @@ var nav = '<ul id="navlist">\
   <li class="link"><a href="/pw/geniecalculator">Genie Calculator</a></li>\
   <li class="link"><a href="/pw/refiningsimulator">Refining Simulator</a></li>\
   <li class="link"><a href="/pw/waravatar">War Avatar Calculator</a></li>\
+  <li class="link"><a href="/pw/starchart">Star Chart Calculator</a></li>\
+  <li class="link"><a href="/pw/elysiumlocations">Elysium NPCs</a></li>\
 </ul>';
 document.write(nav);
 })()

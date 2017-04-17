@@ -391,7 +391,7 @@ select {
 }
 
 .resultaid {
-	cursor: hand;
+	cursor: pointer;
 }
 
 .smallicon {
@@ -1037,7 +1037,7 @@ function makeItem(className, item) {
 		top: (280+35*Math.floor(itemPos/8))+ "px",
 		left: (23+33*(itemPos%8)) + "px"
 	}).draggable({
-		cursor: "hand",
+		cursor: "pointer",
 		opacity: 0.75,
 		revert: true,
 		revertDuration: 0,
@@ -1154,7 +1154,7 @@ function makeGenderButtons() {
 		width: "88px",
 		top: "42px",
 		left: "20px",
-		cursor: "hand"
+		cursor: "pointer"
 	}).click(function(){
 		setGender('f');
 	}).appendTo($("#inventoryWindow"));

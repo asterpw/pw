@@ -1,0 +1,158 @@
+.title {
+	font-weight: bold;
+	font-size: 24px;
+	position: absolute;
+	top: -15px;
+	text-shadow: 3px 3px 0px #000000;
+}
+
+.container {
+	display: inline-block;
+	width:325px;
+	margin: 5px;
+	min-height: 326px;
+	border-radius: 4px;
+	padding: 20px;
+	background-color: #333;
+	vertical-align: top;
+	position: relative;
+}
+.sightings {
+	margin: 10px 5px;
+	border-radius: 4px;
+	padding: 20px;
+	background-color: #333;
+	vertical-align: top;
+	position: relative;
+	width:702px;
+	position: relative;
+}
+
+.submit {
+    margin-top: 5px;
+    background: #222;
+    display: inline-block;
+    padding: 1px 10px 6px;
+    color: #ddd;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 24px;
+    border-radius: 5px;
+    border: none;
+    text-shadow: 0 -1px 1px #222;
+    position: relative;
+    cursor: pointer;
+    height: 30px;
+    width: 175px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.submit[disabled] {
+	opacity: 0.5;
+	cursor: default;
+}
+
+.submit:enabled:hover {
+	color: #fff;
+}
+.submit:enabled:active {
+	line-height: 26px;
+	text-indent: 2px;
+}
+
+.message {
+	display: inline-block;
+	color: #BFB;
+}
+
+.link {
+	color: #CEF;
+}
+
+span.link:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.namelabel, .label {
+	display: inline-block;
+	text-align: left;
+	color: #CEF;
+}
+
+.result {
+	margin-top: 10px;
+}
+.location {
+	width: 160px;
+}
+.label {
+	width: 180px;
+}
+.npcName, .namelabel {
+	width: 105px;
+}
+
+
+.map {
+	position: absolute;
+	display: none;
+	top: 15px;
+	left: 368px;
+	background-image: url('map.png');
+	background-size: 100%;
+	/*transition: opacity  0s linear 0.1s;*/
+	height: 418px;
+	width: 347px;
+	margin-left: 20px;
+	z-index: 9999;
+}
+
+#walking .map {
+	left: -390px;
+}
+
+.label:hover {
+	background-color: #666;
+	cursor: pointer;
+}
+
+.label:hover .map, .label:focus .map {
+	display: block;
+}
+
+.map .marker {
+	position: absolute;
+	height: 5px;
+	width: 5px;
+	background: red;
+	
+}
+
+.map .markerpath {
+	position: absolute;
+	height: 2px;
+	width: 2px;
+	background: red;
+	border-radius: 1px;
+}
+
+.map .walkingNpc {
+	position: absolute;
+	height: 5px;
+	width: 5px;
+	top: 10px;
+	left: 10px;
+	background: yellow;
+	border-radius: 2px;
+}
+
+#walking .marker {
+	margin-left: -25px;
+	margin-top: -25px;
+	height: 50px;
+	width: 50px;
+	border-radius: 25px;
+	opacity: 0.3;
+}

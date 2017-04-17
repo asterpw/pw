@@ -123,7 +123,7 @@ a {
 	background-image: url('images/cardicons.png');
 	position: absolute !important;
 	display: inline-block;
-	cursor: hand;
+	cursor: pointer;
 }
 
 .slot {
@@ -145,7 +145,7 @@ a {
 	opacity: 0.7;
 	background-position: -33px 0;
 	background-size: 66px 33px;
-	cursor: hand;
+	cursor: pointer;
 }
 .classSelector:hover {
 	opacity: 1.0;
@@ -245,6 +245,7 @@ a {
 	overflow: visible;
 	white-space: nowrap;
 	padding: 2px 0px;
+	cursor: pointer;
 	/*font-family: FZXiHei, Arial, sans-serif;*/
 }
 
@@ -272,6 +273,7 @@ a {
 	color: #FFFFCC;
 	background-image: url('images/button_d.png');
 	text-shadow: none !important;
+	cursor: default;
 }
 
 .item_color0{color:#ffffff;}
@@ -323,7 +325,7 @@ a {
 	width:  135px;
 	margin-left: 35px;
 	margin-top: 5px;
-	cursor: hand;
+	cursor: pointer;
 }
 
 #cardPicker .pickernamelabel {
@@ -683,7 +685,7 @@ var update = function() {
 	$("#levelMinus").attr("disabled", card == 0 || card.level == 1);
 	$("#levelPlus").attr("disabled", card == 0 || card.level == card.maxLev);
 	$("#levelMax").attr("disabled", card == 0 || card.level == card.maxLev);
-	$("#levelAwaken").attr("disabled", card == 0 || card.level < card.maxLev);
+	$("#levelAwaken").attr("disabled", card == 0);// || card.level < card.maxLev);
 	$("#levelAwaken").attr("value","Awaken ("+(card != 0 ? card.awaken : 0)+")");
 	$("#leadershipAdjust").attr("value","Ldrship ("+(card != 0 ? card.leadership : 0)+")");
 	$("#exchangeButton").attr("disabled", isEmpty(model.storedCards));
@@ -1204,7 +1206,7 @@ var initCardPicker = function() {
 var initSlots = function() {
 	for(var i = 0; i < 6; i++) {
 		$("#item"+i).draggable({
-			cursor: "hand",
+			cursor: "pointer",
 			revert: true,
 			revertDuration: 0,
 			zIndex: 1000,
@@ -1272,7 +1274,7 @@ var modifyLevel = function(amount) {
 		card.level = card.maxLev;
 	} else if (amount == 'awaken') {
 		card.awaken = (card.awaken + 1) % 3
-		card.level = 1
+		//card.level = 1
 	} else {
 		card.level = Math.min(card.maxLev, Math.max(1, card.level + amount));
 	}
@@ -1465,6 +1467,7 @@ $(document).ready(function(){
 2014-02-21 - Added build comparison to Total Stats window <br>
 2014-12-21 - Added new classes and more card descriptions <br>
 2015-03-11 - Added new Anniversary card set <br>
+2016-10-29 - Renamed Candleflame set, Awakening no longer resets level <br>
 
 -Asterelle 
 </p>
