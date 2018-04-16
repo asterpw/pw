@@ -1,7 +1,5 @@
 <?php
 
-//require('/home/wodetian/public_html/aster/recaptcha/autoload.php');
-
 require('../lib/recaptcha/autoload.php');
 
 function tailFile($filepath, $lines = 1) {

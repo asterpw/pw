@@ -1,3 +1,5 @@
+var PHP_HOST = "http://asterpw.epizy.com/elysiumlocations/";
+
 var locPositions = [[149,960], [645,265], [496,870], [431,461], [124,589], [213,420], [548,375], [336,823], [370,762], [368,460], [580,758], [119,643], [209,319], [424,740], [635,479], [234,229], [290,817], [176,466], [111,310], [120,258], [493,276], [448,570], [421,647], [613,724], [154,892], [282,567], [773,961], [463,423], [370,347], [461,839], [226,554], [772,935], [673,612], [585,564], [149,813], [325,975], [655,208], [460,345], [255,815], [683,258], [638,834], [141,746], [668,175], [176,875], [249,972], [597,858], [236,778], [389,516], [669,674], [497,965], [648,566], [540,419], [439,483], [676,254], [767,890], [234,751], [155,234], [348,465], [126,368]];
 
 var locNames = ["Snowy Village", "Amethyst Village", "Hidden Heroes Village", "Arrowhead Manor", "Sundown Town", "Village of the Brutes", "Dreaming Cloud", "Sumor Camp", "Swiftwind Tribe", "Battlemark Village", "Orchid Temple", "Town of Arrivals", "Dreaming Stronghold", "Tradewind", "Village of the Lost", "Ancestral Shrine", "Ancient Wall", "Sandsong Village", "Cromagnon Village", "Shrine of Immortals", "Forgotten Sanctuary", "Silver Pool", "Wellspring Village", "Allies Camp", "North Barrier Village", "Dragon's End", "Bleakhaven Ruins", "King's Feast", "Bamboo Village", "Hunter Cabin", "Broken Bridge", "Altar of Dreams", "Village of Naught", "Hidden Orchid", "South Barrier Village", "Avalanche Village", "Dragonfang Village", "Tusk Town", "Intrepid Camp", "Nightfire Altar", "Angler's Village", "Immolation Camp", "Camp Wave Breaker", "East Barrier Village", "Shattered Ice", "Walled Stronghold", "Sirry Wine Camp", "Gate of Antiquity", "Nameless Isle", "Timberfield", "Sanctuary", "Whetstone Keep", "Rook's Valley", "Island of Broken Dreams", "Dawnglory", "Farewell Plain",  "The Fissure", "Forest of the Plume", "Windy Tomb Canyon"]
@@ -213,7 +215,7 @@ var initSightings = function() {
 		if (server == "-1") return;
 		$(".sightings .server option[value=-1]").remove();
 		localStorage.setItem('server', server);
-		$.ajax({url: "getrecord.php?q="+server, dataType: "json"}).done(setSightings);
+		$.ajax({url: PHP_HOST+"getrecord.php?q="+server, dataType: "json"}).done(setSightings);
 	});
 	
 	$(".submit").click(function(){
@@ -250,7 +252,7 @@ var initSightings = function() {
 		}
 		$(this).prop('disabled', true);
 
-		$.post("http://aster.ohmydays.net/pw/elysiumlocations/record.php", {
+		$.post(PHP_HOST+"record.php", {
 			q: server,
 			type: type,
 			name: npc,
