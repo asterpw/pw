@@ -1,3 +1,6 @@
+var PHP_HOST = "http://astrelle.tk/elysiumlocations/";
+$.ajaxSetup({crossDomain: true});
+
 var locPositions = [[149,960], [645,265], [496,870], [431,461], [124,589], [213,420], [548,375], [336,823], [370,762], [368,460], [580,758], [119,643], [209,319], [424,740], [635,479], [234,229], [290,817], [176,466], [111,310], [120,258], [493,276], [448,570], [421,647], [613,724], [154,892], [282,567], [773,961], [463,423], [370,347], [461,839], [226,554], [772,935], [673,612], [585,564], [149,813], [325,975], [655,208], [460,345], [255,815], [683,258], [638,834], [141,746], [668,175], [176,875], [249,972], [597,858], [236,778], [389,516], [669,674], [497,965], [648,566], [540,419], [439,483], [676,254], [767,890], [234,751], [155,234], [348,465], [126,368]];
 
 var locNames = ["Vila Nevada", "Vila Ametista", "Vila dos Eremitas", "Vila das Espadas", "Cidade do Por do Sol", "Montanha dos Cisnes", "Vila dos Sonhos", "Campo de Su Muer", "Tribo dos Ventos", "Vila Luoying", "Templo das Orquídeas", "Cidade de Fei Wei", "Vila Nanke", "Cidade do Vento Alísio", "Vila Perdida", "Santuário dos Ancestrais", "Muralha Ancestral", "Vila da Areia", "Vila Yelang", "Santuário dos Imortais", "Santuário Esquecido", "Residência do Lago Espelhado", "Cidade do Rio", "Acampamento Aliado", "Cidade de Beiping", "Declive do Dragão", "Templo da Ilusão", "Reino de Yu", "Vila do Bambu", "Estalagem Pengcheng", "Vila da Ponte Quebrada", "Altar da Ilusão", "Vila Langour", "Vila das Orquídeas", "Cidade de Nanping", "Vila da Avalanche", "Vila Presa de Dragão", "Cidade da Presa", "Campo de Expedição", "Altar de Fogo Noturno", "Vila dos Pescadores", "Vila do Fogo", "Acampamento Quebra Onda", "Cidade de Dongpin", "Vila de Gelo", "Vila Quadrada", "Vila Hu", "Garganta dos Ventos Ancestrais", "Ilha Perdida", "Galpão dos Lenhadores", "Cidade de Arcádia", "Vila de Pedra", "Vale do Tablado","Altar do Fogo Noturno","Floresta da Miragem","Campo dos Lírios","A Fenda","Floresta Yujia","Garganta dos Ventos"];
@@ -163,7 +166,7 @@ var initSightings = function() {
 		if (server == "-1") return;
 		$(".sightings .server option[value=-1]").remove();
 		localStorage.setItem('server', server);
-		$.ajax({url: "getrecord.php?q="+server, dataType: "json"}).done(setSightings);
+		$.ajax({url: PHP_HOST+"getrecord.php?q="+server, dataType: "json"}).done(setSightings);
 	});
 	
 	$(".submit").click(function(){
@@ -200,7 +203,7 @@ var initSightings = function() {
 		}
 		$(this).prop('disabled', true);
 
-		$.post("http://aster.ohmydays.net/pw/elysiumlocations/record.php", {
+		$.post(PHP_HOST+"record.php", {
 			q: server,
 			type: type,
 			name: npc,

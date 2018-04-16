@@ -1,15 +1,14 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>PWBR Localizações de NPCs - Expansão Elysium</title>
+<title>PWI Homestead NPC Locations</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.4/moment-timezone-with-data.min.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="../css/common.css" />
-<link rel="stylesheet" type="text/css" href="locations-br.css" />
+<link rel="stylesheet" type="text/css" href="locations.css" />
 <link rel="icon"  type="image/png" href="http://asterpw.github.io/pwicons/f/33917.png">
-<script src="locations-br.js" type="text/javascript"></script>
+<script src="locations.js" type="text/javascript"></script>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -27,50 +26,48 @@
 </head>
 <body>
 <script src="../js/navbox.js" type="text/javascript"></script>
-<div style='position: relative; text-align: left; width: 915px; margin:10px auto;'>	
-<h1>PWBR Localizações de NPCs - Expansão Elysium
+<div style='position: relative; text-align: left; width: 840px; margin:10px auto;'>	
+<h1>PWI Homestead NPC Locator
 	<div id="hLang">
-        <a href="/pw/elysiumlocations/" title="Perfect World International"><span class="pwi"></span></a>
-        <a href="/pw/elysiumlocations/index-br.html" title="PW - Brazil"><span class="br"></span></a>
+        <a href="/pw/homesteadnpcs/" title="Perfect World International"><span class="pwi"></span></a>
+        <a href="/pw/homesteadnpcs/index-br.html" title="PW - Brazil"><span class="br"></span></a>
 	</div>
 </h1>
-Pegue o item Eco Misterioso com o NPC Negociante, que se encontra na maioria dos vilarejos, e insira abaixo a informação que receber após usá-lo.
-Para os NPCs que andam você precisa saber previamente a localização de um dos outros NPCs que também estejam andando.
-Experimente utilizar as dicas abaixo que outras pessoas em seu servidor submeteram da última vez que viram tais NPCs.
+Get a Mysterious Echo from the Merchant in most villages and enter what you learn from it below.<br>
+For the walking NPCs you have to already know the location of one of the other walking NPCs.<br>
+Try using the sightings other people on your server have made!
 <div style="text-align: left; margin-top: 20px">
 	
 	<div id="normal" class="container">
-		<div class="title">Parado</div>
-		<select class="npcName"></select> está em <select class="location"><option value="-1">&nbsp;</option></select>
+		<div class="title">Standing</div>
+		<select class="npcName"></select> is in  <select class="location"><option value="-1">&nbsp;</option></select>
 		<div class="result"></div>
 		<div class="submitSighting">
-			<button class="submit">Submeter Localização</button>
+			<button class="submit">Submit Sighting</button>
 			<div class="message"></div>
 			<div id='recaptcha'></div>
 			<!--div class="g-recaptcha" data-sitekey="6LfULR4TAAAAAKbR_S0t-H025tlQFnX6GFZC9t9L"></div-->
 		</div>
 	</div>
 	<div id="walking" class="container">
-		<div class="title">Andando</div>
-		<select class="npcName"></select> está em <select class="location"><option value="-1">&nbsp;</option></select>
+		<div class="title">Walking</div>
+		<select class="npcName"></select> is in  <select class="location"><option value="-1">&nbsp;</option></select>
 		<div class="result"></div>
 		<div class="submitSighting">
-			<button class="submit">Submeter Localização</button>
+			<button class="submit">Submit Sighting</button>
 			<div class="message"></div>
 			<div id='recaptcha'></div>
 		</div>
 	</div>	
 	<div class='sightings'> 
-		<div class="title">Localizações</div>
-		Servidor: 
+		<div class="title">Sightings</div>
+		Server: 
 		<select class="server">
-			<option value='-1'>Escolha um servidor</option>
-			<option value='cygnus'>Cygnus (PvP)</option>
-			<option value='arcadia'>Arcadia (PvE)</option>
-			<option value='pegasus'>Pegasus (PvP)</option>
-			<option value='hydra'>Hydra (PvE)</option>
-			<option value='draco'>Draco (PvE)</option>
-			<option value='lynx'>Lynx (PvE)</option>
+			<option value='-1'>Choose a server</option>
+			<option value='dawnglory'>Dawnglory</option>
+			<option value='etherblade'>Etherblade</option>
+			<option value='tideswell'>Tideswell</option>
+			<option value='twilight'>Twilight Temple</option>
 		</select>
 		<div class="result"></div>
 	</div>
@@ -84,7 +81,7 @@ Experimente utilizar as dicas abaixo que outras pessoas em seu servidor submeter
 	2016-04-27 - Changed "Blazing Wind Valley" to "Island of Broken Dreams"  <br>
 	2016-05-26 - Autoselect most common sighting of the day  <br>
 	2016-05-28 - Corrected a location for Leu Ninsi (Whetstone to Swiftwind)<br>
-	2016-11-18 - Launched PWBR version<br>
+	2016-11-18 - Launched PWBR version<br>	
 	2017-01-07 - Added map when hovering (coordinates from <a href="http://www.triviapw.hiperportal.blog.br/elysium#">Trivia PW</a>) <br>
 	<br>-Asterelle 
 	</p>
