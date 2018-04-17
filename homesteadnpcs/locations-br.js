@@ -182,7 +182,7 @@ var initSightings = function() {
 		
 		if (token == ''){
 			if ($("#captcha"+type).length == 0) {
-				var capctchaDiv = $("<div id='captcha"+type+"' 'class='recaptcha'></div>")
+				var capctchaDiv = $("<div id='captcha"+type+"' class='recaptcha'></div>")
 				$(this).closest('.container').append(capctchaDiv);
 				grecaptcha.render(capctchaDiv[0], {
 					'sitekey' : '6LfULR4TAAAAAKbR_S0t-H025tlQFnX6GFZC9t9L',
