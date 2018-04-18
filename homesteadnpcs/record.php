@@ -1,6 +1,5 @@
 <?php
 
-//require('/home/wodetian/public_html/aster/recaptcha/autoload.php');
 header('Content-type: application/json');
 header('Access-Control-Allow-Origin: *');
 	
