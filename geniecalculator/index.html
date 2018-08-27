@@ -172,6 +172,15 @@ span.culti {
   color: rgb(255,203,74);
 }
 
+.genieIcon {
+	background-image: url('images/iconlist_elf.png');
+	height: 64px;
+	width: 64px;
+	position: absolute;
+	top: 78px;
+	left: 29px;
+}
+
 </style>
 <script type="text/javascript" src="js/geniestats.js"></script> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
@@ -197,7 +206,7 @@ var F_AIR = 0x1000;
 var F_ALLTERRAIN = 0x1C00;
 
 //stolen from ecatomb
-var refIdMapping = [[10001,0],[10151,1],[10141,3],[10241,2],[9681,14],[9751,21],[9791,25],[9871,33],[9941,40],[9581,4],[9601,6],[9621,8],[9741,20],[9841,30],[9911,37],[9931,39],[9951,41],[10011,46],[10021,47],[10041,49],[9631,9],[9731,19],[9821,28],[9851,31],[9971,43],[10051,50],[10271,69],[10071,52],[9651,11],[9721,18],[9811,27],[9921,38],[9961,42],[10101,55],[10111,56],[10121,57],[10131,58],[10161,59],[9761,22],[9771,23],[10191,62],[10511,93],[9611,7],[10171,60],[10181,61],[9591,5],[9641,10],[9701,16],[9781,24],[9881,34],[9981,44],[10201,63],[10211,64],[10221,65],[10231,66],[9661,12],[9691,15],[9831,29],[9861,32],[9991,45],[10261,68],[10061,51],[10281,70],[10291,71],[9671,13],[9711,17],[9801,26],[9891,35],[10301,72],[10311,73],[10501,92],[10841,95],[10321,74],[10331,75],[10521,94],[10341,76],[10351,77],[10441,86],[10361,78],[10371,79],[10481,90],[10381,80],[10391,81],[10471,89],[10401,82],[10411,83],[10461,88],[10421,84],[10431,85],[10451,87],[10491,91]];
+var refIdMapping = [[10001,0],[10151,1],[10141,3],[10241,2],[9681,14],[9751,21],[9791,25],[9871,33],[9941,40],[9581,4],[9601,6],[9621,8],[9741,20],[9841,30],[9911,37],[9931,39],[9951,41],[10011,46],[10021,47],[10041,49],[9631,9],[9731,19],[9821,28],[9851,31],[9971,43],[10051,50],[10271,69],[10071,52],[9651,11],[9721,18],[9811,27],[9921,38],[9961,42],[10101,55],[10111,56],[10121,57],[10131,58],[10161,59],[9761,22],[9771,23],[10191,62],[10511,93],[9611,7],[10171,60],[10181,61],[9591,5],[9641,10],[9701,16],[9781,24],[9881,34],[9981,44],[10201,63],[10211,64],[10221,65],[10231,66],[9661,12],[9691,15],[9831,29],[9861,32],[9991,45],[10261,68],[10061,51],[10281,70],[10291,71],[9671,13],[9711,17],[9801,26],[9891,35],[10301,72],[10311,73],[10501,92],[10841,95],[10321,74],[10331,75],[10521,94],[10341,76],[10351,77],[10441,86],[10361,78],[10371,79],[10481,90],[10381,80],[10391,81],[10471,89],[10401,82],[10411,83],[10461,88],[10421,84],[10431,85],[10451,87],[10491,91],[49831,96]];
 
 var currentSkill = 0;
 
@@ -221,6 +230,8 @@ function Skill(name, level, metal, wood, earth, water, fire, row, col, restricti
 	this.skillId = refIdMapping[currentSkill][1];
 	currentSkill++; 
 }
+
+var initialSkills = [0, 1, 2, 3, 96];
 
 var skills = [ //"name", level, metal wood earth water fire, r,c, id
 new Skill("Venom Stinger", 1, 0, 0, 0, 0, 0, -1, 2),
@@ -327,7 +338,9 @@ new Skill("Inflame", 60, 0, 0, 7, 0, 6, 12, 4, F_LAND),
 new Skill("Chi Siphon", 60, 0, 0, 7, 7, 0, 13, 1),
 new Skill("Ice Blast", 60, 0, 7, 0, 0, 7, 13, 2),
 new Skill("Chaotic Spirit", 60, 7, 7, 0, 0, 0, 13, 3, F_VENO),
-new Skill("Faith", 60, 0, 7, 0, 0, 7, 13, 4)
+new Skill("Faith", 60, 0, 7, 0, 0, 7, 13, 4),
+
+new Skill("Chant of Chi", 1, 0, 0, 0, 0, 0, -1, 6),
 ];
 
 function loadSkills() {
@@ -584,11 +597,11 @@ function getSelectedSkills() {
 		var drawboxElem = document.getElementById("skilldrawbox"+i);
 		drawboxElem.setAttribute("class", "skilldrawbox");
 		if (document.skillform.skill[i].checked) {
-			if (totalSkills == 8 || ((i < 4) && hasInitialSkill)) {
+			if (totalSkills == 8 || (initialSkills.indexOf(skills[i].skillId) != -1 && hasInitialSkill)) {
 				document.skillform.skill[i].checked = false;
 				continue;
 			}
-			if (i < 4) 
+			if (initialSkills.indexOf(skills[i].skillId) != -1) 
 			    hasInitialSkill = true;
 			drawboxElem.setAttribute("class", drawboxElem.getAttribute("class") + " selectedSkill");
 			totalSkills++;
@@ -627,7 +640,7 @@ function setSkillEnabled() {
 		document.skillform.terrain.selectedIndex].value);
 				
 	var selectedSkills = getSelectedSkills();
-	var hasInitialSkill = skills.slice(0,4).indexOf(selectedSkills[0]) != -1;
+	var hasInitialSkill = selectedSkills.filter(v => -1 != initialSkills.indexOf(v.skillId)).length > 0;
 	
 	for (var i = 0; i < document.skillform.skill.length; i++) {
 		document.skillform.skill[i].disabled = false;
@@ -637,7 +650,7 @@ function setSkillEnabled() {
 
 		selectedSkills.push(skills[i]);
 		
-		if (i < 4 && hasInitialSkill) {
+		if ((initialSkills.indexOf(skills[i].skillId) != -1 )&& hasInitialSkill) {
 			document.skillform.skill[i].disabled = true;
 		}
 		
@@ -663,13 +676,33 @@ function setSkillEnabled() {
 	}
 }
 
+function setGenieIcon(luckyPoints, selectedSkills) {
+	initialSkill = selectedSkills.filter(v => -1 != initialSkills.indexOf(v.skillId));
+	type = 0
+	if (initialSkill.length)
+		type = initialSkill[0].skillId;
+	var idx = 0;
+	level = 0;
+	if (type < 96) {
+		var typeMap = [1, 3, 2, 0]
+		if (luckyPoints < 41) level = 0;
+		else if (luckyPoints < 51) level = 1;
+		else if (luckyPoints < 61) level = 2;
+		else level = 3;
+		idx = 1 + typeMap[type]*4 + level;
+	}
+	var x = idx%4;
+	var y = Math.floor(idx/4);
+	$('.genieIcon').css('background-position', '-'+(64*x)+'px -'+(64*y)+'px');
+};
+
 function refresh() {
 	setSkillEnabled();
 	
 	var selectedSkills = getSelectedSkills();
 	var minGenieLevel = calcGenieLevelFromSkills(selectedSkills);
 	var luckyPoints = calcLuckyPoints(minGenieLevel, selectedSkills);
-		
+	setGenieIcon(luckyPoints, selectedSkills);	
 	document.getElementById("resultGenieLevel").innerHTML = minGenieLevel;
 	document.getElementById("resultGenieLevel").setAttribute("class", "stat " 
 		+ (minGenieLevel > getSelectedGenieLevel() ? "err" : "") );
@@ -759,6 +792,7 @@ $(document).ready(function(){
 		<form name="genie">
 			<div style="position:absolute">
 				<img src="images/geniewindow.png">
+				<div class="genieIcon"></div>
 				<div class="label" style="position: absolute; left:44px;  top:251px; width:250px; height:40px; overflow: auto;">Skills: <span class="stat" id="resultSkills"></span></div>
 				<div class="label" style="position: absolute; left:110px;  top:86px; width:175px; height:40px; overflow: none;"><table><tr><td class="label">Genie Level:</td><td><input type="text" name="genielev" maxlength="3" size="3" value="-" onchange="refresh();"></td></tr>
 					<tr><td class="label">Lucky Points:</td><td><input type="text" name="genielp" maxlength="3" size="3" value="-" onchange="refresh();"></td></tr></table>
@@ -818,6 +852,7 @@ makeTable();
 2012-10-28 - added Disqus discussion box <br>
 2014-05-04 - corrected class restriction on "Phoenix Dance" <br>
 2014-12-21 - Added new classes <br>
+2018-08-27 - Added new genie and its skill, genie portrait now updates <br>
 <br>-Asterelle 
 </p>
 

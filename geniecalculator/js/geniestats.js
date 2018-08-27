@@ -1,7 +1,7 @@
 //THIS CODE IS ADAPTED FROM ECATOMB'S SITE. http://ecatomb.net/genieskill.php
 //donnee
 //nb skill
-var genieStats=new Array(95);
+var genieStats=new Array(97);
 
 //level - 0
 //sp - 1
@@ -651,6 +651,13 @@ genieStats[91]=new Array(4);
 genieStats[91][0]=new Array("60","65","70","75","80","85","90","95","99","99");
 genieStats[91][1]=new Array("18 480","25 000 (43 480)","34 000 (77 480)","53 200 (130 680)","88 000 (218 680)","141 000 (359 680)","221 200 (580 880)","317 200 (898 080)","500 000 (1 398 080)","500 000 (1 898 080)");
 genieStats[91][3]=new Array("10","20","30","40","50","60","70","80","90","100");
+//49831
+genieStats[96]= new Array(7);
+genieStats[96][0]=new Array("1");
+genieStats[96][1]=new Array("-");
+genieStats[96][2]=new Array("-");
+genieStats[96][3]=new Array("50");
+genieStats[96][4]=new Array("999");
 
 function getRawSkillDescription(refID) {
   //info skill - partie 2 (nom + description)
@@ -849,6 +856,8 @@ function getRawSkillDescription(refID) {
       return "<span class=\"culti\">Energy </span><span class=\"bleuclair\">70</span><br /><span class=culti>Stamina </span><span class=\"bleuclair\">800</span><br /><span class=culti>Cooldown </span><span>30 </span><span class=culti> seconds</span><br /><span class=culti>Requisite Class </span><span>Blademaster, Barbarian<br /><br />Reflect Magic damage.<br />Lasts for 2 seconds.<br />Up to a Maximum of %%3%% damage will be reflected.</span><br /><br /><span class=\"genie\">Strength: Every 24 Genie Strength points increases the duration by 1 second.</span>";
     case 10841  : //"Balance";
       return "<span class=\"culti\">Energy </span><span class=\"bleuclair\">108</span><br /><span class=culti>Stamina </span><span class=\"bleuclair\">800</span><br /><span class=culti>Cooldown </span><span>60 </span><span class=culti> seconds</span><br /><span class=culti>Requisite Class </span><span>Blademaster<br /><br />Creates a shield around you that<br />absorbs damage and makes you immune to stuns for 6 seconds.<br />If your physical defense is higher than your average elemental resistance, the shield absorbs magic damage.<br />If your elemental resistance is higher than your physical defense, the shield absorbs physical damage.<br />The amount it absorbs is equal to %%3%% of the difference between your resistances and your defense.</span><br /><br /><span class=\"genie\">Strength: Every 16 Genie Strength points will increase the duration by 1 second.</span>";
+    case 49831  : //"Chant of Chi"
+      return "<span class=\"culti\">Range </span><span>Self</span><br /><span class=culti>Energy </span><span class=\"bleuclair\">%%3%%</span><br /><span class=culti>Stamina </span><span class=\"bleuclair\">%%4%%</span><br /><span class=culti>Instant </span><br /><span class=culti>Cooldown </span><span>30 </span><span class=culti> seconds</span><br /><span class=culti>Class </span><span>All<br /><br />With a great burst of energy,<br />the Genie gains 1 point of Spark.<br />For each level the Genie has, it gains 1 more Chi.</span>";
     default : 
 	  return "";
   }
