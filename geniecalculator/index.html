@@ -702,7 +702,7 @@ function refresh() {
 	var selectedSkills = getSelectedSkills();
 	var minGenieLevel = calcGenieLevelFromSkills(selectedSkills);
 	var luckyPoints = calcLuckyPoints(minGenieLevel, selectedSkills);
-	setGenieIcon(luckyPoints, selectedSkills);	
+	setGenieIcon(Math.min(getSelectedLuckyPoints(), luckyPoints), selectedSkills);	
 	document.getElementById("resultGenieLevel").innerHTML = minGenieLevel;
 	document.getElementById("resultGenieLevel").setAttribute("class", "stat " 
 		+ (minGenieLevel > getSelectedGenieLevel() ? "err" : "") );
