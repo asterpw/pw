@@ -8,6 +8,8 @@ var update = function(recipe) {
 	recipeData = recipe.data('recipe');
 	productId = recipe.data('product');
 	grade = item_data[productId][1];
+	item_type = item_data[productId][3];
+	
 	refineLevel = recipe.find(".refine select").val();
 	chienkunRefineCost = 0;
 	if (refineLevel)
@@ -16,12 +18,24 @@ var update = function(recipe) {
 	chienkunSocketCost = 0;
 	chienkunGemCost = 0;
 	if (socketCount) {
-		cost_table = recipe.find(".socket select option").length > 3 ? socket_armor_cost : socket_weapon_cost;
-		chienkunSocketCost = Math.round((cost_table[grade][socketCount] * recipeData[1])/100);
+		if (chienkun_type_config[item_type][2] == 1) 
+			cost_table =  socket_weapon_cost[grade];
+		if (chienkun_type_config[item_type][2] == 2) 
+			cost_table =  socket_armor_cost[grade];
+		else
+			cost_table = socket_ornament_cost;
+		chienkunSocketCost = Math.round((cost_table[socketCount] * recipeData[1])/100);
 		gemGrade = recipe.find(".gems select").val();
 		chienkunGemCost = Math.round((gem_cost[gemGrade]* socketCount * recipeData[1])/100);
 	}
-	totalChienkunCost = chienkunRefineCost + chienkunSocketCost + chienkunGemCost;
+	
+	chienkunEngraveCost = 0
+	engraveCount = recipe.find(".engrave select").val();
+	if (engraveCount) {
+		chienkunEngraveCost = Math.round((engrave_cost[engraveCount] * recipeData[2])/100);
+	}
+	
+	totalChienkunCost = chienkunRefineCost + chienkunSocketCost + chienkunGemCost + chienkunEngraveCost;
 	result = $('<div class="cost">');
 	if (chienkunRefineCost)
 		result.append($('<div class="label">').text("Refine: ")).append($('<div class="value">').text(chienkunRefineCost)).append(makeItemWidget(12980)).append($("<br>"));
@@ -29,6 +43,8 @@ var update = function(recipe) {
 		result.append($('<div class="label">').text("Sockets: ")).append($('<div class="value">').text(chienkunSocketCost)).append(makeItemWidget(12980)).append($("<br>"));
 	if (chienkunGemCost)
 		result.append($('<div class="label">').text("Gems: ")).append($('<div class="value">').text(chienkunGemCost)).append(makeItemWidget(12980)).append($("<br>"));
+	if (chienkunEngraveCost)
+		result.append($('<div class="label">').text("Engrave: ")).append($('<div class="value">').text(chienkunEngraveCost)).append(makeItemWidget(12980)).append($("<br>"));
 	if (totalChienkunCost != chienkunRefineCost && totalChienkunCost != chienkunSocketCost && totalChienkunCost != chienkunGemCost )
 		result.append($('<div class="label">').text("Total: ")).append($('<div class="value">').text(totalChienkunCost)).append(makeItemWidget(12980)).append($("<br>"));
 	recipe.find('.cost').remove();
@@ -44,6 +60,16 @@ var makeItemWidget = function(id) {
 		.append($("<div class='icon'>").css('backgroundImage', 'url(http://asterpw.github.io/pwicons/f/'+id+'.png'))
 		.append($("<div class='label'>").text(htmlDecode(item_data[id][0])).addClass("item_color" + item_data[id][2]));
 };
+var makeEngraveControl = function(maxEngraves) {
+	selectorControl = $('<div class="engrave selector">');
+	label = $('<div class="label">').text("Engrave:");
+	select = $('<select>');
+	for (var i = 0; i <= maxEngraves; i++) 
+		select.append($('<option>').attr('value', i).text(i + " addon" +((i != 1) ? "s" : "")));
+	select.change(function(){ update($(this).parents('.recipe'))});
+	return selectorControl.append(label).append(select);
+};
+
 var makeGemsControl = function(gemType) {
 	selectorControl = $('<div class="gems selector">');
 	label = $('<div class="label">').text("Gems:");
@@ -85,7 +111,8 @@ var makeSourceControl = function(id) {
 		source.append(makeSocketControl(chienkun_type_config[item_type][1]));
 	if (chienkun_type_config[item_type][2])
 		source.append(makeGemsControl(chienkun_type_config[item_type][1]));
-	
+	if (chienkun_type_config[item_type][3])
+		source.append(makeEngraveControl(chienkun_type_config[item_type][3]));
 	return source;
 };
 
