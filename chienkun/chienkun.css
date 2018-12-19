@@ -1,0 +1,93 @@
+.icon {
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+	background-size: 100% 100%;
+	display: inline-block;
+}
+
+.item {
+	display: inline-block;
+	width: 300px;
+}
+.item .label {
+	min-width: 233px;
+	
+}
+
+.label {
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.recipe {
+	background: #222;
+	border-radius: 4px;
+	padding: 4px;
+	margin-bottom: 10px;
+}
+
+.recipe > * {
+	vertical-align: top;
+}
+
+.recipe .source {
+	display: inline-block;
+}
+
+.mats {
+	display: inline-block;
+}
+
+.mat > .label {
+	width: 40px;
+	text-align: right;
+	padding-right: 5px;
+}
+
+.selector > .label {
+	width: 70px;
+}
+
+.selector select {
+	width: 100px;
+}
+
+.cost .label {
+	width: 75px;
+}
+.cost .value {
+	width: 40px;
+	display: inline-block;
+	text-align: right;
+}
+.ui-autocomplete.ui-menu {
+	background-color: #333333;
+	border-radius: 2px;
+	padding: 0px;
+}
+
+.ui-menu-item.ui-state-focus {
+	background-color: #555555;
+}
+
+.ui-autocomplete .ui-menu-item {
+	display: block;
+}
+
+.ui-helper-hidden-accessible {
+	display: none;
+}
+
+.item_color0 {color:#ffffff;}
+.item_color1 {color:#8080ff;}
+.item_color2 {color:#ffdc50;}
+.item_color3 {color:#aa32ff;}
+.item_color4 {color:#ff6000;}
+.item_color5 {color:#ffffff;}
+.item_color6 {color:#b0b0b0;}
+.item_color7 {color:#0000ff;}
+/*.item_color8 {color:#6cfb4b;}*/
+.item_color8 {color:#ff0000;}
+.item_color9 {color:#ff0000;}
+.item_color10{color:#80ffff;}
