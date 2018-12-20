@@ -5,6 +5,13 @@
 	margin:0 auto;
 }
 
+input, select {
+	background-color: #222;
+	color: #fff;
+	border-color: #555;
+	border-width: 1px;
+}
+
 .icon {
 	width: 32px;
 	height: 32px;
