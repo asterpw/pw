@@ -70,6 +70,7 @@ input, select {
 	left: 10px;
 	height: 32px;
 	padding-top: 10px;
+	color: #EEE;
 }	
 
 .title {
@@ -92,6 +93,7 @@ input, select {
 
 .source, .cost {
 	margin-right: 5px;
+	color: #777;
 }
 
 .mats::before {
@@ -112,11 +114,22 @@ input, select {
 	width: 70px;
 }
 
+.label, .value {
+	color: #FFF;
+}
+
 .selector select {
 	width: 100px;
+	margin-top: 2px;
 }
 .cost {
 	width: 170px;
+}
+
+.cost.free::after {
+	content: "Free!";
+	text-align: center;
+	width: 100%;
 }
 .cost .label {
 	width: 75px;

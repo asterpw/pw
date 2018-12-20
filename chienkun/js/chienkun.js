@@ -126,7 +126,10 @@ var makeRecipe = function(id, recipeData) {
 		mats.append(mat);
 	}
 	mats.append($("<div class='label'>").text("Coins: " + recipeData[3]));
-	recipe.append($("<div class='cost panel'>"))
+	cost = $("<div class='cost panel'>");
+	if (recipeData[1] == 0 && recipeData[2] == 0)
+		cost.addClass("free");
+	recipe.append(cost)
 	recipe.append(mats);
 	recipe.data('recipe', recipeData);
 	recipe.data('product', id);
