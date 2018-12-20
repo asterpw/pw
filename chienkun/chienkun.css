@@ -139,6 +139,7 @@ input, select {
 	overflow: hidden;
 	overflow-y: auto;
 	max-height: 300px;
+	position: absolute;
 }
 
 .ui-menu-item.ui-state-focus {

@@ -218,7 +218,7 @@ var initAutocomplete = function() {
 
 		source: function(request, response) {
 			var results = $.ui.autocomplete.filter(autoCompleteTerms, request.term);
-			response(results.slice(0, 20));
+			response(results.slice(0, 25));
 		},		
 		select: selectItem,
 	
