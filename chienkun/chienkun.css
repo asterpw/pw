@@ -110,6 +110,15 @@ input, select {
 	padding-right: 5px;
 }
 
+.mat .value {
+	position: absolute;
+	bottom:0;
+}
+.mat {
+	min-height: 25px;
+	position: relative;
+}
+
 .selector > .label {
 	width: 70px;
 }

@@ -125,7 +125,7 @@ var makeRecipe = function(id, recipeData) {
 		mat.append(makeItemWidget(recipeData[4][i][0]));
 		mats.append(mat);
 	}
-	mats.append($("<div class='label'>").text("Coins: " + recipeData[3]));
+	mats.append($("<div class='mat'>").append($("<div class='value'>").text("Coins: " + recipeData[3])));
 	cost = $("<div class='cost panel'>");
 	if (recipeData[1] == 0 && recipeData[2] == 0)
 		cost.addClass("free");
