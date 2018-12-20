@@ -6,6 +6,7 @@ var nav = '<ul id="navlist">\
   <li class="link"><a href="/pw/waravatar/">War Avatar Calculator</a></li>\
   <li class="link"><a href="/pw/starchart/">Star Chart Calculator</a></li>\
   <li class="link"><a href="/pw/homesteadnpcs/">Homestead NPCs</a></li>\
-</ul>';
+  <li class="link"><a href="/pw/chienkun/">Chienkun Calculator</a></li>\
+  </ul>';
 document.write(nav);
 })()
