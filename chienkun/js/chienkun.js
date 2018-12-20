@@ -36,29 +36,26 @@ var update = function(recipe) {
 	}
 	
 	totalChienkunCost = chienkunRefineCost + chienkunSocketCost + chienkunGemCost + chienkunEngraveCost;
-	result = $('<div class="cost">');
-	if (chienkunRefineCost)
-		result.append($('<div class="label">').text("Refine: ")).append($('<div class="value">').text(chienkunRefineCost)).append(makeItemWidget(12980)).append($("<br>"));
+	result = recipe.find('.cost').empty();
+	if (chienkunRefineCost) //.append(makeItemWidget(12980))
+		result.append($('<div class="label">').text("Refine: ")).append($('<div class="value">').text(chienkunRefineCost)).append($("<br>"));
 	if (chienkunSocketCost)
-		result.append($('<div class="label">').text("Sockets: ")).append($('<div class="value">').text(chienkunSocketCost)).append(makeItemWidget(12980)).append($("<br>"));
+		result.append($('<div class="label">').text("Sockets: ")).append($('<div class="value">').text(chienkunSocketCost)).append($("<br>"));
 	if (chienkunGemCost)
-		result.append($('<div class="label">').text("Gems: ")).append($('<div class="value">').text(chienkunGemCost)).append(makeItemWidget(12980)).append($("<br>"));
+		result.append($('<div class="label">').text("Gems: ")).append($('<div class="value">').text(chienkunGemCost)).append($("<br>"));
 	if (chienkunEngraveCost)
-		result.append($('<div class="label">').text("Engrave: ")).append($('<div class="value">').text(chienkunEngraveCost)).append(makeItemWidget(12980)).append($("<br>"));
+		result.append($('<div class="label">').text("Engrave: ")).append($('<div class="value">').text(chienkunEngraveCost)).append($("<br>"));
 	if (totalChienkunCost != chienkunRefineCost && totalChienkunCost != chienkunSocketCost && totalChienkunCost != chienkunGemCost )
-		result.append($('<div class="label">').text("Total: ")).append($('<div class="value">').text(totalChienkunCost)).append(makeItemWidget(12980)).append($("<br>"));
-	recipe.find('.cost').remove();
-	recipe.append(result);
-	
+		result.append($('<div class="label">').text("Total: ")).append($('<div class="value">').text(totalChienkunCost)).append($("<br>"));	
 };
 
 
 var makeItemWidget = function(id) {
 	if (id == 0) return $("<div class='item'>");
 	
-	return $("<div class='item'>")
-		.append($("<div class='icon'>").css('backgroundImage', 'url(http://asterpw.github.io/pwicons/f/'+id+'.png'))
-		.append($("<div class='label'>").text(htmlDecode(item_data[id][0])).addClass("item_color" + item_data[id][2]));
+	return $("<div class='item'>").css('backgroundImage', 'url(http://asterpw.github.io/pwicons/f/'+id+'.png')
+		.text(htmlDecode(item_data[id][0]))
+		.addClass("item_color" + item_data[id][2]);
 };
 var makeEngraveControl = function(maxEngraves) {
 	selectorControl = $('<div class="engrave selector">');
@@ -85,7 +82,7 @@ var makeSocketControl = function(maxSocket) {
 	label = $('<div class="label">').text("Sockets:");
 	select = $('<select>');
 	for (var i = 0; i <= maxSocket; i++) 
-		select.append($('<option>').attr('value', i).text(i + " socket" + (i==0 ? "" : "s")));
+		select.append($('<option>').attr('value', i).text(i + " socket" + (i==1 ? "" : "s")));
 	select.change(function(){ update($(this).parents('.recipe'))});
 	return selectorControl.append(label).append(select);
 };
@@ -101,7 +98,7 @@ var makeRefineControl = function(maxRefine) {
 };
 
 var makeSourceControl = function(id) {
-	source = $('<div class="source">');
+	source = $('<div class="source panel">');
 	if (id == 0) return source.text('No Source');
 	source.append(makeItemWidget(id));
 	item_type = item_data[id][3];
@@ -116,25 +113,48 @@ var makeSourceControl = function(id) {
 	return source;
 };
 
+var makeRecipe = function(id, recipeData) {
+	recipe = $("<div class='recipe'>");
+	recipe.append($("<div class='title'>").append(makeItemWidget(id)));
+		
+	recipe.append(makeSourceControl(recipeData[0]));
+	mats = $("<div class='mats panel'>");
+	for (var i in recipeData[4]) {
+		mat = $("<div class='mat'>"); 
+		mat.append($("<div class='label'>").text(recipeData[4][i][1]))
+		mat.append(makeItemWidget(recipeData[4][i][0]));
+		mats.append(mat);
+	}
+	mats.append($("<div class='label'>").text("Coins: " + recipeData[3]));
+	recipe.append($("<div class='cost panel'>"))
+	recipe.append(mats);
+	recipe.data('recipe', recipeData);
+	recipe.data('product', id);
+	return recipe;
+}
+
 var makeRecipes = function(id) {
 	$('#recipes').empty();
-	$('#recipes').append(makeItemWidget(id));
-	$.each(recipes[id], function(index, item) {
-		recipe = $("<div class='recipe'>");
-		recipe.append(makeSourceControl(item[0]));
-		mats = $("<div class='mats'>");
-		for (var i in item[4]) {
-			mat = $("<div class='mat'>"); 
-			mat.append($("<div class='label'>").text(item[4][i][1]))
-			mat.append(makeItemWidget(item[4][i][0]));
-			mats.append(mat);
-		}
-		mats.append($("<div class='label'>").text("Coins: " + item[3]));
-		recipe.append(mats);
-		recipe.data('recipe', item);
-		recipe.data('product', id);
-		$('#recipes').append(recipe);
+	if (id in recipes)
+	$.each(recipes[id], function(index, recipeData) {
+		$('#recipes').append(makeRecipe(id, recipeData));
 	});
+	for (var i in recipes) {
+		if (i != id) 
+			for (var j in recipes[i]) {
+				if (recipes[i][j][0] == id) 
+					$('#recipes').append(makeRecipe(i, recipes[i][j]));
+				else{
+					for (var k in recipes[i][j][4]) {
+						if (recipes[i][j][4][k][0] == id) {
+							$('#recipes').append(makeRecipe(i, recipes[i][j]));
+							break;
+						}
+					}
+				}
+			}
+	}
+	
 };
 
 var makeItemAutoComplete = function(ul, item) {
@@ -148,23 +168,40 @@ var makeItemAutoComplete = function(ul, item) {
 };
 
 var selectItem = function( event, ui ) {
+	event.preventDefault();
 	$('#autocomplete').autocomplete("close");
+	$('#autocomplete').val(ui.item.label);
+	makeRecipes(ui.item.value);
+};
+
+var addSourceItemData= function(items, id) {
+	if (!(id in items) && id != 0) items[id] =  htmlDecode(item_data[id][0]);
 };
 
 var makeSourceItemData = function() {
 	var result = [];
-	for (var i in item_data) {
-		if (i in recipes) {
-			result.push({label: htmlDecode(item_data[i][0]), value: i})
+	var completeableItems = {};
+	for (var i in recipes) {
+		addSourceItemData(completeableItems, i); 
+
+		for (var j in recipes[i]) {
+			addSourceItemData(completeableItems, recipes[i][j][0]); 
+			for (var k in recipes[i][j][4]) {
+				addSourceItemData(completeableItems, recipes[i][j][4][k][0]); 
+			}
 		}
+	}
+	
+	for (var i in completeableItems) {
+		result.push({value: i, label: completeableItems[i]})
 	}
 	return result;
 };
 
 var autoCompleteTerms = makeSourceItemData();
 
-var initAutocomplete = function() {	 /*
-	$.ui.autocomplete.prototype._renderMenu = function( ul, items ) {
+var initAutocomplete = function() {	 
+	/*$.ui.autocomplete.prototype._renderMenu = function( ul, items ) {
 	   var self = this;
 	   $.each( items, function( index, item ) {
 		  if (index < 10) // here we define how many results to show
@@ -181,11 +218,13 @@ var initAutocomplete = function() {	 /*
 
 		source: function(request, response) {
 			var results = $.ui.autocomplete.filter(autoCompleteTerms, request.term);
-			response(results.slice(0, 10));
+			response(results.slice(0, 20));
 		},		
 		select: selectItem,
 	
-		focus: function( event, ui ) {}
+		focus: function( event, ui ) {event.preventDefault();
+			$('#autocomplete').val(ui.item.label);
+		}
 	});
 	
 	//$.ui.autocomplete.prototype._renderMenu = makeItemAutoComplete;

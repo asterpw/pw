@@ -1,3 +1,10 @@
+.content {
+	position: relative; 
+	text-align: left; 
+	width: 965px; 
+	margin:0 auto;
+}
+
 .icon {
 	width: 32px;
 	height: 32px;
@@ -9,11 +16,12 @@
 .item {
 	display: inline-block;
 	width: 300px;
+	background-repeat: no-repeat;
+	padding-left: 35px;
+	padding-top: 14px;
+	height: 18px;
 }
-.item .label {
-	min-width: 233px;
-	
-}
+
 
 .label {
 	display: inline-block;
@@ -22,21 +30,62 @@
 
 .recipe {
 	background: #222;
+	position: relative;
 	border-radius: 4px;
-	padding: 4px;
-	margin-bottom: 10px;
+	margin: 5px 0px;
 }
 
-.recipe > * {
+.panel {
 	vertical-align: top;
+	display: inline-block;
+	background-color: #181818;
+	padding: 10px;
+	border-top: 36px solid black;
+	position: relative;
+	margin: 4px 0px 4px 0px;
 }
 
-.recipe .source {
-	display: inline-block;
+.source {
+	margin-left: 4px;
+	width: 338px;
 }
 
-.mats {
-	display: inline-block;
+.panel::before {
+	position: absolute;
+	top: -33px;
+	left: 10px;
+	height: 32px;
+	padding-top: 10px;
+}	
+
+.title {
+	width: 100%;
+	background: #333;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.title > *:first-child {
+	margin: 5px;
+}
+.title:before {
+	content: "Recipe for ";
+	margin-left: 15px;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+
+.source, .cost {
+	margin-right: 5px;
+}
+
+.mats::before {
+	content: "Materials";
+}
+
+.source::before {
+	content: "Original Item";
 }
 
 .mat > .label {
@@ -52,19 +101,37 @@
 .selector select {
 	width: 100px;
 }
-
+.cost {
+	width: 170px;
+}
 .cost .label {
 	width: 75px;
 }
+
+.cost::before {
+	content: "Chienkun Cost";
+	position: absolute;
+	top: -33px;
+	left: 10px;
+	height: 32px;
+	background-image: url('http://asterpw.github.io/pwicons/f/12980.png');
+	background-repeat: no-repeat;
+	padding-left: 35px;
+}
+
 .cost .value {
 	width: 40px;
 	display: inline-block;
 	text-align: right;
 }
 .ui-autocomplete.ui-menu {
-	background-color: #333333;
+	background-color: #444;
 	border-radius: 2px;
-	padding: 0px;
+	border: 1px solid black;
+	padding: 2px 0px;
+	overflow: hidden;
+	overflow-y: auto;
+	max-height: 300px;
 }
 
 .ui-menu-item.ui-state-focus {
@@ -73,6 +140,8 @@
 
 .ui-autocomplete .ui-menu-item {
 	display: block;
+	padding: 2px 4px;
+	cursor: pointer;
 }
 
 .ui-helper-hidden-accessible {

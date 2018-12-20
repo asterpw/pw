@@ -47,7 +47,11 @@ var socket_weapon_cost =
 
 var socket_ornament_cost = [0, 5, 30, 90, 215];
 	
-var gem_cost = [0, 0, 0, 0, 0, 0, 0, 1, 2, 5, 10, 40, 120, 120, 120, 120, 120, 120];
+var gem_cost = [0, 0, 0, 0, 0, 0, 0, 1, 2, 5, 10, 40, 120, 120, 120, 120, 120, 120, 120, 120, 120];
+
+var engrave_cost = [0, 10, 75, 300];
+
+var addon_cost = [0, 10, 50, 180, 350, 600];
 
 //refineable, sockets, socket type, engraves
 var chienkun_type_config = [
@@ -65,5 +69,3 @@ var chienkun_type_config = [
 	[1, 0, 0, 3], //ring
 	[1, 0, 0, 0]]; //tome
 	
-var engrave_cost = [0, 10, 75, 300];
-
