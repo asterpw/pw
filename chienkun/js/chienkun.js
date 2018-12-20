@@ -97,18 +97,18 @@ var makeRefineControl = function(maxRefine) {
 	return selectorControl.append(label).append(select);
 };
 
-var makeSourceControl = function(id) {
+var makeSourceControl = function(id, costRatio, costEngraveRatio) {
 	source = $('<div class="source panel">');
 	if (id == 0) return source.text('No Source');
 	source.append(makeItemWidget(id));
 	item_type = item_data[id][3];
-	if (chienkun_type_config[item_type][0])
+	if (chienkun_type_config[item_type][0] && costRatio)
 		source.append(makeRefineControl(12));
-	if (chienkun_type_config[item_type][1])
+	if (chienkun_type_config[item_type][1] && costRatio)
 		source.append(makeSocketControl(chienkun_type_config[item_type][1]));
-	if (chienkun_type_config[item_type][2])
+	if (chienkun_type_config[item_type][2] && costRatio)
 		source.append(makeGemsControl(chienkun_type_config[item_type][1]));
-	if (chienkun_type_config[item_type][3])
+	if (chienkun_type_config[item_type][3] && costEngraveRatio)
 		source.append(makeEngraveControl(chienkun_type_config[item_type][3]));
 	return source;
 };
@@ -117,7 +117,7 @@ var makeRecipe = function(id, recipeData) {
 	recipe = $("<div class='recipe'>");
 	recipe.append($("<div class='title'>").append(makeItemWidget(id)));
 		
-	recipe.append(makeSourceControl(recipeData[0]));
+	recipe.append(makeSourceControl(recipeData[0], recipeData[1], recipeData[2]));
 	mats = $("<div class='mats panel'>");
 	for (var i in recipeData[4]) {
 		mat = $("<div class='mat'>"); 
