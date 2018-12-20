@@ -52,10 +52,13 @@ var update = function(recipe) {
 
 var makeItemWidget = function(id) {
 	if (id == 0) return $("<div class='item'>");
-	
+	name = htmlDecode(item_data[id][0]);
 	return $("<div class='item'>").css('backgroundImage', 'url(http://asterpw.github.io/pwicons/f/'+id+'.png')
-		.text(htmlDecode(item_data[id][0]))
-		.addClass("item_color" + item_data[id][2]);
+		.text(name).data('value', id)
+		.addClass("item_color" + item_data[id][2])
+		.click(function(){
+			doSelect($(this).data('value'), $(this).text());
+		});
 };
 var makeEngraveControl = function(maxEngraves) {
 	selectorControl = $('<div class="engrave selector">');
@@ -170,11 +173,15 @@ var makeItemAutoComplete = function(ul, item) {
 		.appendTo(ul);	
 };
 
+var doSelect = function(id, label) {
+	$('#autocomplete').autocomplete("close");
+	$('#autocomplete').val(label);
+	makeRecipes(id);
+}
+
 var selectItem = function( event, ui ) {
 	event.preventDefault();
-	$('#autocomplete').autocomplete("close");
-	$('#autocomplete').val(ui.item.label);
-	makeRecipes(ui.item.value);
+	doSelect(ui.item.value, ui.item.label);
 };
 
 var addSourceItemData= function(items, id) {

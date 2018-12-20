@@ -27,6 +27,7 @@ input, select {
 	padding-left: 35px;
 	padding-top: 14px;
 	height: 18px;
+	cursor: pointer;
 }
 
 
@@ -178,7 +179,6 @@ input, select {
 .ui-autocomplete .ui-menu-item {
 	display: block;
 	padding: 2px 4px;
-	cursor: pointer;
 }
 
 .ui-helper-hidden-accessible {
