@@ -35,6 +35,13 @@ input, select {
 	vertical-align: bottom;
 }
 
+.emptyrecipe {
+	padding: 50px;
+	vertical-align: center;
+	text-align: center;
+	color: #777;
+}
+
 .recipe {
 	background: #222;
 	position: relative;
