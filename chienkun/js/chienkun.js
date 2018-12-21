@@ -20,7 +20,7 @@ var update = function(recipe) {
 	if (socketCount) {
 		if (chienkun_type_config[item_type][2] == 1) 
 			cost_table =  socket_weapon_cost[grade];
-		if (chienkun_type_config[item_type][2] == 2) 
+		else if (chienkun_type_config[item_type][2] == 2) 
 			cost_table =  socket_armor_cost[grade];
 		else
 			cost_table = socket_ornament_cost;
