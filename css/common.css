@@ -7,30 +7,35 @@ color: #FFF;
 width: 100%;
 font: normal 90% arial, helvetica, sans-serif;
 text-align: left;
-height: 25px;
 line-height: 25px;
+position: relative;
 text-shadow:
      -1px -1px 0 #000,  
       1px -1px 0 #000,
      -1px  1px 0 #000,
       1px  1px 0 #000;
-overflow: hidden;
+display: flex;
 }
 
-#navlist li { 
-display: block;
-float: left;
+
+#navlist .links, .name { 
+display: inline-block;
 padding: 0px;
-height: 32px;
+position: relative;
 }
 
-#navlist li.name {
+#navlist .link {
+	display: inline-block;
+}
+
+#navlist .name {
 margin-right: 10px;
 /*width: 200px;
 background: url('../images/sig.png') left center no-repeat;
 background-size: 80%;*/
 color: #fdca55;
 padding-left: 10px;
+flex: none;
 }
 
 #navlist .name a{
