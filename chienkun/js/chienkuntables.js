@@ -55,15 +55,15 @@ var addon_cost = [0, 10, 50, 180, 350, 600];
 
 //refineable, sockets, socket type, engraves
 var chienkun_type_config = [
-	[0, 0, 0, 0], 
+	[0, 0, 0, 0], //invalid
 	[1, 2, 1, 0], //weapon
-	[1, 4, 2, 0],
-	[1, 4, 2, 0],
-	[1, 4, 2, 0],
+	[1, 4, 2, 0], //chest
+	[1, 4, 2, 0], //legs
+	[1, 4, 2, 0], //feet
 	[1, 4, 2, 1], //helm
-	[1, 4, 2, 0],
+	[1, 4, 2, 0], //bracers
 	[1, 4, 2, 1], //cape
-	[0, 0, 0, 0],
+	[0, 0, 0, 0], //blessing
 	[1, 4, 3, 3], //neck
 	[1, 4, 3, 1], //belt
 	[1, 0, 0, 3], //ring
