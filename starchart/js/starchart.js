@@ -39,8 +39,10 @@ var classes = [
 	["Seeker", [1.53, 1.53, 2.38, 2.38, 7.68, 5.83, 3.67, 1.53, 0.48, 5.83, 5.83, 5.83, 5.83, 5.83, 2.29, 1.91], [47468, "Sagewrath"]],
 	["Mystic", [1.53, 1.53, 2.38, 2.38, 3.90, 7.96, 3.00, 3.05, 0.48, 7.96, 7.96, 7.96, 7.96, 7.96, 2.29, 1.91], [47469, "Sagesorrow"]],
 	["Duskblade", [1.53, 1.53, 2.38, 2.38, 5.34, 6.83, 3.34, 1.53, 0.48, 6.83, 6.83, 6.83, 6.83, 6.83, 2.29, 1.91], [47470, "Celebreak"]],
-	["Stormbringer", [1.53, 1.53, 2.38, 2.38, 3.90, 7.96, 3.00, 3.05, 0.48, 7.96, 7.96, 7.96, 7.96, 7.96, 2.29, 1.91], [47471, "Celesong"]]
-];
+	["Stormbringer", [1.53, 1.53, 2.38, 2.38, 3.90, 7.96, 3.00, 3.05, 0.48, 7.96, 7.96, 7.96, 7.96, 7.96, 2.29, 1.91], [47471, "Celesong"]],
+	["Technician", [1.53, 1.53, 2.38, 2.38, 5.34, 6.83, 3.34, 1.53, 0.48, 6.83, 6.83, 6.83, 6.83, 6.83, 2.29, 1.91], [60687, "Skyedge"]],
+	["Edgerunner", [1.53, 1.53, 2.38, 2.38, 7.68, 5.83, 3.67, 1.53, 0.48, 5.83, 5.83, 5.83, 5.83, 5.83, 2.29, 1.91], [60686, "Oathwrath"]]
+	];
 
 var statChances = [
 	1,
@@ -630,8 +632,8 @@ var initVisibilityGroups = function() {
 };
 
 var selectClass = function(classID) {
-	model.currentClass = classID;
-	for (var i = 0; i < 12; i++)
+	model.currentClass = Number(classID);
+	for (var i = 0; i < 14; i++)
 		$("#class"+i).removeClass("selected");
 	$("#class"+model.currentClass).addClass("selected");
 	$("#chartIcon").css('background-image', 'url("http://asterpw.github.io/pwicons/f/'+classes[model.currentClass][2][0]+'.png")');
@@ -646,7 +648,7 @@ var initClassSelector = function() {
 	classLabel.css({"top": (top-18)+"px", "left": (left+5)+"px", "width": "180px"});
 	$("#chartPanel").append(classLabel);
 	
-	for (var i = 0; i < 12; i++) {
+	for (var i = 0; i < 14; i++) {
 		selector = $("<div id='class"+i+"' class='classSelector'></div>");
 		selector.css({
 			"left": left+"px",
@@ -656,8 +658,8 @@ var initClassSelector = function() {
 			selectClass(classId);
 		});
 		$("#chartPanel").append(selector);
-		left += 30;
-		if (i == 5) {left -= 30*6; top += 30;}
+		left += 26;
+		if (i == 6) {left -= 26*7; top += 26;}
 	}
 	$("#class2").addClass('selected');
 }

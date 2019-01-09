@@ -196,14 +196,22 @@ var F_BM = 0x10;
 var F_WIZ = 0x20;
 var F_SIN = 0x40;
 var F_PSY = 0x80;
-var F_MYS = 0x100;
-var F_SEEK = 0x200;
-var F_ANYCLASS = 0x3FF;
+var F_SEEK = 0x100;
+var F_MYS = 0x200;
+var F_DB = 0x400;
+var F_SB = 0x800;
+var F_GUN = 0x1000;
+var F_PAL = 0x2000;
+var F_ANYCLASS = 0x3FFF;
+var F_HUMAN = F_BM + F_WIZ + F_GUN
+var F_UNTAMED = F_BARB + F_VENO
+var F_ELF = F_ARCHER + F_CLERIC + F_PAL
 
-var F_LAND = 0x400;
-var F_WATER = 0x800;
-var F_AIR = 0x1000;
-var F_ALLTERRAIN = 0x1C00;
+
+var F_LAND = 0x4000;
+var F_WATER = 0x8000;
+var F_AIR = 0x10000;
+var F_ALLTERRAIN = 0x1C000;
 
 //stolen from ecatomb
 var refIdMapping = [[10001,0],[10151,1],[10141,3],[10241,2],[9681,14],[9751,21],[9791,25],[9871,33],[9941,40],[9581,4],[9601,6],[9621,8],[9741,20],[9841,30],[9911,37],[9931,39],[9951,41],[10011,46],[10021,47],[10041,49],[9631,9],[9731,19],[9821,28],[9851,31],[9971,43],[10051,50],[10271,69],[10071,52],[9651,11],[9721,18],[9811,27],[9921,38],[9961,42],[10101,55],[10111,56],[10121,57],[10131,58],[10161,59],[9761,22],[9771,23],[10191,62],[10511,93],[9611,7],[10171,60],[10181,61],[9591,5],[9641,10],[9701,16],[9781,24],[9881,34],[9981,44],[10201,63],[10211,64],[10221,65],[10231,66],[9661,12],[9691,15],[9831,29],[9861,32],[9991,45],[10261,68],[10061,51],[10281,70],[10291,71],[9671,13],[9711,17],[9801,26],[9891,35],[10301,72],[10311,73],[10501,92],[10841,95],[10321,74],[10331,75],[10521,94],[10341,76],[10351,77],[10441,86],[10361,78],[10371,79],[10481,90],[10381,80],[10391,81],[10471,89],[10401,82],[10411,83],[10461,88],[10421,84],[10431,85],[10451,87],[10491,91],[49831,96]];
@@ -286,7 +294,7 @@ new Skill("Mantle Ripple of Death", 20, 0, 0, 1, 2, 2, 4, 6, F_LAND),
 new Skill("Rainbow Blessing", 20, 1, 0, 0, 2, 2, 4, 7, F_CLERIC),
 new Skill("Oxygen Bubble", 25, 0, 0, 0, 5, 0, 4, 8),
 
-new Skill("Air Strand", 29, 6, 0, 0, 0, 0, 5, 0, F_AIR+F_VENO+F_BARB+F_CLERIC+F_ARCHER),
+new Skill("Air Strand", 29, 6, 0, 0, 0, 0, 5, 0, F_AIR+F_UNTAMED+F_ELF),
 new Skill("Will Surge", 25, 0, 6, 0, 0, 0, 5, 1),
 new Skill("Frenzy", 25, 0, 0, 6, 0, 0, 5, 2),		
 new Skill("Life Drain", 25, 0, 0, 0, 6, 0, 5, 3),
@@ -311,7 +319,7 @@ new Skill("Elemental Weakness", 36, 0, 8, 0, 0, 0, 7, 1),
 new Skill("Dust Storm", 37, 0, 0, 8, 0, 0, 7, 2),
 new Skill("Battle Ripple of Oblivion", 35, 0, 0, 0, 8, 0, 7, 3, F_WATER),
 new Skill("Aquaflame Armor", 38, 0, 0, 0, 4, 4, 7, 4, F_WIZ),
-new Skill("Seal", 35, 0, 4, 4, 0, 0, 7, 5, F_ARCHER+F_CLERIC+F_BARB+F_VENO),
+new Skill("Seal", 35, 0, 4, 4, 0, 0, 7, 5, F_UNTAMED+F_ELF),
 new Skill("Hollow Fist", 35, 0, 4, 4, 0, 0, 7, 6, F_LAND+F_VENO),
 
 new Skill("Balance", 41, 4, 0, 0, 0, 5, 8, 1, F_BM),
@@ -825,14 +833,16 @@ $(document).ready(function(){
 		<option value="0x80">Psychic</option>
 		<option value="0x100">Seeker</option>
 		<option value="0x200">Mystic</option>
-		<option value="0x100">Duskblade</option>
-		<option value="0x200">Stormbringer</option>
+		<option value="0x400">Duskblade</option>
+		<option value="0x800">Stormbringer</option>
+		<option value="0x1000">Technician</option>
+		<option value="0x2000">Edgerunner</option>
 	</select>&nbsp;&nbsp;&nbsp;&nbsp;
 	Terrain: <select name='terrain' onchange="refresh()">
-		<option value="0x1C00" selected>Any</option>
-		<option value="0x400">Land</option>
-		<option value="0x800">Water</option>
-		<option value="0x1000">Air</option>
+		<option value="0x1C000" selected>Any</option>
+		<option value="0x4000">Land</option>
+		<option value="0x8000">Water</option>
+		<option value="0x10000">Air</option>
 	</select></div>
 <script>
 makeTable();
@@ -853,6 +863,7 @@ makeTable();
 2014-05-04 - corrected class restriction on "Phoenix Dance" <br>
 2014-12-21 - Added new classes <br>
 2018-08-27 - Added new genie and its skill, genie portrait now updates <br>
+2019-01-09 - Added new classes <br>
 <br>-Asterelle 
 </p>
 

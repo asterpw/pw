@@ -139,36 +139,40 @@ a {
 }
 
 .classSelector {
-	width: 33px;
-	height: 33px;
+	width: 25px;
+	height: 25px;
 	position: absolute !important;
-	opacity: 0.7;
-	background-position: -33px 0;
-	background-size: 66px 33px;
+	opacity: 0.3;
 	cursor: pointer;
+	background-image: url('../images/classes.png');
+	background-size: 200% 1400%;
+	background-position-x: 100%;
 }
 .classSelector:hover {
 	opacity: 1.0;
-	background-position: 0 0;
+	background-position-x: 0%;
 }
 
 .classSelector.selected {
-	background-position: 0 0;
+	background-position-x: 0%;
 	opacity: 1.0;
 }
 
-#class0 {background-image: url('images/class-0.png');}
-#class1 {background-image: url('images/class-1.png');}
-#class2 {background-image: url('images/class-2.png');}
-#class3 {background-image: url('images/class-3.png');}
-#class4 {background-image: url('images/class-4.png');}
-#class5 {background-image: url('images/class-5.png');}
-#class6 {background-image: url('images/class-6.png');}
-#class7 {background-image: url('images/class-7.png');}
-#class8 {background-image: url('images/class-8.png');}
-#class9 {background-image: url('images/class-9.png');}
-#class10 {background-image: url('images/class-10.png');}
-#class11 {background-image: url('images/class-11.png');}
+#class0 {background-position-y: -0%;}
+#class1 {background-position-y: -100%;}
+#class2 {background-position-y: -600%;}
+#class3 {background-position-y: -700%;}
+#class4 {background-position-y: -400%;}
+#class5 {background-position-y: -300%;}
+#class6 {background-position-y: -500%;}
+#class7 {background-position-y: -200%;}
+#class8 {background-position-y: -800%;}
+#class9 {background-position-y: -900%;}
+#class10 {background-position-y: -1000%;}
+#class11 {background-position-y: -1100%;}
+#class12 {background-position-y: -1200%;}
+#class13 {background-position-y: -1300%;}
+
 
 #slot0 {top: 540px; left: 90px;}
 #slot1 {top: 540px; left: 172px;}
@@ -810,7 +814,7 @@ var loadCards = function() {
 
 var selectClass = function(classID) {
 	model.currentClass = classID;
-	for (var i = 0; i < 12; i++)
+	for (var i = 0; i < 14; i++)
 		$("#class"+i).removeClass("selected");
 	$("#class"+model.currentClass).addClass("selected");
 	classLabel.text("Class: " + classes[model.currentClass][0]);
@@ -824,7 +828,7 @@ var initClassSelector = function() {
 	classLabel.css({"top": "72px", "left": "30px", "width": "180px"});
 	$("#avatarWindow").append(classLabel);
 	
-	for (var i = 0; i < 12; i++) {
+	for (var i = 0; i < 14; i++) {
 		selector = $("<div id='class"+i+"' class='classSelector'></div>");
 		selector.css({
 			"left": left+"px",
@@ -834,8 +838,8 @@ var initClassSelector = function() {
 			selectClass(classId);
 		});
 		$("#avatarWindow").append(selector);
-		left += 30;
-		if (i == 5) {left -= 30*6; top += 30;}
+		left += 26;
+		if (i == 6) {left -= 26*7; top += 26;}
 	}
 	$("#class2").addClass('selected');
 }
@@ -1467,6 +1471,7 @@ $(document).ready(function(){
 2014-12-21 - Added new classes and more card descriptions <br>
 2015-03-11 - Added new Anniversary card set <br>
 2016-10-29 - Renamed Candleflame set, Awakening no longer resets level <br>
+2019-01-09 - Added new classes <br>
 
 <br>-Asterelle 
 </p>

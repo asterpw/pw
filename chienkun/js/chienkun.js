@@ -70,11 +70,11 @@ var makeEngraveControl = function(maxEngraves) {
 	return selectorControl.append(label).append(select);
 };
 
-var makeGemsControl = function(gemType) {
+var makeGemsControl = function(gemType, grade) {
 	selectorControl = $('<div class="gems selector">');
 	label = $('<div class="label">').text("Gems:");
 	select = $('<select>');
-	for (var i = 1; i <= 14; i++) 
+	for (var i = 1; i <= Math.min(14, grade); i++) 
 		select.append($('<option>').attr('value', i).text("Grade "+i));
 	select.change(function(){ update($(this).parents('.recipe'))});
 	return selectorControl.append(label).append(select);
@@ -110,7 +110,7 @@ var makeSourceControl = function(id, costRatio, costEngraveRatio) {
 	if (chienkun_type_config[item_type][1] && costRatio)
 		source.append(makeSocketControl(chienkun_type_config[item_type][1]));
 	if (chienkun_type_config[item_type][2] && costRatio)
-		source.append(makeGemsControl(chienkun_type_config[item_type][1]));
+		source.append(makeGemsControl(chienkun_type_config[item_type][1], item_data[id][1]));
 	if (chienkun_type_config[item_type][3] && costEngraveRatio)
 		source.append(makeEngraveControl(chienkun_type_config[item_type][3]));
 	return source;

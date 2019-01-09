@@ -525,38 +525,42 @@ a {
 }
 
 .classSelector {
-	width: 33px;
-	height: 33px;
+	width: 25px;
+	height: 25px;
 	position: absolute !important;
-	opacity: 0.7;
-	background-position: -33px 0;
-	background-size: 66px 33px;
+	opacity: 0.3;
 	cursor: pointer;
+	background-image: url('../images/classes.png');
+	background-size: 200% 1400%;
+	background-position-x: 100%;
 }
 .classSelector:hover {
 	opacity: 1.0;
-	background-position: 0 0;
+	background-position-x: 0%;
 }
 
 .classSelector.selected {
-	background-position: 0 0;
+	background-position-x: 0%;
 	opacity: 1.0;
 }
 
 #classLabel { color: #CFF;}
 
-#class0 {background-image: url('../waravatar/images/class-0.png');}
-#class1 {background-image: url('../waravatar/images/class-1.png');}
-#class2 {background-image: url('../waravatar/images/class-2.png');}
-#class3 {background-image: url('../waravatar/images/class-3.png');}
-#class4 {background-image: url('../waravatar/images/class-4.png');}
-#class5 {background-image: url('../waravatar/images/class-5.png');}
-#class6 {background-image: url('../waravatar/images/class-6.png');}
-#class7 {background-image: url('../waravatar/images/class-7.png');}
-#class8 {background-image: url('../waravatar/images/class-8.png');}
-#class9 {background-image: url('../waravatar/images/class-9.png');}
-#class10 {background-image: url('../waravatar/images/class-10.png');}
-#class11 {background-image: url('../waravatar/images/class-11.png');}
+#class0 {background-position-y: -0%;}
+#class1 {background-position-y: -100%;}
+#class2 {background-position-y: -600%;}
+#class3 {background-position-y: -700%;}
+#class4 {background-position-y: -400%;}
+#class5 {background-position-y: -300%;}
+#class6 {background-position-y: -500%;}
+#class7 {background-position-y: -200%;}
+#class8 {background-position-y: -800%;}
+#class9 {background-position-y: -900%;}
+#class10 {background-position-y: -1000%;}
+#class11 {background-position-y: -1100%;}
+#class12 {background-position-y: -1200%;}
+#class13 {background-position-y: -1300%;}
+
 
 .item_color0{color:#ffffff;}
 .item_color1{color:#8080ff;}
