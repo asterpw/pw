@@ -10,6 +10,10 @@
 <link rel="icon"  type="image/png" href="https://asterpw.github.io/pwicons/f/33917.png">
 <script src="locations.js" type="text/javascript"></script>
 <script type="text/javascript">
+if (location.protocol == 'https:')
+  location.href = location.href.replace(/^https:/, 'http:')
+</script>
+<script type="text/javascript">
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-21331594-1']);
@@ -83,7 +87,6 @@ Try using the sightings other people on your server have made!
 	2016-05-28 - Corrected a location for Leu Ninsi (Whetstone to Swiftwind)<br>
 	2016-11-18 - Launched PWBR version<br>	
 	2017-01-07 - Added map when hovering (coordinates from <a href="http://www.triviapw.hiperportal.blog.br/elysium#">Trivia PW</a>) <br>
-	2019-03-22 - Added https support<br>	
 	<br>-Asterelle 
 	</p>
 
