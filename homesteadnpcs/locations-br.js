@@ -1,4 +1,4 @@
-var PHP_HOST = "http://astrelle.tk/elysiumlocations/";
+var PHP_HOST = "https://astrelle.tk/elysiumlocations/";
 //var PHP_HOST = "http://aster.ohmydays.net/pw/elysiumlocations/"
 $.ajaxSetup({crossDomain: true});
 
