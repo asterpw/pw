@@ -1,14 +1,17 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>PWI Elysium NPC Locations</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
+<title>PWI Homestead NPC Locator</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.4/moment-timezone-with-data.min.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="../css/common.css" />
 <link rel="stylesheet" type="text/css" href="locations.css" />
-<link rel="icon"  type="image/png" href="http://asterpw.github.io/pwicons/f/33917.png">
+<link rel="icon"  type="image/png" href="https://asterpw.github.io/pwicons/f/33917.png">
+<script type="text/javascript">
+if (location.protocol == 'https:')
+  location.href = location.href.replace(/^https:/, 'http:')
+</script>
 <script src="locations-test.js" type="text/javascript"></script>
 <script type="text/javascript">
 
@@ -27,13 +30,11 @@
 </head>
 <body>
 <script src="../js/navbox.js" type="text/javascript"></script>
-<div style='position: relative; text-align: left; width: 915px; margin:10px auto;'>	
-<h1>PWBR Elysium NPC Locations
+<div style='position: relative; text-align: left; width: 840px; margin:10px auto;'>	
+<h1>PWI Homestead NPC Locator
 	<div id="hLang">
-        <!--a href="http://www.pwdatabase.com/my-cn/" title="Malaysian/Chinese"><span class="mycn"></span></a-->
-        <a href="index-br.html" title="PW - Brazil"><span class="br"></span></a>
-        <a href="index.html" title="Perfect World International"><span class="pwi"></span></a>
-        <span>Language:</span>
+        <a href="/pw/homesteadnpcs/" title="Perfect World International"><span class="pwi"></span></a>
+        <a href="/pw/homesteadnpcs/index-br.html" title="PW - Brazil"><span class="br"></span></a>
 	</div>
 </h1>
 Get a Mysterious Echo from the Merchant in most villages and enter what you learn from it below.<br>
@@ -42,37 +43,35 @@ Try using the sightings other people on your server have made!
 <div style="text-align: left; margin-top: 20px">
 	
 	<div id="normal" class="container">
-		<div class="title">Parado</div>
-		<select class="npcName"></select> está em <select class="location"><option value="-1">&nbsp;</option></select>
+		<div class="title">Standing</div>
+		<select class="npcName"></select> is in  <select class="location"><option value="-1">&nbsp;</option></select>
 		<div class="result"></div>
 		<div class="submitSighting">
-			<button class="submit">Submeter Localização</button>
+			<button class="submit">Submit Sighting</button>
 			<div class="message"></div>
 			<div id='recaptcha'></div>
 			<!--div class="g-recaptcha" data-sitekey="6LfULR4TAAAAAKbR_S0t-H025tlQFnX6GFZC9t9L"></div-->
 		</div>
 	</div>
 	<div id="walking" class="container">
-		<div class="title">Andando</div>
-		<select class="npcName"></select> está em <select class="location"><option value="-1">&nbsp;</option></select>
+		<div class="title">Walking</div>
+		<select class="npcName"></select> is in  <select class="location"><option value="-1">&nbsp;</option></select>
 		<div class="result"></div>
 		<div class="submitSighting">
-			<button class="submit">Submeter Localização</button>
+			<button class="submit">Submit Sighting</button>
 			<div class="message"></div>
 			<div id='recaptcha'></div>
 		</div>
 	</div>	
 	<div class='sightings'> 
-		<div class="title">Localizações</div>
-		Servidor: 
+		<div class="title">Sightings</div>
+		Server: 
 		<select class="server">
-			<option value='-1'>Escolha um servidor</option>
-			<option value='cygnus'>Cygnus (PvP)</option>
-			<option value='arcadia'>Arcadia (PvE)</option>
-			<option value='pegasus'>Pegasus (PvE)</option>
-			<option value='hydra'>Hydra (PvE)</option>
-			<option value='draco'>Draco (PvE)</option>
-			<option value='lynx'>Lynx (PvE)</option>
+			<option value='-1'>Choose a server</option>
+			<option value='dawnglory'>Dawnglory</option>
+			<option value='etherblade'>Etherblade</option>
+			<option value='tideswell'>Tideswell</option>
+			<option value='twilight'>Twilight Temple</option>
 		</select>
 		<div class="result"></div>
 	</div>
@@ -86,7 +85,8 @@ Try using the sightings other people on your server have made!
 	2016-04-27 - Changed "Blazing Wind Valley" to "Island of Broken Dreams"  <br>
 	2016-05-26 - Autoselect most common sighting of the day  <br>
 	2016-05-28 - Corrected a location for Leu Ninsi (Whetstone to Swiftwind)<br>
-	2016-11-18 - Launched PWBR version
+	2016-11-18 - Launched PWBR version<br>	
+	2017-01-07 - Added map when hovering (coordinates from <a href="http://www.triviapw.hiperportal.blog.br/elysium#">Trivia PW</a>) <br>
 	<br>-Asterelle 
 	</p>
 
@@ -98,7 +98,7 @@ Try using the sightings other people on your server have made!
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
