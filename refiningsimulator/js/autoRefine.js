@@ -167,5 +167,5 @@ function getAutoRefineCss() {
 
 $(document).ready(function(){
         $('style').append("<style type='text/css'>"+ getAutoRefineCss() +"</style>");
-        $('body > div').append(getAutoRefineHtml());
+        $('body > div.content').append(getAutoRefineHtml());
 });
