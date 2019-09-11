@@ -3,7 +3,7 @@
 header('Content-type: application/json');
 header('Access-Control-Allow-Origin: *');
 	
-require('../lib/recaptcha/autoload.php');
+require('lib/recaptcha/autoload.php');
 
 function tailFile($filepath, $lines = 1) {
 	return trim(implode("", array_slice(file($filepath), -$lines)));
