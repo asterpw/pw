@@ -1,6 +1,6 @@
 //var PHP_HOST = "https://astrelle.tk/elysiumlocations/";
 //var PHP_HOST = "http://ast.sudooo.com/elysiumlocations/"
-var PHP_HOST = "https://us-central1-npc-locator-backend.cloudfunctions.net/"
+var PHP_HOST = "http://us-central1-npc-locator-backend.cloudfunctions.net/"
 var GET_RECORD_URL = PHP_HOST + "getrecord";
 var RECORD_URL = PHP_HOST + "record";
 
