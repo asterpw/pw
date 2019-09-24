@@ -150,7 +150,7 @@ var makeSightingWidget = function(record) {
 	if (record.npc < 0 || record.npc >= npclist.length || record.loc < 1 || record.loc >= npclist[0].length) 
 		return;
 	var date = new Date(record.time*1000);
-	var identicon = '<div style="display: inline-block; width:20px; height:20px; background-image: url(\'http://vanillicon.com/'+record.id+'_50.png\'); background-size: cover"></div> saw ';
+	var identicon = '<div style="display: inline-block; width:20px; height:20px; background-image: url(\'https://vanillicon.com/'+record.id+'_50.png\'); background-size: cover"></div> saw ';
 	var typeName = record.type ? " <span style='color: #BFB'>walking</span> in " : " <span style='color: #FBB'>standing</span> in ";
 	var sighting = $("<div class='sighting'><span class='time'>"+date.toLocaleString()+"</span>: </div>").append(identicon);
 	var link = $("<span class='link'>"+npclist[record.npc][0]+typeName+locNames[npclist[record.npc][record.loc]]+" (#"+record.loc+")</span>");
