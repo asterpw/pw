@@ -5,11 +5,7 @@
 <link rel="stylesheet" type="text/css" href="../fonts/fonts.css" />
 <link rel="stylesheet" type="text/css" href="../css/common.css" />
 <!--link href="js/jquery.selectbox.css" rel="stylesheet" type="text/css" /-->
-<link rel="icon"  type="image/gif" href="http://asterpw.github.io/pwicons/f/11208.gif">
-<script type="text/javascript">
-if (location.protocol == 'https:')
-  location.href = location.href.replace(/^https:/, 'http:')
-</script>
+<link rel="icon"  type="image/gif" href="https://asterpw.github.io/pwicons/f/11208.gif">
 <style type="text/css">
 body {
 	color: #FFF;
@@ -429,8 +425,8 @@ select {
 
 </style>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="../js/jquery.qtip.js"></script>
 <!--script type="text/javascript" src="js/jquery.selectbox.js"></script-->
 
@@ -1031,7 +1027,7 @@ var itemPos = 0;
 function getItemImgUrl(itemId) {
 	// strip off the letters added to item gear ids used to tell the rings apart
 	var id = (""+itemId).replace(/[a-z]/,"")
-	return "http://asterpw.github.io/pwicons/"+settings.gender+"/"+id+".gif";
+	return "https://asterpw.github.io/pwicons/"+settings.gender+"/"+id+".gif";
 //	return "http://www.pwdatabase.com/images/icons/generalf/"+id+".gif";
 }
 
@@ -1317,7 +1313,7 @@ function loadItemsFromPWCalcProfileId(profileId) {
 	
 	
 	$.ajax({
-	'url' : 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22http%3A%2F%2Fwww.pwcalc.com%2Floadgt.php%3FjsonData%3D%257B%2522stat%2522%253A%2522l2%2522%2C%2522text%2522%253A%2522'+profileId+'%2522%257D%22%20&format=json&diagnostics=true&callback=',
+	'url' : 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22http%3A%2F%2Fwww.pwcalc.com%2Floadgt.php%3FjsonData%3D%257B%2522stat%2522%253A%2522l2%2522%2C%2522text%2522%253A%2522'+profileId+'%2522%257D%22%20&format=json&diagnostics=true&callback=',
 	'success': function(data){
 				$("#qtip-loadPWCalc .button").attr("disabled", false);
 				$('#qtip-loadPWCalc .pwcalclink').attr("disabled", false);
@@ -1495,16 +1491,16 @@ $(document).ready(function(){
 	<input type=button onclick="clearMessages()" style="position: absolute; top: 382px; left: 152px" class='button' value="Cancel"></input>
 </div>
 <div id="inventoryWindow">
-	<div class='windowtitle'style='position: absolute; top: 433px; left: 51px'><a href='http://pwcalc.com' target="_blank">PWCalc.com</a> Profile:</div>
+	<div class='windowtitle'style='position: absolute; top: 433px; left: 51px'><a href='https://pwcalc.com' target="_blank">PWCalc.com</a> Profile:</div>
 	<input type=button id="loadPWCalc" style='position: absolute; top: 430px; left: 222px' class='button' value="Load"></input>
 	<div id='loadPWCalcDialog' style="display: none;">
 		<ol>
-			<li> Visit <a href='http://pwcalc.com' target="_blank">PWCalc.com</a> and create your profile there.
+			<li> Visit <a href='https://pwcalc.com' target="_blank">PWCalc.com</a> and create your profile there.
 			<li> Hit the 'Save' button to save your profile.
 			<li> Enter your profile link below!
 		</ol>
 		<div>
-		<a href='http://pwcalc.com' target="_blank">PWCalc.com</a> Link: <input type=text class='textarea pwcalclink' onchange="loadPWCalcProfile();" size=20></input> 
+		<a href='https://pwcalc.com' target="_blank">PWCalc.com</a> Link: <input type=text class='textarea pwcalclink' onchange="loadPWCalcProfile();" size=20></input> 
 		<input type=button class='button' Value='Load' onclick="loadPWCalcProfile();"></input><br />
 		</div>
 	</div>	
