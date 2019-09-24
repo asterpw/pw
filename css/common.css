@@ -62,22 +62,22 @@ background-image: url('../waravatar/images/favicon.png');
 }
 
 #navlist .link a[href*=starchart]{
-background-image: url('http://asterpw.github.io/pwicons/f/47470.png');
+background-image: url('https://asterpw.github.io/pwicons/f/47470.png');
 }
 
 #navlist .link a[href*=geniecalc]{
 background-image: url('../geniecalculator/images/favicon.png');
 }
 #navlist .link a[href*=refining]{
-background-image: url('http://asterpw.github.io/pwicons/f/11208.gif');
+background-image: url('https://asterpw.github.io/pwicons/f/11208.gif');
 }
 
 #navlist .link a[href*=homesteadnpcs]{
-background-image: url('http://asterpw.github.io/pwicons/f/33917.png');
+background-image: url('https://asterpw.github.io/pwicons/f/33917.png');
 }
 
 #navlist .link a[href*=chienkun]{
-background-image: url('http://asterpw.github.io/pwicons/f/12980.png');
+background-image: url('https://asterpw.github.io/pwicons/f/12980.png');
 }
 #navlist .link a:hover {
 background-color: #369;
