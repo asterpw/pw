@@ -82,7 +82,9 @@ var updateWalkerPos = function() {
 		"etherblade":	"US/Pacific",
 		"twilight":	"US/Pacific",
 		"tideswell":	"US/Eastern",
-		"dawnglory": "Europe/Paris"	
+		"dawnglory": "Europe/Paris",
+		"sun":	"Asia/Manila",
+		"newmoon": "Asia/Manila"
 	};
 
 	var location = locations[server];
@@ -206,7 +208,9 @@ var isCurrentDay = function(utc, server) {
 		"etherblade":	"US/Pacific",
 		"twilight":	"US/Pacific",
 		"tideswell":	"US/Eastern",
-		"dawnglory": "Europe/Paris"	
+		"dawnglory": "Europe/Paris",
+		"sun":	"Asia/Manila",
+		"newmoon": "Asia/Manila"	
 	};
 
 	var location = locations[server];
