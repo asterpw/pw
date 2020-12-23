@@ -11,3 +11,16 @@
     font-weight: normal;
     font-style: normal;
 }
+
+
+@font-face {
+    font-family: 'fzkai';
+    src: url('fzl2jw-webfont.eot');
+    src: url('fzl2jw-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fzl2jw-webfont.woff2') format('woff2'),
+         url('fzl2jw-webfont.woff') format('woff'),
+         url('fzl2jw-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
