@@ -100,5 +100,12 @@ var names = {66225: 'Princess Moondreamer',
 	 'lblrefresh': 'Refresh Cultivation Trait',
 	 'lbltutoringgrowth': 'Tutoring Growth: ',
 	 'lblbonddetail': 'Bond Detail: ',
-	 
+	 'lblrefund': 'Drag here to refund Potential',
+	 'lblpotential': 'Potential Owned: ',
+	 'lblpoolxp': 'Zenith Pool Upgrade: ',
+	 'lbldaynum': 'Growth Time: ',
+	 'lblgrowthscore': 'Growth Point: ',
+	 'btnpoollevel': 'Upgrade Zenith Pool (4G)',
+	 'lblsubmit': 'Teaching and Tutoring',
+	 'lblrefundamount': 'Sell: '
 	 }

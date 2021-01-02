@@ -19,13 +19,18 @@ a {
 	height: 97px;
 	background: url('images/cards/66225.png');
 	position: absolute;
+	z-index: 999;
 }
-
+.ui-draggable-dragging {
+	z-index: 1000;
+}
 .card .score {
-	top: 3px;
-	left: 69px;
+	top: 5px;
+    left: 34px;
+    width: 50px;
 	font-size: 13px;
 	position: relative;
+	text-align: right;
 }
 
 .card .name {
@@ -37,6 +42,25 @@ a {
     font-family: fzkai,serif;
     line-height: 1em;
 }
+
+.card .cost {
+	top: 122px;
+    left: 29px;
+    font-size: 16px;
+    position: absolute;
+    color: #F00;
+    font-family: fzkai,serif;
+    line-height: 1em;
+	display: none;
+}
+
+.ui-draggable-dragging .cost {
+	display: none !important;
+}
+.libslot .cost {
+	display: block;
+}
+
 
 .card .stars {
 	width: 21px;
@@ -96,6 +120,68 @@ a {
 
 #refresh.disabled {
 	background-image: url('images/buttons/refresh-disable.png');
+}
+
+
+#lblpotential {
+    top: 181px;
+    left: 692px;
+}
+#lblrefund, #lblrefundamount {
+    top: 347px;
+    left: 714px;
+	width: 102px;
+	height: 42px;
+}
+#lblrefundamount   {display:none;}
+.indrag #lblrefund {display: none;}
+.indrag #lblrefundamount {display: block;}
+
+#lblpoolxp {
+    left: 695px;
+    top: 405px;
+    color: #FC3;
+    font-size: 10.5pt;
+}
+#poollevel {
+	left: 727px; top: 421px; width: 76px; height: 12px;
+	background: url('images/zenithpoolupgrade.png');
+	position: absolute;
+}
+#poollevel.level1{ background-position:  0%    0%}
+#poollevel.level2{ background-position:  0% -100%}
+#poollevel.level3{ background-position:  0% -200%}
+#poollevel.level4{ background-position:  0% -300%}
+#poollevel.level5{ background-position:  0% -400%}
+#poollevel.level6{ background-position:  0% -500%}
+#poollevel.level7{ background-position:  0% -600%}
+#poollevel.level8{ background-position:  0% -700%}
+#poollevel.level9{ background-position:  0% -800%}
+#poollevel.level10{ background-position: 0% -900%}
+
+#btnpoollevel {
+	left: 678px; top: 436px; width: 173px; height: 25px;
+	font-family: FZXiHei,Arial,Tahoma,Helvetica,sans-serif;
+	font-size: 10pt;
+}
+
+
+
+.hbutton {
+	
+	background: url('images/buttons/hbutton.png');
+	background-size: 100% 100%;
+	position: relative;
+	vertical-align:middle;
+	display:table-cell;
+  	text-align:center;
+}
+
+.hbutton.disable {
+	background-image: url('images/buttons/hbutton-disable.png');
+}
+.hbutton:hover {
+	background-image: url('images/buttons/hbutton-hover.png');
 }
 
 #lbltutoringgrowth {
@@ -161,6 +247,16 @@ a {
 	background-image: url('images/buttons/vbutton-disable.png');
 }
 
+
+#lbldaynum {
+	left: 143px; top: 399px; width: 124px; height: 39px;
+}
+
+
+#lblgrowthscore {
+	left: 146px; top: 436px; width: 107px; height: 41px;
+}
+
 #submit {
 	left:7px; top:438px; width:140px; height:76px; /*TextOffsetY="17">*/
 	position:absolute;
@@ -172,6 +268,11 @@ a {
 #submit.disabled {
 	background-image: url('images/buttons/bighbutton-disable.png');
 }
+#lblsubmit {
+	margin-top: 50px;
+	width: 150%;
+}
+
 #refund {
 	top:  208px;  
 	left: 641px;
@@ -226,6 +327,10 @@ a {
 	height: 397px;
 	position: absolute;
 }
+
+
+
+
 
 .label {
 	position: absolute;

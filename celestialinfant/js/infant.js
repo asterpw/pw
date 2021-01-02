@@ -2,8 +2,13 @@ var model = {
 	lib : [0,0,0,0,0],
 	equip : [0,0,0,0,0,0],
 	inventory : [0,0,0,0,0,0,0,0],
-	upgradelevel : 6,
-	upgradexp : 1
+	upgradelevel : 0,
+	upgradexp : 1,
+	potential: 20,
+	freeRefresh: true,
+	todayScore: 0,
+	growthtime: 0,
+	growthscore: 0
 
 };
 
@@ -106,12 +111,14 @@ function Card(id, grade, mask, score1, score2, score3, cost) {
 	this.score = score1;
 	this.scores = [score1, score2, score3];
 	this.cost = cost;
+	this.refundAmount = cost;
 };
 
 Card.prototype.render = function() {
 	var result = $('<div class="card"></div>');
 	result.append($('<div class="score">'+this.score+'</div>'));
 	result.append($('<div class="name">'+this.name+'</div>'));
+	result.append($('<div class="cost">'+this.cost+' G</div>'));
 	result.append($('<div class="stars level'+this.level+'"></div>'));
 	result.css('background-image', 'url("images/cards/'+this.id+'.png")');
 	return result;
@@ -134,6 +141,23 @@ Card.prototype.calcBonus = function() {
 var cardPool = [];
 var setPool = [];
 
+var upgradeZenithLevel = function() {
+	model.upgradelevel++;
+	if (model.upgradelevel == 10)
+		model.upgradelevel = 0;
+	update();
+};
+
+var submitTutorship = function() {
+	if (model.growthtime == 15)
+		return;
+	model.growthscore += model.todayScore;
+	model.growthtime++;
+	model.potential = 20;
+	model.freeRefresh = true;
+	update();
+};
+
 var initCards = function() {
 	for (c in carddata) {
 		cardPool.push(new Card(carddata[c][0], carddata[c][1], carddata[c][2], carddata[c][3], carddata[c][4], carddata[c][5], carddata[c][6]));
@@ -150,19 +174,23 @@ var initSets = function() {
 };
 var initButtons = function() {
 	$('#refresh').click(performRefresh);
+	$('#btnpoollevel').click(upgradeZenithLevel);
+	$('#submit').click(submitTutorship);
 };
 
-var initTooltips = function() {
-	
+var swapcards = function(typeA, idxA, typeB, idxB) {
+	var temp = typeA[idxA];
+	typeA[idxA] = typeB[idxB];
+	typeB[idxB] = temp;
+	update();
 };
 
-var initMessages = function() {
-	$('.message').each(function(){
-		var id = $(this).attr('id');
-		if (id in names)
-			$(this).html(names[id]);
-	});
+var refundcard = function(slottype, idx) {
+	model.potential += slottype[idx].refundAmount;
+	slottype[idx] = 0;
+	update();
 };
+
 
 var libClickHandler = function() {
 	for (var i in model.inventory)
@@ -199,6 +227,76 @@ var equipClickHandler = function() {
 		}
 	update();
 }
+
+var slotinfo = [['libslot', model.lib, libClickHandler],['equipslot', model.equip, equipClickHandler],['invslot', model.inventory, invClickHandler]];
+
+
+var initSlots = function() {
+	for (var slot in slotinfo)
+		for (var i in slotinfo[slot][1])
+			$("#"+slotinfo[slot][0]+i).data('index', i)
+	
+	
+	$('.equipslot').droppable({
+		drop: function( event, ui ){
+			switch (ui.draggable.data('slottype')) {
+				case 'equipslot':
+					swapcards(model.equip, $(this).data('index'), model.equip, ui.draggable.data('slot'));
+					break;
+				case 'invslot':
+					swapcards(model.equip, $(this).data('index'), model.inventory, ui.draggable.data('slot'));
+					break;
+				case 'libslot':
+					if (model.equip[$(this).data('index')] == 0) 
+						swapcards(model.equip, $(this).data('index'), model.lib, ui.draggable.data('slot'));
+					break;
+			}
+		}
+	});
+	$('.invslot').droppable({
+		drop: function( event, ui ){
+			switch (ui.draggable.data('slottype')) {
+				case 'equipslot':
+					swapcards(model.inventory, $(this).data('index'), model.equip, ui.draggable.data('slot'));
+					break;
+				case 'invslot':
+					swapcards(model.inventory, $(this).data('index'), model.inventory, ui.draggable.data('slot'));
+					break;
+				case 'libslot':
+					if (model.inventory[$(this).data('index')] == 0) 
+						swapcards(model.inventory, $(this).data('index'), model.lib, ui.draggable.data('slot'));
+					break;
+			}
+		}
+	});	
+	
+	$('#refund').droppable({
+		drop: function( event, ui ){
+			switch (ui.draggable.data('slottype')) {
+				case 'equipslot':
+					refundcard(model.equip, ui.draggable.data('slot'));
+					break;
+				case 'invslot':
+					refundcard(model.inventory, ui.draggable.data('slot'));
+					break;
+			}
+		}
+	});	
+};
+
+var initTooltips = function() {
+	
+};
+
+var initMessages = function() {
+	$('.message').each(function(){
+		var id = $(this).attr('id');
+		if (id in names)
+			$(this).html(names[id]);
+	});
+};
+
+
 var combineInv = function() {
 	for (var i = 0; i < model.inventory.length - 2; i++)
 	{
@@ -217,22 +315,42 @@ var combineInv = function() {
 					model.inventory[j] = 0;
 			model.inventory[i].level++;
 			model.inventory[i].score = model.inventory[i].scores[model.inventory[i].level - 1];
+			model.inventory[i].refundAmount = model.inventory[i].cost * model.inventory[i].level;
 			combineInv();
 		}
 	}
 }
 
 var updateCards = function() {
-	var slots = [['libslot', model.lib, libClickHandler],['equipslot', model.equip, equipClickHandler],['invslot', model.inventory, invClickHandler]]
-	for (var s in slots)
-		for (var i in slots[s][1])
-			if (slots[s][1][i] != 0)
+	
+	for (var s in slotinfo)
+		for (var i in slotinfo[s][1])
+			if (slotinfo[s][1][i] != 0)
 			{
-				var id = slots[s][0]+i;
-				var cardDiv = slots[s][1][i].render();
-				cardDiv.data('card', slots[s][1][i]);
+				var id = slotinfo[s][0]+i;
+				var cardDiv = slotinfo[s][1][i].render();
+				cardDiv.data('card', slotinfo[s][1][i]);
 				cardDiv.data('slot', i);
-				cardDiv.click(slots[s][2]);
+				cardDiv.data('slottype', slotinfo[s][0]);
+				cardDiv.click(slotinfo[s][2]);
+				/*cardDiv.bind('mouseup', function(){
+						console.log("hmm");
+						if(!$("#infantwindow").hasClass("indrag")){
+							$(this).click();
+							console.log("hmm2");
+						}}
+					);(*/
+				cardDiv.draggable({
+					revert: true,
+					revertDuration: 0,
+					start: function(event,ui) {
+						$('#infantwindow').addClass('indrag');
+						$('#lblrefundamount').html(names['lblrefundamount'] + $(this).data('card').refundAmount + ' G');
+					},
+					stop: function(event,ui) {
+						$('#infantwindow').removeClass('indrag');
+					},
+				});
 				$('#'+id).append(cardDiv);
 			}
 };
@@ -269,6 +387,7 @@ var calcScore = function() {
 		}
 			
 	}
+	model.todayScore = score;
 	$("#lbltodayscore").html("+"+score);
 };
 
@@ -278,6 +397,11 @@ var update = function() {
 	updateSets();
 	updateCards();
 	calcScore();
+	$("#poollevel").removeClass().addClass("level"+(model.upgradelevel+1));
+	$("#lbldaynum").html(names['lbldaynum']+ Math.min(model.growthtime+1,15) + "/15 Days");
+	$("#lblgrowthscore").html(names['lblgrowthscore']+"<br>"+ model.growthscore);
+	$("#lblpotential").html(names['lblpotential']+ model.potential +"G");
+	
 }
 
 
@@ -288,7 +412,13 @@ function getRandomInt(min, max) {
 }
 
 var performRefresh = function() {
-	
+	if (model.freeRefresh) 
+		model.freeRefresh = false;
+	else if (model.potential >= 2)
+		model.potential -= 2;
+	else
+		//return;
+		model.potential = 0;
 	for (var i in model.lib)
 		refreshLib(i);
 	update();
@@ -323,6 +453,7 @@ var refreshLib = function(slot) {
 };
 
 var init = function() {
+	initSlots();
 	initCards();
 	initSets();
 	initButtons();
