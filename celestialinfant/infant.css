@@ -23,6 +23,7 @@ a {
 }
 .ui-draggable-dragging {
 	z-index: 1000;
+	pointer-events: none;
 }
 .card .score {
 	top: 5px;
@@ -124,7 +125,7 @@ a {
 
 #refresh.disabled {
 	background-image: url('images/buttons/refresh-disable.png') !important;
-	color: #CCC;
+	/*color: #777;*/
 }
 
 
@@ -184,7 +185,7 @@ a {
 
 .hbutton.disabled {
 	background-image: url('images/buttons/hbutton-disable.png') !important;
-	color: #CCC;
+	color: #777;
 }
 .hbutton:hover {
 	background-image: url('images/buttons/hbutton-hover.png');
@@ -248,16 +249,14 @@ a {
 	height: 108px;
 	position: absolute;
 	
-	vertical-align:middle;
-	display:table;
-  	text-align:center;
-	
 }
 
 #viewpool span, .hbutton span {
-	display:table-cell;
-	vertical-align: middle;
-	text-align: center;
+	margin-top: 100%;
+    width: 150%;
+    margin-left: -25%;
+    text-align: center;
+	position: absolute;
 }
 
 #viewpool:hover, #viewpool:active {
@@ -265,7 +264,7 @@ a {
 }
 #viewpool.disabled {
 	background-image: url('images/buttons/vbutton-disable.png') !important;
-	color: #CCC;
+	color: #777;
 }
 
 
@@ -297,7 +296,7 @@ a {
 }
 .bighbutton.disabled {
 	background-image: url('images/buttons/bighbutton-disable.png') !important;
-	color: #CCC;
+	color: #777;
 }
 #lblsubmit, #lblreset {
 	margin-top: 50px;
@@ -319,14 +318,14 @@ a {
 	background-image:  url('images/profile/player_female.png');
 }
 
-#refund.female:hover, #refund.female:active {
+.indrag #refund.female:hover, .indrag #refund.female:active {
 	background-image: url('images/profile/player_female_onhover.png');
 }
 #refund.male {
 	background-image:  url('images/profile/player_male.png');
 }
 
-#refund.male:hover, #refund.male:active {
+.indrag #refund.male:hover, .indrag #refund.male:active {
 	background-image: url('images/profile/player_male_onhover.png');
 }
 
