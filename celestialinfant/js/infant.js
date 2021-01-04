@@ -3,7 +3,8 @@ var model = {
 	equip : [0,0,0,0,0,0],
 	inventory : [0,0,0,0,0,0,0,0],
 	upgradelevel : 0,
-	upgradexp : 1,
+	upgradetotalxp : 0,
+	upgradexp : 0,
 	potential: 20,
 	freeRefresh: true,
 	todayScore: 0,
@@ -121,6 +122,8 @@ Card.prototype.render = function() {
 	result.append($('<div class="cost">'+this.cost+' G</div>'));
 	result.append($('<div class="stars level'+this.level+'"></div>'));
 	result.css('background-image', 'url("images/cards/'+this.id+'.png")');
+	if (model.potential < this.cost)
+		result.find('.cost').addClass('notenough');
 	return result;
 };
 
@@ -142,9 +145,10 @@ var cardPool = [];
 var setPool = [];
 
 var upgradeZenithLevel = function() {
-	model.upgradelevel++;
-	if (model.upgradelevel == 10)
-		model.upgradelevel = 0;
+	if (model.potential < 4 || model.upgradelevel == 9)
+		return;
+	model.upgradetotalxp += 4;
+	model.potential -= 4;
 	update();
 };
 
@@ -153,6 +157,7 @@ var submitTutorship = function() {
 		return;
 	model.growthscore += model.todayScore;
 	model.growthtime++;
+	model.upgradetotalxp++;
 	model.potential = 20;
 	model.freeRefresh = true;
 	update();
@@ -176,6 +181,16 @@ var initButtons = function() {
 	$('#refresh').click(performRefresh);
 	$('#btnpoollevel').click(upgradeZenithLevel);
 	$('#submit').click(submitTutorship);
+	
+	$('#viewpool').html('<span>cheat mode</span>');
+	$('#viewpool').click(function(){model.potential = 9999; update();});
+};
+
+var purchaseCard = function(libIdx, dest, destIdx) {
+	if (model.potential <  model.lib[libIdx].cost || dest[destIdx] != 0)
+		return;
+	model.potential -= model.lib[libIdx].cost;
+	swapcards(model.lib, libIdx, dest, destIdx);
 };
 
 var swapcards = function(typeA, idxA, typeB, idxB) {
@@ -196,9 +211,7 @@ var libClickHandler = function() {
 	for (var i in model.inventory)
 		if (model.inventory[i] == 0)
 		{
-			model.inventory[i] = $(this).data('card');
-			model.lib[$(this).data('slot')] = 0;
-			$(this).data('slot', i);
+			purchaseCard($(this).data('slot'), model.inventory, i);
 			break;
 		}
 	update();
@@ -247,8 +260,7 @@ var initSlots = function() {
 					swapcards(model.equip, $(this).data('index'), model.inventory, ui.draggable.data('slot'));
 					break;
 				case 'libslot':
-					if (model.equip[$(this).data('index')] == 0) 
-						swapcards(model.equip, $(this).data('index'), model.lib, ui.draggable.data('slot'));
+					purchaseCard(ui.draggable.data('slot'), model.equip, $(this).data('index'));
 					break;
 			}
 		}
@@ -263,8 +275,7 @@ var initSlots = function() {
 					swapcards(model.inventory, $(this).data('index'), model.inventory, ui.draggable.data('slot'));
 					break;
 				case 'libslot':
-					if (model.inventory[$(this).data('index')] == 0) 
-						swapcards(model.inventory, $(this).data('index'), model.lib, ui.draggable.data('slot'));
+					purchaseCard(ui.draggable.data('slot'), model.inventory, $(this).data('index'));
 					break;
 			}
 		}
@@ -315,7 +326,7 @@ var combineInv = function() {
 					model.inventory[j] = 0;
 			model.inventory[i].level++;
 			model.inventory[i].score = model.inventory[i].scores[model.inventory[i].level - 1];
-			model.inventory[i].refundAmount = model.inventory[i].cost * model.inventory[i].level;
+			model.inventory[i].refundAmount = model.inventory[i].cost + model.inventory[i].level - 1;
 			combineInv();
 		}
 	}
@@ -391,13 +402,29 @@ var calcScore = function() {
 	$("#lbltodayscore").html("+"+score);
 };
 
+var updateZenithPool = function() {
+	for (var i = 0; i < upgradeTable.length; i++)
+	{
+		if (model.upgradetotalxp >= upgradeTable[i][0])
+		{
+			model.upgradelevel = i+0;
+			model.upgradexp = model.upgradetotalxp - upgradeTable[i][0];
+		}
+	}
+	$("#poollevel").removeClass().addClass("level"+(model.upgradelevel+1));
+	
+	$("#lblpoolxp").html(model.upgradelevel < 9 ? names['lblpoolxp'] + model.upgradexp + "/" + (upgradeTable[model.upgradelevel+1][0] - upgradeTable[model.upgradelevel][0]) : '');
+};
+
 var update = function() {
 	$('#infantwindow .card').remove();
 	combineInv();
 	updateSets();
 	updateCards();
 	calcScore();
-	$("#poollevel").removeClass().addClass("level"+(model.upgradelevel+1));
+	updateZenithPool();
+	
+	$("#lbldaynum").html(names['lbldaynum']+ Math.min(model.growthtime+1,15) + "/15 Days");
 	$("#lbldaynum").html(names['lbldaynum']+ Math.min(model.growthtime+1,15) + "/15 Days");
 	$("#lblgrowthscore").html(names['lblgrowthscore']+"<br>"+ model.growthscore);
 	$("#lblpotential").html(names['lblpotential']+ model.potential +"G");
@@ -417,8 +444,7 @@ var performRefresh = function() {
 	else if (model.potential >= 2)
 		model.potential -= 2;
 	else
-		//return;
-		model.potential = 0;
+		return;
 	for (var i in model.lib)
 		refreshLib(i);
 	update();

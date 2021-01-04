@@ -48,10 +48,14 @@ a {
     left: 29px;
     font-size: 16px;
     position: absolute;
-    color: #F00;
+    color: #FFD;
     font-family: fzkai,serif;
     line-height: 1em;
 	display: none;
+}
+
+.card .cost.notenough {
+	color: #F00;
 }
 
 .ui-draggable-dragging .cost {
@@ -141,7 +145,7 @@ a {
     left: 695px;
     top: 405px;
     color: #FC3;
-    font-size: 10.5pt;
+    font-size: 10pt;
 }
 #poollevel {
 	left: 727px; top: 421px; width: 76px; height: 12px;
@@ -239,7 +243,18 @@ a {
 	height: 108px;
 	position: absolute;
 	
+	vertical-align:middle;
+	display:table;
+  	text-align:center;
+	
 }
+
+#viewpool span, .hbutton span {
+	display:table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
 #viewpool:hover, #viewpool:active {
 	background-image: url('images/buttons/vbutton-hover.png');
 }
