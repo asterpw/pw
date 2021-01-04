@@ -9,9 +9,25 @@ var model = {
 	freeRefresh: true,
 	todayScore: 0,
 	growthtime: 0,
-	growthscore: 0
-
+	growthscore: 0,
+	active: true
 };
+
+var initModel = function() {
+	var lib = [model.lib, model.equip, model.inventory];
+	for (var i in lib)
+		for (var j in lib[i])
+			lib[i][j] = 0;
+	model.upgradelevel = 0;
+	model.upgradetotalxp = 0;
+	model.upgradexp = 0;
+	model.potential = 20;
+	model.freeRefresh = true;
+	model.todayScore = 0;
+	model.growthtime = 0;
+	model.growthscore = 0;
+	model.active = true;
+}
 
 function Bonus(type, count, increase) {
 	this.type = type;
@@ -145,6 +161,8 @@ var cardPool = [];
 var setPool = [];
 
 var upgradeZenithLevel = function() {
+	if (!model.active)
+		return;
 	if (model.potential < 4 || model.upgradelevel == 9)
 		return;
 	model.upgradetotalxp += 4;
@@ -160,6 +178,8 @@ var submitTutorship = function() {
 	model.upgradetotalxp++;
 	model.potential = 20;
 	model.freeRefresh = true;
+	if (model.growthtime == 15)
+		model.active = false;
 	update();
 };
 
@@ -178,9 +198,10 @@ var initSets = function() {
 		
 };
 var initButtons = function() {
-	$('#refresh').click(performRefresh);
+	$('#refresh').click(handleRefresh);
 	$('#btnpoollevel').click(upgradeZenithLevel);
 	$('#submit').click(submitTutorship);
+	$('#reset').click(reset);
 	
 	$('#viewpool').html('<span>cheat mode</span>');
 	$('#viewpool').click(function(){model.potential = 9999; update();});
@@ -416,11 +437,31 @@ var updateZenithPool = function() {
 	$("#lblpoolxp").html(model.upgradelevel < 9 ? names['lblpoolxp'] + model.upgradexp + "/" + (upgradeTable[model.upgradelevel+1][0] - upgradeTable[model.upgradelevel][0]) : '');
 };
 
+var updateButtons = function() {
+	$('.disabled').removeClass('disabled');
+	$('#lblrefresh2').html(model.freeRefresh ? '(Free)' : '(2G)');
+	if (model.potential < 2 && model.freeRefresh == false)
+		$('#refresh').addClass('disabled');
+	if (model.potential < 4)
+		$('#btnpoollevel').addClass('disabled');
+	if (!model.active)
+	{
+		$('#refresh').addClass('disabled');
+		$('#btnpoollevel').addClass('disabled');
+		$('#submit').addClass('disabled');
+	}
+	if (model.active)
+		$('#reset').addClass('disabled');
+	
+	
+};
+
 var update = function() {
 	$('#infantwindow .card').remove();
 	combineInv();
 	updateSets();
 	updateCards();
+	updateButtons();
 	calcScore();
 	updateZenithPool();
 	
@@ -438,13 +479,20 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
 
-var performRefresh = function() {
+var handleRefresh = function() {
+	if (!model.active)
+		return;
 	if (model.freeRefresh) 
 		model.freeRefresh = false;
 	else if (model.potential >= 2)
 		model.potential -= 2;
 	else
 		return;
+	performRefresh();
+}
+
+var performRefresh = function() {
+
 	for (var i in model.lib)
 		refreshLib(i);
 	update();
@@ -478,6 +526,8 @@ var refreshLib = function(slot) {
 	model.lib[slot] = card;
 };
 
+
+
 var init = function() {
 	initSlots();
 	initCards();
@@ -485,11 +535,14 @@ var init = function() {
 	initButtons();
 	initTooltips();
 	initMessages();
-	
 };
 
+var reset = function() {
+	initModel();
+	performRefresh();
+}
 
 $(document).ready(function(){
 	init();
-	performRefresh();
+	reset();
 });

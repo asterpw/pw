@@ -123,7 +123,8 @@ a {
 }
 
 #refresh.disabled {
-	background-image: url('images/buttons/refresh-disable.png');
+	background-image: url('images/buttons/refresh-disable.png') !important;
+	color: #CCC;
 }
 
 
@@ -181,8 +182,9 @@ a {
   	text-align:center;
 }
 
-.hbutton.disable {
-	background-image: url('images/buttons/hbutton-disable.png');
+.hbutton.disabled {
+	background-image: url('images/buttons/hbutton-disable.png') !important;
+	color: #CCC;
 }
 .hbutton:hover {
 	background-image: url('images/buttons/hbutton-hover.png');
@@ -206,15 +208,18 @@ a {
 	color: #CCC;
 }
 #lblrefresh {
-	top:  92px;  
-	left: 732px;
-	width: 79px;
-	height: 61px;
+    top: 18px;
+    left: 22px;
+    width: 79px;
+    height: 61px;
     font-size: 16px;
 }
+
 #lblrefresh2 {
-	top:  147px;  
-	left: 761px;
+	top: 70px;
+    left: 33px;
+    width: 100px;
+    height: 50px;
 }
 
 #lbltodayscore {
@@ -259,7 +264,8 @@ a {
 	background-image: url('images/buttons/vbutton-hover.png');
 }
 #viewpool.disabled {
-	background-image: url('images/buttons/vbutton-disable.png');
+	background-image: url('images/buttons/vbutton-disable.png') !important;
+	color: #CCC;
 }
 
 
@@ -274,18 +280,30 @@ a {
 
 #submit {
 	left:7px; top:438px; width:140px; height:76px; /*TextOffsetY="17">*/
+}
+#reset {
+	left:7px; top:515px; width:140px; height:76px; /*TextOffsetY="17">*/
+}
+#reset.disabled {
+	display: none;
+}
+
+.bighbutton {
 	position:absolute;
 	background:  url('images/buttons/bighbutton.png'); 
 }
-#submit:hover, #submit:active {
+.bighbutton:hover, .bighbutton:active {
 	background-image: url('images/buttons/bighbutton-hover.png');
 }
-#submit.disabled {
-	background-image: url('images/buttons/bighbutton-disable.png');
+.bighbutton.disabled {
+	background-image: url('images/buttons/bighbutton-disable.png') !important;
+	color: #CCC;
 }
-#lblsubmit {
+#lblsubmit, #lblreset {
 	margin-top: 50px;
 	width: 150%;
+	margin-left: -25%;
+	text-align: center;
 }
 
 #refund {

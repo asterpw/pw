@@ -107,5 +107,6 @@ var names = {66225: 'Princess Moondreamer',
 	 'lblgrowthscore': 'Growth Point: ',
 	 'btnpoollevel': 'Upgrade Zenith Pool (4G)',
 	 'lblsubmit': 'Teaching and Tutoring',
+	 'lblreset': 'New Baby',
 	 'lblrefundamount': 'Sell: '
 	 }
