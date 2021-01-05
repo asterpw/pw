@@ -459,10 +459,10 @@ var makeCardTooltip = function(cardDiv) {
 			delay: 300
 		},
 		position	 : {
-			target: 'mouse',
+			target: 'event',
 			type  : 'absolute',
 			my: 'top left',
-			at: 'bottom right',
+			at: 'bottom center',
 			//container : $(document),
 			viewport: $(window),
 			adjust: {
