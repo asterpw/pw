@@ -29,7 +29,7 @@ a {
 	top: 5px;
     left: 34px;
     width: 50px;
-	font-size: 13px;
+	font-size: 10pt;
 	position: relative;
 	text-align: right;
 }
@@ -39,17 +39,18 @@ a {
     left: 8px;
     font-size: 16px;
     position: relative;
-    color: #FFD;
+    color: rgb(252,234,204);
     font-family: fzkai,serif;
     line-height: 1em;
+	width: 120px;
 }
 
 .card .cost {
-	top: 122px;
-    left: 29px;
+	top: 112px;
+    left: 28px;
     font-size: 16px;
     position: absolute;
-    color: #FFD;
+    color: rgb(252,234,204);
     font-family: fzkai,serif;
     line-height: 1em;
 	display: none;
@@ -71,7 +72,7 @@ a {
 	width: 21px;
 	height: 48px;
 	background: url('images/stars.png');
-	top: 5px;
+	top: 3px;
     position: absolute;
     left: 3px;
 }
@@ -415,30 +416,14 @@ body::after{
 	border-style: solid;
 	border-color: #169;
 	background-color: rgba(20, 20, 20, 0.9);
-	--white-space: nowrap;
+	white-space: nowrap;
 	color: #FFF;
-	max-width: 500px;
+	max-width: 100%;
 	font-size: 80% !important;
-	line-height: 140%;
+	line-height: 145%;
 	/*padding: 5px;*/
+	pointer-events: none;
 }
 
-.pwi-qtip .qtip-titlebar {
-	background-color: #149;
-}
 
-.qtip .label {
-	display: inline-block;
-	width: 55px;
-	margin-right: 10px;
-}
-.qtip .aptitudeControl {
-	margin-bottom: 5px;
-	display: block;
-}
 
-.qtip .label + * {
-	display: inline-block;
-	width: 140px;
-	margin-right: 0px;
-}

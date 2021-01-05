@@ -101,6 +101,10 @@ var maxEquippedGrade = function() {
 	return max;
 }
 
+CardSet.prototype.Contains = function(card) {
+	return (this.mask & card.mask) > 0;
+};
+
 CardSet.prototype.BonusForCard = function(card) {
 	var bonus = this.ActiveBonus();
 	if (bonus == 0) 
@@ -208,17 +212,18 @@ var initButtons = function() {
 	$('#reset').click(reset);
 	
 	$('#viewpool').html('<span>cheat mode</span>');
-	$('#viewpool').click(function(){model.potential = 9999; update();});
+	$('#viewpool').click(function(){if (!model.active) return; model.potential = 9999; update();});
 };
 
 var purchaseCard = function(libIdx, dest, destIdx) {
-	if (model.potential <  model.lib[libIdx].cost || dest[destIdx] != 0)
+	if (model.potential <  model.lib[libIdx].cost || dest[destIdx] != 0 || !model.active)
 		return;
 	model.potential -= model.lib[libIdx].cost;
 	swapcards(model.lib, libIdx, dest, destIdx);
 };
 
 var swapcards = function(typeA, idxA, typeB, idxB) {
+	if (!model.active) return;
 	var temp = typeA[idxA];
 	typeA[idxA] = typeB[idxB];
 	typeB[idxB] = temp;
@@ -226,6 +231,7 @@ var swapcards = function(typeA, idxA, typeB, idxB) {
 };
 
 var refundcard = function(slottype, idx) {
+	if (!model.active) return;
 	model.potential += slottype[idx].refundAmount;
 	slottype[idx] = 0;
 	update();
@@ -233,6 +239,7 @@ var refundcard = function(slottype, idx) {
 
 
 var libClickHandler = function() {
+	if (!model.active) return;
 	for (var i in model.inventory)
 		if (model.inventory[i] == 0)
 		{
@@ -243,6 +250,7 @@ var libClickHandler = function() {
 }
 
 var invClickHandler = function() {
+	if (!model.active) return;
 	for (var i in model.equip)
 		if (model.equip[i] == 0)
 		{
@@ -255,6 +263,7 @@ var invClickHandler = function() {
 }
 
 var equipClickHandler = function() {
+	if (!model.active) return;
 	for (var i in model.inventory)
 		if (model.inventory[i] == 0)
 		{
@@ -320,8 +329,60 @@ var initSlots = function() {
 	});	
 };
 
+
+var formatRawText = function(text, ...args) {
+	text = "<span>"+text+"</span>";
+
+	for (var i in args)
+	{
+		text = text.replace(/%[ds]/, args[i])
+	}	
+	text = text.replace(/\^(......)/g, "</span><span style='color: #$1'>")
+		.replace(/<span><\/span>/g, "")
+		.replace(/\r/g, "<br>")
+		.replace(/%%/g, "%");
+	return text;
+};
+
+var makeZenithPoolTooltipContent = function() {
+	var text = formatRawText(uiText[18428], 4, 4);
+	for (var i = 0; i < 10; i++)
+	{
+		var chances = "";
+		for (var j = 1; j <= 5; j++)
+			chances += uiText[18400+j]+upgradeTable[i][j] + "%" + ((j < 5) ? "^ffffff/" : "");
+			
+		text += formatRawText(uiText[18434], "<br>", i+1, chances);
+	}
+	return text;
+};
+
 var initTooltips = function() {
-	
+	$("#btnpoollevel").qtip({
+		content: {
+			text: makeZenithPoolTooltipContent(),
+		},
+		show : {
+			delay: 300
+		},
+		position	 : {
+			target: 'mouse',
+			type  : 'absolute',
+			my: 'bottom left',
+			at: 'top right',
+			//container : $(document),
+			viewport: $(window),
+			adjust: {
+				method: 'flip',
+				mouse: false
+			}
+		},
+		style: {
+			classes: "pwi-qtip qtip-rounded",
+			tip: false
+		}
+		
+	});
 };
 
 var initMessages = function() {
@@ -357,6 +418,66 @@ var combineInv = function() {
 	}
 }
 
+var makeCardTooltipContent = function(card) {
+	var bonus = card.calcBonus();
+	
+	var scoreText = card.score + (bonus > 0 ? " +"+bonus : "") + " (";
+	
+	for (var i in card.scores) 
+	{
+		scoreText += (card.score == card.scores[i] ? "^00ff00" : "^ffffff");
+		scoreText += card.scores[i] + "^ffffff";
+		scoreText += ((i < 2) ? "/" : ")");
+	}
+	var text = uiText[18401+card.grade] + card.name + "^ffffff\r"
+		+ formatRawText(uiText[18423], scoreText) + "\r"
+		+ uiText[card.id];
+
+	for (var s in setPool) {
+		if (setPool[s].Contains(card)) {
+			text += "^ffffff"+setPool[s].name + uiText[setPool[s].id]+ "\r";
+			
+			for (var b in setPool[s].bonuses) {
+				var bonus = setPool[s].bonuses[b];
+				text += "^b0b0b0" +formatRawText(uiText[18410], bonus.count, setPool[s].name);
+				text += uiText[18411 + bonus.type];
+				text += formatRawText(uiText[18420], bonus.increase)+ "\r";
+			}
+			
+		}
+	}
+		
+	return formatRawText(text);
+};
+
+var makeCardTooltip = function(cardDiv) {
+	cardDiv.qtip({
+		content: {
+			text: makeCardTooltipContent(cardDiv.data('card')),
+		},
+		show : {
+			delay: 300
+		},
+		position	 : {
+			target: 'mouse',
+			type  : 'absolute',
+			my: 'top left',
+			at: 'bottom right',
+			//container : $(document),
+			viewport: $(window),
+			adjust: {
+				method: 'flip',
+				mouse: false
+			}
+		},
+		style: {
+			classes: "pwi-qtip qtip-rounded",
+			tip: false
+		}
+		
+	});
+};
+
 var updateCards = function() {
 	
 	for (var s in slotinfo)
@@ -369,13 +490,6 @@ var updateCards = function() {
 				cardDiv.data('slot', i);
 				cardDiv.data('slottype', slotinfo[s][0]);
 				cardDiv.click(slotinfo[s][2]);
-				/*cardDiv.bind('mouseup', function(){
-						console.log("hmm");
-						if(!$("#infantwindow").hasClass("indrag")){
-							$(this).click();
-							console.log("hmm2");
-						}}
-					);(*/
 				cardDiv.draggable({
 					revert: true,
 					revertDuration: 0,
@@ -387,6 +501,7 @@ var updateCards = function() {
 						$('#infantwindow').removeClass('indrag');
 					},
 				});
+				makeCardTooltip(cardDiv);
 				$('#'+id).append(cardDiv);
 			}
 };
@@ -461,6 +576,7 @@ var updateButtons = function() {
 };
 
 var update = function() {
+	$('.card').qtip('hide');
 	$('#infantwindow .card').remove();
 	combineInv();
 	updateSets();
