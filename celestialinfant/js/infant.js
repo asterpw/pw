@@ -29,24 +29,25 @@ var initModel = function() {
 	model.active = true;
 }
 
-function Bonus(type, count, increase) {
+function Bonus(type, count, increase, chance) {
 	this.type = type;
 	this.count = count;
 	this.increase = increase;
+	this.chance = chance;
 }
 
 function CardSet(id, mask, 
-	bonus1count, bonus1type, bonus1increase, 
-	bonus2count, bonus2type, bonus2increase,
-	bonus3count, bonus3type, bonus3increase)
+	bonus1count, bonus1type, bonus1increase, bonus1chance,
+	bonus2count, bonus2type, bonus2increase, bonus2chance,
+	bonus3count, bonus3type, bonus3increase, bonus3chance)
 {
 	this.id = id;
 	this.name = names[id];
 	this.mask = mask;
 	this.bonuses = [];
-	if (bonus1count > 0) this.bonuses.push(new Bonus(bonus1type, bonus1count, bonus1increase));
-	if (bonus2count > 0) this.bonuses.push(new Bonus(bonus2type, bonus2count, bonus2increase));
-	if (bonus3count > 0) this.bonuses.push(new Bonus(bonus3type, bonus3count, bonus3increase));
+	if (bonus1count > 0) this.bonuses.push(new Bonus(bonus1type, bonus1count, bonus1increase, bonus1chance));
+	if (bonus2count > 0) this.bonuses.push(new Bonus(bonus2type, bonus2count, bonus2increase, bonus2chance));
+	if (bonus3count > 0) this.bonuses.push(new Bonus(bonus3type, bonus3count, bonus3increase, bonus3chance));
 };
 
 
@@ -201,7 +202,7 @@ var initCards = function() {
 var initSets = function() {
 	for (s in sets) {
 		setPool.push(new CardSet(sets[s][0], sets[s][1], sets[s][2], sets[s][3], sets[s][4], sets[s][5], sets[s][6], 
-		 sets[s][7], sets[s][8],  sets[s][9], sets[s][10]));
+		 sets[s][7], sets[s][8],  sets[s][9], sets[s][10], sets[s][11],  sets[s][12], sets[s][13]));
 	}
 		
 };
@@ -439,7 +440,9 @@ var makeCardTooltipContent = function(card) {
 			
 			for (var b in setPool[s].bonuses) {
 				var bonus = setPool[s].bonuses[b];
-				text += "^b0b0b0" +formatRawText(uiText[18410], bonus.count, setPool[s].name);
+				text += bonus == setPool[s].ActiveBonus() ? "^00ff00" : "^b0b0b0";
+				text += formatRawText(uiText[18410], bonus.count, setPool[s].name);
+				text += (bonus.chance != 100) ? formatRawText(uiText[18435], bonus.chance) : "";
 				text += uiText[18411 + bonus.type];
 				text += formatRawText(uiText[18420], bonus.increase)+ "\r";
 			}
