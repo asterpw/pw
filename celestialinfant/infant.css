@@ -130,7 +130,7 @@ a {
 
 
 #lblpotential {
-    top: 181px;
+    top: 185px;
     left: 692px;
 }
 #lblrefund, #lblrefundamount {
@@ -362,14 +362,37 @@ a {
 
 
 
-
-
+#imgline1 {
+	left:707px; top:204px; width:111px; height:2px;
+	background: url('images/hline.png');
+	position: absolute;
+}
+#imgline2 {
+	left:707px; top:181px; width:111px; height:2px;
+	background: url('images/hline.png');
+	position: absolute;
+}
 .label {
 	position: absolute;
 	font-family: fzkai,serif;
 	pointer-events: none;
 
 }
+
+
+body::after{
+   position:absolute; width:0; height:0; overflow:hidden; z-index:-1; // hide images
+   content:
+		url('images/buttons/bighbutton-hover.png') 
+		url('images/buttons/bighbutton-disable.png') 
+		url('images/buttons/vbutton-hover.png') 
+		url('images/buttons/vbutton-disable.png')
+		url('images/buttons/refresh-hover.png') 
+		url('images/buttons/refresh-disable.png') 
+		url('images/buttons/hbutton-disable.png')
+		url('images/buttons/hbutton-hover.png') ;   // load images
+}
+
 
 .item_color0{color:#ffffff;}
 .item_color1{color:#8080ff;}

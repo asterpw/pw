@@ -176,10 +176,14 @@ var submitTutorship = function() {
 	model.growthscore += model.todayScore;
 	model.growthtime++;
 	model.upgradetotalxp++;
-	model.potential = 20;
-	model.freeRefresh = true;
+
 	if (model.growthtime == 15)
+	{
 		model.active = false;
+	} else {
+		model.potential = 20;
+		model.freeRefresh = true;
+	}
 	update();
 };
 
@@ -442,7 +446,7 @@ var updateButtons = function() {
 	$('#lblrefresh2').html(model.freeRefresh ? '(Free)' : '(2G)');
 	if (model.potential < 2 && model.freeRefresh == false)
 		$('#refresh').addClass('disabled');
-	if (model.potential < 4)
+	if (model.potential < 4 || model.upgradelevel == 9)
 		$('#btnpoollevel').addClass('disabled');
 	if (!model.active)
 	{
