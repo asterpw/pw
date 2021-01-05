@@ -424,7 +424,7 @@ var combineInv = function() {
 }
 
 var makeCardTooltipContent = function(card) {
-	var bonus = card.calcBonus();
+	var bonus = Math.floor((card.calcBonus() * card.score) / 100);
 	
 	var scoreText = card.score + (bonus > 0 ? " +"+bonus : "") + " (";
 	
@@ -584,7 +584,7 @@ var updateButtons = function() {
 };
 
 var update = function() {
-	$('.card').qtip('hide');
+	$('.card, #btnpoollevel').qtip('hide');
 	$('#infantwindow .card').remove();
 	combineInv();
 	updateSets();
