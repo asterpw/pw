@@ -421,7 +421,6 @@ body::after{
 	max-width: 100%;
 	font-size: 80% !important;
 	line-height: 145%;
-	/*padding: 5px;*/
 	pointer-events: none;
 }
 

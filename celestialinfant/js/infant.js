@@ -349,11 +349,15 @@ var makeZenithPoolTooltipContent = function() {
 	var text = formatRawText(uiText[18428], 4, 4);
 	for (var i = 0; i < 10; i++)
 	{
+		var isActive = i == model.upgradelevel;
 		var chances = "";
 		for (var j = 1; j <= 5; j++)
-			chances += uiText[18400+j]+upgradeTable[i][j] + "%" + ((j < 5) ? "^ffffff/" : "");
+			if (i == model.upgradelevel)
+				chances += uiText[18400+j]+upgradeTable[i][j] + "%" + ((j < 5) ? "^ffffff/" : "");
+			else 
+				chances += upgradeTable[i][j] + "%" + ((j < 5) ? "/" : "");
 			
-		text += formatRawText(uiText[18434], "<br>", i+1, chances);
+		text += formatRawText((isActive ? "^ffffff" : "^b0b0b0") + uiText[18434], "<br>&nbsp;", i+1, chances);
 	}
 	return text;
 };
@@ -557,6 +561,7 @@ var updateZenithPool = function() {
 	$("#poollevel").removeClass().addClass("level"+(model.upgradelevel+1));
 	
 	$("#lblpoolxp").html(model.upgradelevel < 9 ? names['lblpoolxp'] + model.upgradexp + "/" + (upgradeTable[model.upgradelevel+1][0] - upgradeTable[model.upgradelevel][0]) : '');
+	$('#btnpoollevel').qtip('option', 'content.text', makeZenithPoolTooltipContent());
 };
 
 var updateButtons = function() {
