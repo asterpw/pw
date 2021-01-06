@@ -318,6 +318,12 @@ a {
 	text-align: center;
 }
 
+#lblhint {
+	left:156px; top:472px;
+	color: rgba(179,217,255,255);
+	font-size: 11pt;
+}
+
 #refund {
 	top:  208px;  
 	left: 641px;

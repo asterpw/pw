@@ -108,5 +108,6 @@ var names = {66225: 'Princess Moondreamer',
 	 'btnpoollevel': 'Upgrade Zenith Pool (4G)',
 	 'lblsubmit': 'Teaching and Tutoring',
 	 'lblreset': 'New Baby',
-	 'lblrefundamount': 'Sell: '
+	 'lblrefundamount': 'Sell: ',
+	 'lblhint': 'Drag to Spirit Branch slot to equip Cultivation Trait. Match three to gain more stars for the Cultivation Trait.'
 	 }
