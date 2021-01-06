@@ -320,14 +320,14 @@ a {
 }
 
 .indrag #refund.female:hover, .indrag #refund.female:active {
-	background-image: url('images/profile/player_female_onhover.png');
+	background-image:  url('images/profile/player_female_onhover.png');
 }
 #refund.male {
 	background-image:  url('images/profile/player_male.png');
 }
 
 .indrag #refund.male:hover, .indrag #refund.male:active {
-	background-image: url('images/profile/player_male_onhover.png');
+	background-image:  url('images/profile/player_male_onhover.png');
 }
 
 
@@ -350,15 +350,15 @@ a {
 #photo.female2.age0 {background-image: url('images/profile/grow_female_2_y0.png');}
 #photo.female2.age1 {background-image: url('images/profile/grow_female_2_y1.png');}
 #photo.female2.age2 {background-image: url('images/profile/grow_female_2_y2.png');}
-#photo.male0.age0 {background-image: url('images/profile/grow_male_0_y0.png');}
-#photo.male0.age1 {background-image: url('images/profile/grow_male_0_y1.png');}
-#photo.male0.age2 {background-image: url('images/profile/grow_male_0_y2.png');}
-#photo.male1.age0 {background-image: url('images/profile/grow_male_1_y0.png');}
-#photo.male1.age1 {background-image: url('images/profile/grow_male_1_y1.png');}
-#photo.male1.age2 {background-image: url('images/profile/grow_male_1_y2.png');}
-#photo.male2.age0 {background-image: url('images/profile/grow_male_2_y0.png');}
-#photo.male2.age1 {background-image: url('images/profile/grow_male_2_y1.png');}
-#photo.male2.age2 {background-image: url('images/profile/grow_male_2_y2.png');}
+#photo.male0.age0   {background-image: url('images/profile/grow_male_0_y0.png');}
+#photo.male0.age1   {background-image: url('images/profile/grow_male_0_y1.png');}
+#photo.male0.age2   {background-image: url('images/profile/grow_male_0_y2.png');}
+#photo.male1.age0   {background-image: url('images/profile/grow_male_1_y0.png');}
+#photo.male1.age1   {background-image: url('images/profile/grow_male_1_y1.png');}
+#photo.male1.age2   {background-image: url('images/profile/grow_male_1_y2.png');}
+#photo.male2.age0   {background-image: url('images/profile/grow_male_2_y0.png');}
+#photo.male2.age1   {background-image: url('images/profile/grow_male_2_y1.png');}
+#photo.male2.age2   {background-image: url('images/profile/grow_male_2_y2.png');}
 
 #branch {
 	top:  264px;  
@@ -410,7 +410,31 @@ body::after{
 		url('images/buttons/refresh-hover.png') 
 		url('images/buttons/refresh-disable.png') 
 		url('images/buttons/hbutton-disable.png')
-		url('images/buttons/hbutton-hover.png') ;   // load images
+		url('images/buttons/hbutton-hover.png') 
+		url('images/profile/grow_female_0_y0.png')
+		url('images/profile/grow_female_0_y1.png')
+		url('images/profile/grow_female_0_y2.png')
+		url('images/profile/grow_female_1_y0.png')
+		url('images/profile/grow_female_1_y1.png')
+		url('images/profile/grow_female_1_y2.png')
+		url('images/profile/grow_female_2_y0.png')
+		url('images/profile/grow_female_2_y1.png')
+		url('images/profile/grow_female_2_y2.png')
+		url('images/profile/grow_male_0_y0.png')
+		url('images/profile/grow_male_0_y1.png')
+		url('images/profile/grow_male_0_y2.png')
+		url('images/profile/grow_male_1_y0.png')
+		url('images/profile/grow_male_1_y1.png')
+		url('images/profile/grow_male_1_y2.png')
+		url('images/profile/grow_male_2_y0.png')
+		url('images/profile/grow_male_2_y1.png')
+		url('images/profile/grow_male_2_y2.png')
+		
+		url('images/profile/player_female.png')
+		url('images/profile/player_female_onhover.png')		
+		url('images/profile/player_male.png')
+		url('images/profile/player_male_onhover.png')
+		;   // load images
 }
 
 
