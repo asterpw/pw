@@ -515,6 +515,8 @@ var updateSets = function() {
 
 var calcScore = function() {
 	var score = 0;
+	var cultivationBonus = 0;
+	var bondBonus = 0;
 	for (var c in model.equip) {
 		if (model.equip[c] != 0)
 		{
@@ -522,11 +524,62 @@ var calcScore = function() {
 			console.log(model.equip[c].name + " - " + model.equip[c].score + " +" + (cardscore - model.equip[c].score));
 			
 			score += cardscore;
+			cultivationBonus += model.equip[c].score;
+			bondBonus += (cardscore - model.equip[c].score);
 		}
 			
 	}
 	model.todayScore = score;
 	$("#lbltodayscore").html("+"+score);
+	
+	$("#lbltodayscore").qtip({
+		content: {
+			text: formatRawText(uiText[18398], cultivationBonus, bondBonus),
+		},
+		show : {
+			delay: 700
+		},
+		position	 : {
+			target: 'mouse',
+			type  : 'absolute',
+			my: 'top left',
+			at: 'bottom right',
+			//container : $(document),
+			//viewport: $(window),
+			adjust: {
+				method: 'flip',
+				mouse: false
+			}
+		},
+		style: {
+			classes: "pwi-qtip qtip-rounded",
+			tip: false
+		}
+	});
+	$("#mark1").qtip({
+		content: {
+			text: formatRawText(uiText[18460], 50000, 100000, 150000),
+		},
+		show : {
+			delay: 700
+		},
+		position	 : {
+			target: 'mouse',
+			type  : 'absolute',
+			my: 'top left',
+			at: 'bottom right',
+			//container : $(document),
+			//viewport: $(window),
+			adjust: {
+				method: 'flip',
+				mouse: false
+			}
+		},
+		style: {
+			classes: "pwi-qtip qtip-rounded",
+			tip: false
+		}
+	});
 };
 
 var updateZenithPool = function() {
@@ -605,7 +658,7 @@ var update = function() {
 	$("#lbldaynum").html(names['lbldaynum']+ Math.min(model.growthtime+1,15) + "/15 Days");
 	$("#lblgrowthscore").html(names['lblgrowthscore']+"<br>"+ model.growthscore);
 	$("#lblpotential").html(names['lblpotential']+ model.potential +"G");
-	$("#photo").removeClass().addClass(model.baby < 3 ? "female" + model.baby : "male" + (model.baby % 3)).addClass("age" + Math.min(Math.floor(model.growthtime / 5), 2));
+	$("#photo").removeClass().addClass(model.baby < 3 ? "female" + model.baby : "male" + (model.baby % 3)).addClass("age" + Math.min(Math.floor((model.growthtime+1) / 5), 2));
 	$("#refund").removeClass().addClass(model.baby < 3 ? "female" : "male");
 	
 }

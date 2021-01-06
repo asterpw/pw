@@ -215,6 +215,7 @@ a {
     width: 79px;
     height: 61px;
     font-size: 16px;
+	line-height: 120%;
 }
 
 #lblrefresh2 {
@@ -278,6 +279,11 @@ a {
 	left: 146px; top: 436px; width: 107px; height: 41px;
 }
 
+#mark1 { 
+	left:120px; top:421px; width:24px; height:24px;
+	position: absolute;
+	background-image: url('images/exclamation.png');	
+}
 #submit {
 	left:7px; top:438px; width:140px; height:76px; /*TextOffsetY="17">*/
 }
@@ -395,7 +401,7 @@ a {
 .label {
 	position: absolute;
 	font-family: fzkai,serif;
-	pointer-events: none;
+	user-select: none;
 
 }
 
