@@ -321,7 +321,8 @@ a {
 #lblhint {
 	left:156px; top:472px;
 	color: rgba(179,217,255,255);
-	font-size: 11pt;
+	font-family: FZXiHei,Arial,Tahoma,Helvetica,sans-serif;
+	font-size: 10pt;
 }
 
 #refund {
