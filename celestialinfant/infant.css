@@ -284,6 +284,12 @@ a {
 	position: absolute;
 	background-image: url('images/exclamation.png');	
 }
+
+#mark2 { 
+	left:666px; top:180px; width:24px; height:24px;
+	position: absolute;
+	background-image: url('images/exclamation.png');	
+}
 #submit {
 	left:7px; top:438px; width:140px; height:76px; /*TextOffsetY="17">*/
 }

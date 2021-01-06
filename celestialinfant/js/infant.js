@@ -580,6 +580,30 @@ var calcScore = function() {
 			tip: false
 		}
 	});
+	$("#mark2").qtip({
+		content: {
+			text: formatRawText(uiText[18483], 20, 20),
+		},
+		show : {
+			delay: 700
+		},
+		position	 : {
+			target: 'mouse',
+			type  : 'absolute',
+			my: 'top left',
+			at: 'bottom right',
+			//container : $(document),
+			//viewport: $(window),
+			adjust: {
+				method: 'flip',
+				mouse: false
+			}
+		},
+		style: {
+			classes: "pwi-qtip qtip-rounded",
+			tip: false
+		}
+	});
 };
 
 var updateZenithPool = function() {
@@ -594,7 +618,7 @@ var updateZenithPool = function() {
 	$("#poollevel").removeClass().addClass("level"+(model.upgradelevel+1));
 	
 	$("#lblpoolxp").html(model.upgradelevel < 9 ? names['lblpoolxp'] + model.upgradexp + "/" + (upgradeTable[model.upgradelevel+1][0] - upgradeTable[model.upgradelevel][0]) : '');
-	$("#btnpoollevel").qtip({
+	$("#btnpoollevel, #poollevel").qtip({
 		content: {
 			text: makeZenithPoolTooltipContent(),
 		},
