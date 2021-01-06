@@ -367,31 +367,7 @@ var makeZenithPoolTooltipContent = function() {
 };
 
 var initTooltips = function() {
-	$("#btnpoollevel").qtip({
-		content: {
-			text: makeZenithPoolTooltipContent(),
-		},
-		show : {
-			delay: 700
-		},
-		position	 : {
-			target: 'mouse',
-			type  : 'absolute',
-			my: 'bottom left',
-			at: 'top right',
-			//container : $(document),
-			viewport: $(window),
-			adjust: {
-				method: 'flip',
-				mouse: false
-			}
-		},
-		style: {
-			classes: "pwi-qtip qtip-rounded",
-			tip: false
-		}
-		
-	});
+
 };
 
 var initMessages = function() {
@@ -565,7 +541,31 @@ var updateZenithPool = function() {
 	$("#poollevel").removeClass().addClass("level"+(model.upgradelevel+1));
 	
 	$("#lblpoolxp").html(model.upgradelevel < 9 ? names['lblpoolxp'] + model.upgradexp + "/" + (upgradeTable[model.upgradelevel+1][0] - upgradeTable[model.upgradelevel][0]) : '');
-	$('#btnpoollevel').qtip('option', 'content.text', makeZenithPoolTooltipContent());
+	$("#btnpoollevel").qtip({
+		content: {
+			text: makeZenithPoolTooltipContent(),
+		},
+		show : {
+			delay: 700
+		},
+		position	 : {
+			target: 'mouse',
+			type  : 'absolute',
+			my: 'bottom left',
+			at: 'top right',
+			//container : $(document),
+			viewport: $(window),
+			adjust: {
+				method: 'flip',
+				mouse: false
+			}
+		},
+		style: {
+			classes: "pwi-qtip qtip-rounded",
+			tip: false
+		}
+		
+	});
 };
 
 var updateButtons = function() {
@@ -588,7 +588,11 @@ var updateButtons = function() {
 };
 
 var update = function() {
-	$('.card, #btnpoollevel').qtip('hide');
+	//$('.card, #btnpoollevel').qtip('hide');
+	$('.qtip').each(function(){
+		$(this).data('qtip').destroy();
+		$(this).remove();
+	});
 	$('#infantwindow .card').remove();
 	combineInv();
 	updateSets();
