@@ -8,6 +8,7 @@ var nav = '<div id="navlist">\
   <div class="link"><a href="/pw/starchart/">Star Chart</a></div>\
   <div class="link"><a href="/pw/homesteadnpcs/">Homestead</a></div>\
   <div class="link"><a href="/pw/chienkun/">Chienkun</a></div>\
+  <div class="link"><a href="/pw/celestialinfant/">Infant</a></div>\
   </div></div>';
 document.write(nav);
 })()

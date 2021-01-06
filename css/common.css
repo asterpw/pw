@@ -79,6 +79,10 @@ background-image: url('https://asterpw.github.io/pwicons/f/33917.png');
 #navlist .link a[href*=chienkun]{
 background-image: url('https://asterpw.github.io/pwicons/f/12980.png');
 }
+
+#navlist .link a[href*=celestialinfant]{
+background-image: url('https://asterpw.github.io/pwicons/f/67853.png');
+}
 #navlist .link a:hover {
 background-color: #369;
 color: #fff;

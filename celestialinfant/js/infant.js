@@ -214,8 +214,11 @@ var initButtons = function() {
 	$('#submit').click(submitTutorship);
 	$('#reset').click(reset);
 	
-	$('#viewpool').html('<span>cheat mode</span>');
-	$('#viewpool').click(function(){if (!model.active) return; model.potential = 9999; update();});
+	$('#viewpool').html('<span class="label">View Pool</span>');
+	//$('#viewpool').click(function(){if (!model.active) return; model.potential = 9999; update();});
+	$('#viewpool').click(function(){
+		$("#poolwindow").show();
+	});
 	
 	$('#photo').click(function(){model.baby = (model.baby + 1) % 6; update();});
 };
@@ -241,6 +244,18 @@ var refundcard = function(slottype, idx) {
 	slottype[idx] = 0;
 	update();
 };
+
+
+var poolClickHandler = function() {
+	if (!model.active) return;
+	for (var i in model.inventory)
+		if (model.inventory[i] == 0)
+		{
+			model.inventory[i] = $(this).data('card').clone();
+			break;
+		}
+	update();
+}
 
 
 var libClickHandler = function() {
@@ -437,7 +452,7 @@ var makeCardTooltipContent = function(card) {
 	return formatRawText(text);
 };
 
-var makeCardTooltip = function(cardDiv) {
+var makeCardTooltip = function(cardDiv, tooltipContainer) {
 	cardDiv.qtip({
 		content: {
 			text: makeCardTooltipContent(cardDiv.data('card')),
@@ -450,7 +465,7 @@ var makeCardTooltip = function(cardDiv) {
 			type  : 'absolute',
 			my: 'top left',
 			at: 'bottom center',
-			container : $("#infantwindow"),
+			container : tooltipContainer,
 			viewport: $(window),
 			adjust: {
 				method: 'flip',
@@ -488,7 +503,7 @@ var updateCards = function() {
 						$('#infantwindow').removeClass('indrag');
 					},
 				});
-				makeCardTooltip(cardDiv);
+				makeCardTooltip(cardDiv, $("#infantwindow"));
 				$('#'+id).append(cardDiv);
 			}
 };
@@ -742,6 +757,19 @@ var refreshLib = function(slot) {
 };
 
 
+var initPoolWindow = function() {
+	for (var i = 0; i < cardPool.length; i++) {
+		var card = cardPool[i].clone();
+		var cardDiv = card.render();
+		cardDiv.data('card', card);
+		$("#pool"+(i+1)).append(cardDiv);
+		makeCardTooltip(cardDiv, $("#poolwindow"));
+		cardDiv.click(poolClickHandler);
+	}
+	$("#poolwindow #close").click(function(){
+		$("#poolwindow").hide();
+	});
+};
 
 var init = function() {
 	initSlots();
@@ -750,6 +778,7 @@ var init = function() {
 	initButtons();
 	initTooltips();
 	initMessages();
+	initPoolWindow();
 };
 
 var reset = function() {

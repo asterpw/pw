@@ -2,6 +2,21 @@ a {
 	color: #CCF;
 }
 
+#poolwindow {
+	width: 902px;
+	height: 625px;
+	background: url('images/background.png');
+	position: absolute;
+	font-family: FZXiHei,Arial,Tahoma,Helvetica,sans-serif;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	user-select: none; 
+	z-index: 1000;
+	margin-top: -65px;
+}
+
+
 #infantwindow {
 	width: 902px;
 	height: 625px;
@@ -19,10 +34,10 @@ a {
 	height: 97px;
 	background: url('images/cards/66225.png');
 	position: absolute;
-	z-index: 999;
+	z-index: 99;
 }
 .ui-draggable-dragging {
-	z-index: 1000;
+	z-index: 100;
 	pointer-events: none;
 }
 .card .score {
@@ -419,6 +434,57 @@ a {
 	user-select: none;
 
 }
+
+
+#close {
+	left:811px; top:43px; width:30px; height:30px;
+	background: url('images/buttons/close.png');
+	position:absolute;
+}
+
+#close:hover {
+	background-image: url('images/buttons/close-hover.png');
+}
+
+#pool1 {left:107px; top:122px; width:100px; height:130px; position:absolute;}
+#pool2 {left:194px; top:122px; width:100px; height:130px; position:absolute;}
+#pool3 {left:281px; top:122px; width:100px; height:130px; position:absolute;}
+#pool4 {left:368px; top:122px; width:100px; height:130px; position:absolute;}
+#pool5 {left:455px; top:122px; width:100px; height:130px; position:absolute;}
+#pool6 {left:542px; top:122px; width:100px; height:130px; position:absolute;}
+#pool7 {left:629px; top:122px; width:100px; height:130px; position:absolute;}
+#pool8 {left:716px; top:122px; width:100px; height:130px; position:absolute;}
+#pool9 {left:107px; top:233px; width:100px; height:130px; position:absolute;}
+#pool10 {left:194px; top:233px; width:100px; height:130px; position:absolute;}
+#pool11 {left:281px; top:233px; width:100px; height:130px; position:absolute;}
+#pool12 {left:368px; top:233px; width:100px; height:130px; position:absolute;}
+#pool13 {left:455px; top:233px; width:100px; height:130px; position:absolute;}
+#pool14 {left:542px; top:233px; width:100px; height:130px; position:absolute;}
+#pool15 {left:629px; top:233px; width:100px; height:130px; position:absolute;}
+#pool16 {left:716px; top:233px; width:100px; height:130px; position:absolute;}
+#pool17 {left:107px; top:344px; width:100px; height:130px; position:absolute;}
+#pool18 {left:194px; top:344px; width:100px; height:130px; position:absolute;}
+#pool19 {left:281px; top:344px; width:100px; height:130px; position:absolute;}
+#pool20 {left:368px; top:344px; width:100px; height:130px; position:absolute;}
+#pool21 {left:455px; top:344px; width:100px; height:130px; position:absolute;}
+#pool22 {left:542px; top:344px; width:100px; height:130px; position:absolute;}
+#pool23 {left:629px; top:344px; width:100px; height:130px; position:absolute;}
+#pool24 {left:716px; top:344px; width:100px; height:130px; position:absolute;}
+#pool25 {left:107px; top:455px; width:100px; height:130px; position:absolute;}
+#pool26 {left:194px; top:455px; width:100px; height:130px; position:absolute;}
+#pool27 {left:281px; top:455px; width:100px; height:130px; position:absolute;}
+#pool28 {left:368px; top:455px; width:100px; height:130px; position:absolute;}
+#pool29 {left:455px; top:455px; width:100px; height:130px; position:absolute;}
+#pool30 {left:542px; top:455px; width:100px; height:130px; position:absolute;}
+
+
+
+
+
+
+
+
+
 
 
 body::after{
