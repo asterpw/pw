@@ -10,7 +10,8 @@ var model = {
 	todayScore: 0,
 	growthtime: 0,
 	growthscore: 0,
-	active: true
+	active: true,
+	baby: 0
 };
 
 var initModel = function() {
@@ -27,6 +28,7 @@ var initModel = function() {
 	model.growthtime = 0;
 	model.growthscore = 0;
 	model.active = true;
+	model.baby = getRandomInt(0, 6);
 }
 
 function Bonus(type, count, increase, chance) {
@@ -214,6 +216,8 @@ var initButtons = function() {
 	
 	$('#viewpool').html('<span>cheat mode</span>');
 	$('#viewpool').click(function(){if (!model.active) return; model.potential = 9999; update();});
+	
+	$('#photo').click(function(){model.baby = (model.baby + 1) % 6; update();});
 };
 
 var purchaseCard = function(libIdx, dest, destIdx) {
@@ -368,7 +372,7 @@ var initTooltips = function() {
 			text: makeZenithPoolTooltipContent(),
 		},
 		show : {
-			delay: 300
+			delay: 700
 		},
 		position	 : {
 			target: 'mouse',
@@ -470,7 +474,7 @@ var makeCardTooltip = function(cardDiv) {
 			type  : 'absolute',
 			my: 'top left',
 			at: 'bottom center',
-			//container : $(document),
+			container : $("#infantwindow"),
 			viewport: $(window),
 			adjust: {
 				method: 'flip',
@@ -597,6 +601,8 @@ var update = function() {
 	$("#lbldaynum").html(names['lbldaynum']+ Math.min(model.growthtime+1,15) + "/15 Days");
 	$("#lblgrowthscore").html(names['lblgrowthscore']+"<br>"+ model.growthscore);
 	$("#lblpotential").html(names['lblpotential']+ model.potential +"G");
+	$("#photo").removeClass().addClass(model.baby < 3 ? "female" + model.baby : "male" + (model.baby % 3)).addClass("age" + Math.min(Math.floor(model.growthtime / 5), 2));
+	$("#refund").removeClass().addClass(model.baby < 3 ? "female" : "male");
 	
 }
 
