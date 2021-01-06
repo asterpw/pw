@@ -91,25 +91,27 @@ a {
 	position: absolute;
 }
 
-#libslot0   {top:  78px;  left: 217px;}
-#libslot1   {top:  78px;  left: 315px;}
-#libslot2   {top:  78px;  left: 413px;}
-#libslot3   {top:  78px;  left: 511px;}
-#libslot4   {top:  78px;  left: 609px;}
-#equipslot0 {top: 188px;  left: 259px;}
-#equipslot1 {top: 356px;  left: 267px;}
-#equipslot2 {top: 198px;  left: 468px;}
-#equipslot3 {top: 217px;  left: 572px;}
-#equipslot4 {top: 374px;  left: 415px;}
-#equipslot5 {top: 208px;  left: 351px;}
-#invslot0   {top: 501px;  left: 144px;}
-#invslot1   {top: 501px;  left: 228px;}
-#invslot2   {top: 501px;  left: 312px;}
-#invslot3   {top: 501px;  left: 396px;}
-#invslot4   {top: 501px;  left: 480px;}
-#invslot5   {top: 501px;  left: 564px;}
-#invslot6   {top: 501px;  left: 648px;}
-#invslot7   {top: 501px;  left: 732px;}
+#libslot0   {left: 217px; top:  78px;}
+#libslot1   {left: 315px; top:  78px;}
+#libslot2   {left: 413px; top:  78px;}
+#libslot3   {left: 511px; top:  78px;}
+#libslot4   {left: 609px; top:  78px;}
+						  
+#equipslot0 {left: 259px; top: 188px;}
+#equipslot1 {left: 267px; top: 345px;}
+#equipslot2 {left: 468px; top: 198px;}
+#equipslot3 {left: 572px; top: 217px;}
+#equipslot4 {left: 415px; top: 356px;}
+#equipslot5 {left: 351px; top: 208px;}
+						  
+#invslot0   {left: 144px; top: 501px;}
+#invslot1   {left: 228px; top: 501px;}
+#invslot2   {left: 312px; top: 501px;}
+#invslot3   {left: 396px; top: 501px;}
+#invslot4   {left: 480px; top: 501px;}
+#invslot5   {left: 564px; top: 501px;}
+#invslot6   {left: 648px; top: 501px;}
+#invslot7   {left: 732px; top: 501px;}
 
 #refresh {
 	top:  77px;  
