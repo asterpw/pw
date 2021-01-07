@@ -496,11 +496,11 @@ var updateCards = function() {
 					revert: true,
 					revertDuration: 0,
 					start: function(event,ui) {
-						$('#infantwindow').addClass('indrag');
+						$('body').addClass('indrag');
 						$('#lblrefundamount').html(names['lblrefundamount'] + $(this).data('card').refundAmount + ' G');
 					},
 					stop: function(event,ui) {
-						$('#infantwindow').removeClass('indrag');
+						$('body').removeClass('indrag');
 					},
 				});
 				makeCardTooltip(cardDiv, $("#infantwindow"));

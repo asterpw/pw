@@ -37,6 +37,7 @@ a {
 	z-index: 99;
 	cursor: pointer;
 }
+.indrag { cursor: grabbing !important;}
 .ui-draggable-dragging {
 	z-index: 100;
 	pointer-events: none;
