@@ -35,6 +35,7 @@ a {
 	background: url('images/cards/66225.png');
 	position: absolute;
 	z-index: 99;
+	cursor: pointer;
 }
 .ui-draggable-dragging {
 	z-index: 100;
@@ -135,6 +136,7 @@ a {
 	width:105px;
 	height: 105px;
 	position: absolute;
+	cursor: pointer;
 }
 	
 #refresh:hover, #refresh:active {
@@ -143,6 +145,7 @@ a {
 
 #refresh.disabled {
 	background-image: url('images/buttons/refresh-disable.png') !important;
+	cursor: default;
 	/*color: #777;*/
 }
 
@@ -199,11 +202,13 @@ a {
 	vertical-align:middle;
 	display:table-cell;
   	text-align:center;
+	cursor: pointer;
 }
 
 .hbutton.disabled {
 	background-image: url('images/buttons/hbutton-disable.png') !important;
 	color: #777;
+	cursor: default;
 }
 .hbutton:hover {
 	background-image: url('images/buttons/hbutton-hover.png');
@@ -267,15 +272,16 @@ a {
 	width: 32px;
 	height: 108px;
 	position: absolute;
-	
+	cursor: pointer;
 }
 
 #viewpool span, .hbutton span {
-	margin-top: 100%;
+    margin-top: 146%;
     width: 150%;
-    margin-left: -25%;
+    margin-left: -48%;
     text-align: center;
-	position: absolute;
+    position: absolute;
+    font-size: 11pt;
 }
 
 #viewpool:hover, #viewpool:active {
@@ -284,6 +290,7 @@ a {
 #viewpool.disabled {
 	background-image: url('images/buttons/vbutton-disable.png') !important;
 	color: #777;
+	cursor: default;
 }
 
 
@@ -318,6 +325,7 @@ a {
 }
 
 .bighbutton {
+	cursor: pointer;
 	position:absolute;
 	background:  url('images/buttons/bighbutton.png'); 
 }
@@ -327,6 +335,7 @@ a {
 .bighbutton.disabled {
 	background-image: url('images/buttons/bighbutton-disable.png') !important;
 	color: #777;
+	cursor:default;
 }
 #lblsubmit, #lblreset {
 	margin-top: 50px;
@@ -375,6 +384,7 @@ a {
 	width: 167px;
 	height: 173px;
 	position: absolute;
+	cursor:pointer;
 }
 
 #photo.female0.age0 {background-image: url('images/profile/grow_female_0_y0.png');}
@@ -440,6 +450,7 @@ a {
 	left:811px; top:43px; width:30px; height:30px;
 	background: url('images/buttons/close.png');
 	position:absolute;
+	cursor: pointer;
 }
 
 #close:hover {

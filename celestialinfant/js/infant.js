@@ -214,7 +214,7 @@ var initButtons = function() {
 	$('#submit').click(submitTutorship);
 	$('#reset').click(reset);
 	
-	$('#viewpool').html('<span class="label">View Pool</span>');
+	$('#viewpool').html('<span class="label">View&nbsp;Pool</span>');
 	//$('#viewpool').click(function(){if (!model.active) return; model.potential = 9999; update();});
 	$('#viewpool').click(function(){
 		$("#poolwindow").show();
@@ -681,7 +681,7 @@ var updateButtons = function() {
 
 var update = function() {
 	//$('.card, #btnpoollevel').qtip('hide');
-	$('.qtip').each(function(){
+	$('#infantwindow .qtip').each(function(){
 		$(this).data('qtip').destroy();
 		$(this).remove();
 	});
